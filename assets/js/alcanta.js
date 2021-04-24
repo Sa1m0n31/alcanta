@@ -77,12 +77,25 @@ const mobileMenuAccordion = n => {
     }
 }
 
+/* Popup */
+document.querySelector(".preorderPopupOpen").addEventListener("click", () => {
+    setTimeout(() => {
+        document.querySelector(".preorderPopup__input").blur();
+    }, 500);
+    console.log("Listener");
+});
+
 /* Frontpage carousel */
 const emblaContainer = document.querySelector(".carousel__content");
 const emblaOptions = {
     dragFree: true,
-    containScroll: "trimSnaps"
+    // containScroll: "trimSnaps",
+    draggable: true,
+    selectedClass: '',
+    slidesToScroll: 4,
+    startIndex: 0
 };
+
 const embla = EmblaCarousel(emblaContainer, emblaOptions);
 
 /* Frontpage carousel progress bar */
@@ -92,4 +105,11 @@ let progressBarWidth = 0;
 embla.on('scroll', () => {
     progressBarWidth = (embla.scrollProgress() * 100) + "%";
     progressBar.style.width = progressBarWidth;
-})
+});
+
+/* Frontpage carousel - glider */
+// new Glider(document.querySelector('.glider'), {
+//     slidesToShow: 1.8,
+//     slidesToScroll: 4,
+//     draggable: true
+// });

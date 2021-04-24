@@ -69,22 +69,32 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
-    wp_enqueue_script('main-js', get_stylesheet_uri() . '/assets/js/alcanta.js', array('embla', 'bootstrap', 'bootstrap-bundle'), 1.0, true);
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla'), 1.2, true);
 
-    wp_register_script('embla', 'https://unpkg.com/embla-carousel/embla-carousel.umd.js', null, null, true);
-    wp_enqueue_script('embla');
+    wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', null, null, true);
+    //wp_enqueue_script('glider-js', get_stylesheet_directory_uri() . '/assets/js/glider.min.js', array(), 1.0,  true);
 
-    wp_register_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, null, true);
+    wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
+    wp_enqueue_style('glider', get_stylesheet_directory_uri() . '/assets/css/alcanta/glider.min.css', array(), 1.0);
+
+    wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, 1.0, true);
     wp_enqueue_style('bootstrap-style');
-    wp_register_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js', null, null, true);
+    wp_register_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js', null, 1.0, true);
     wp_enqueue_script('bootstrap');
-    wp_register_script('bootstrap-bundle', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js', null, null, true);
+    wp_register_script('bootstrap-bundle', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js', null, 1.0, true);
     wp_enqueue_script('bootstrap-bundle');
 }
 
 add_action('wp_enqueue_scripts', 'alcanta_enqueue_script');
 
 /* Header */
+function remove_header_actions() {
+    remove_all_actions('storefront_before_header');
+    remove_all_actions('storefront_before_content');
+    remove_all_actions('storefront_content_top');
+}
+add_action('wp_head', 'remove_header_actions');
+
 function alcanta_content_top() {
     ?>
 
@@ -206,7 +216,7 @@ function alcanta_content_top() {
 <?php
 }
 
-add_action('storefront_content_top', 'alcanta_content_top');
+add_action('storefront_header', 'alcanta_content_top', 13);
 
 /* Homepage */
 function alcanta_homepage() {
@@ -224,10 +234,10 @@ function alcanta_homepage() {
             <h2 class="mobileLanding__subheader">
                 Zdobądź pierszeństwo zakupu
             </h2>
-            <button class="mobileLanding__btn button--animated button--animated--black">
-                <a class="button__link" href=".">
-                    Zapisuję się >
-                </a>
+            <button class="mobileLanding__btn button--animated button--animated--black preorderPopupOpen">
+                    <span class="button__link">
+                        Zapisuję się >
+                    </span>
             </button>
         </div>
     </main>
@@ -278,13 +288,18 @@ function alcanta_homepage() {
         </button>
     </section>
 
-
     <?php
 }
 
-add_action('storefront_homepage', 'alcanta_homepage');
+add_action('storefront_homepage', 'alcanta_homepage', 11);
 
 /* Footer */
+function alcanta_remove_footer_actions() {
+    remove_all_actions('storefront_before_footer');
+    remove_all_actions('storefront_after_footer');
+}
+add_action('wp_head', 'alcanta_remove_footer_actions');
+
 function alcanta_footer() {
     ?>
 
