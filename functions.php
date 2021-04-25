@@ -69,13 +69,16 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
-    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla'), 1.2, true);
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla', 'swiper-js'), 1.2, true);
 
     wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', null, null, true);
     //wp_enqueue_script('glider-js', get_stylesheet_directory_uri() . '/assets/js/glider.min.js', array(), 1.0,  true);
 
+    wp_enqueue_style('swiper-css', '//unpkg.com/swiper/swiper-bundle.min.css');
+    wp_enqueue_script('swiper-js', '//unpkg.com/swiper/swiper-bundle.min.js', array(), 1.0, true);
+
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
-    wp_enqueue_style('glider', get_stylesheet_directory_uri() . '/assets/css/alcanta/glider.min.css', array(), 1.0);
+    //wp_enqueue_style('glider', get_stylesheet_directory_uri() . '/assets/css/alcanta/glider.min.css', array(), 1.0);
 
     wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, 1.0, true);
     wp_enqueue_style('bootstrap-style');
@@ -98,9 +101,14 @@ add_action('wp_head', 'remove_header_actions');
 function alcanta_content_top() {
     ?>
 
+    <!-- TOP BAR -->
+    <aside class="topBar">
+        <h4 class="topBar__header">Każde zamówienie do końca dnia -20%</h4>
+    </aside>
+
     <!-- HEADER -->
     <header class="mobileHeader d-flex d-md-none align-items-center">
-        <a class="mobileHeader__logoWrapper" href=".">
+        <a class="mobileHeader__logoWrapper" href="<?php echo home_url(); ?>">
             <img class="mobileHeader__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo.png'; ?>" alt="alcanta-logo" />
         </a>
 
@@ -121,7 +129,7 @@ function alcanta_content_top() {
             <img class="mobileMenu__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo.png'; ?>" alt="alcanta-logo" />
 
             <button class="mobileMenu__closeBtn" onclick="closeMobileMenu()">
-                <img class="mobileMenu__closeBtn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cancel.svg'; ?>" alt="wyjdz" />
+                <img class="mobileMenu__closeBtn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/close.png'; ?>" alt="wyjdz" />
             </button>
         </div>
 
@@ -131,6 +139,15 @@ function alcanta_content_top() {
                 <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
 
                 <ul class="mobileMenu__submenu">
+                    <li class="mobileSubmenu__item">
+                        Bluzki
+                    </li>
+                    <li class="mobileSubmenu__item">
+                        Spodnie
+                    </li>
+                    <li class="mobileSubmenu__item">
+                        Kurtyki
+                    </li>
                     <li class="mobileSubmenu__item">
                         Bluzki
                     </li>
@@ -223,7 +240,6 @@ function alcanta_homepage() {
     ?>
 
     <!-- MOBILE LANDING -->
-
     <main class="mobileLanding">
         <img class="mobileLanding__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/landing.png'; ?>" alt="alcanta-pierwszenstwo-zakupu" />
 
@@ -244,8 +260,8 @@ function alcanta_homepage() {
 
     <!-- CAROUSEL -->
     <section class="carousel">
-        <div class="carousel__content">
-            <div class="carousel__embla">
+        <div class="carousel__content swiper-container">
+            <div class="carousel__embla swiper-wrapper">
                 <a class="carousel__item" href=".">
                     <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
                 </a>
@@ -269,7 +285,7 @@ function alcanta_homepage() {
         </span>
 
         <button class="moreInfoBtn button--animated">
-            <a class="button__link" href=".">
+            <a class="button__link" href="<?php echo get_page_link(get_page_by_title('Preorder')->ID); ?>">
                 Więcej informacji >
             </a>
         </button>
@@ -344,6 +360,17 @@ function alcanta_footer() {
 
         <h6 class="footer__caption">&copy; ALCANTA WEAR | All rights reserved</h6>
     </footer>
+
+    <!-- Sticky countdown at the bottom of the page -->
+    <div class="stickyCountdown">
+        <?php echo do_shortcode('[ycd_countdown id=399]'); ?>
+        <h3 class="stickyCountdown__header">
+            Gofry - preorder
+        </h3>
+        <button class="stickyCountdown__btn">
+            ->
+        </button>
+    </div>
 
 <?php
 }

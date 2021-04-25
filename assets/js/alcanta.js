@@ -1,6 +1,7 @@
 /* Mobile menu */
 const mobileMenu = document.querySelector(".mobileMenu");
 const mobileMenuChildren = document.querySelectorAll(".mobileMenu > *");
+const mobileBottomMenuChildren = document.querySelectorAll(".mobileMenu__bottomMenu>li");
 
 const openMobileMenu = () => {
     mobileMenu.style.transform = "scaleX(1)";
@@ -8,11 +9,17 @@ const openMobileMenu = () => {
         mobileMenuChildren.forEach(item => {
             item.style.opacity = "1";
         });
+        mobileBottomMenuChildren.forEach(item => {
+            item.style.opacity = "1";
+        })
     }, 500);
 }
 
 const closeMobileMenu = () => {
     mobileMenuChildren.forEach(item => {
+        item.style.opacity = "0";
+    });
+    mobileBottomMenuChildren.forEach(item => {
         item.style.opacity = "0";
     });
     setTimeout(() => {
@@ -62,18 +69,18 @@ const mobileMenuAccordion = n => {
     }
     else {
         /* Submenu closed */
-        setTimeout(() => {
+        //setTimeout(() => {
             mobileArrowOfCurrentItem.style.transform = "rotate(-90deg)";
             mobileSubmenuOfCurrentItem.style.height = "auto";
             mobileSubmenuOfCurrentItem.style.marginBottom = "30px";
             mobileSubmenuOfCurrentItem.style.marginTop = "15px";
 
-            setTimeout(() => {
+            //setTimeout(() => {
                 mobileItemsOfSubmenuOfCurrentItem.forEach(item => {
                     item.style.opacity = "1";
                 });
-            }, 500);
-        }, 500);
+           // }, 500);
+       // }, 500);
     }
 }
 
@@ -86,26 +93,26 @@ document.querySelector(".preorderPopupOpen").addEventListener("click", () => {
 });
 
 /* Frontpage carousel */
-const emblaContainer = document.querySelector(".carousel__content");
-const emblaOptions = {
-    dragFree: true,
-    // containScroll: "trimSnaps",
-    draggable: true,
-    selectedClass: '',
-    slidesToScroll: 4,
-    startIndex: 0
-};
-
-const embla = EmblaCarousel(emblaContainer, emblaOptions);
-
-/* Frontpage carousel progress bar */
-const progressBar = document.querySelector(".carousel__progressBar");
-let progressBarWidth = 0;
-
-embla.on('scroll', () => {
-    progressBarWidth = (embla.scrollProgress() * 100) + "%";
-    progressBar.style.width = progressBarWidth;
-});
+// const emblaContainer = document.querySelector(".carousel__content");
+// const emblaOptions = {
+//     dragFree: true,
+//     // containScroll: "trimSnaps",
+//     draggable: true,
+//     selectedClass: '',
+//     slidesToScroll: 4,
+//     startIndex: 0
+// };
+//
+// const embla = EmblaCarousel(emblaContainer, emblaOptions);
+//
+// /* Frontpage carousel progress bar */
+// const progressBar = document.querySelector(".carousel__progressBar");
+// let progressBarWidth = 0;
+//
+// embla.on('scroll', () => {
+//     progressBarWidth = (embla.scrollProgress() * 100) + "%";
+//     progressBar.style.width = progressBarWidth;
+// });
 
 /* Frontpage carousel - glider */
 // new Glider(document.querySelector('.glider'), {
@@ -113,3 +120,9 @@ embla.on('scroll', () => {
 //     slidesToScroll: 4,
 //     draggable: true
 // });
+
+const swiper = new Swiper('.swiper-container', {
+   freeMode: true,
+   slidesPerView: 2
+});
+console.log(swiper);

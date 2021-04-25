@@ -35,7 +35,9 @@ Images License: GNU General Public License v2 or later
 .storefront-primary-navigation, .site-branding, .site-search,
 .storefront-handheld-footer-bar,
 .site-info,
-br, .pum-container .pum-content>:first-child
+br, .pum-container .pum-content>:first-child,
+.ycd-simple-current-unite-minutes .ycd-simple-timer-dots,
+.ycd-simple-current-unite-seconds, .ycd-simple-current-unite-days
 {
     display: none !important;
 }
@@ -84,6 +86,27 @@ ul {
     margin: 0 !important;
 }
 
+/* Top bar */
+.topBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    background: #d94926;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.topBar__header {
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    margin: 0;
+}
+
 /* Header */
 .site-header {
     margin: 0 !important;
@@ -93,14 +116,14 @@ ul {
 .mobileHeader {
     background: #f5f4f3;
     position: fixed;
-    top: 0;
+    top: 25px;
     left: 0;
     width: 100%;
     height: 80px;
     padding: 0 3%;
     margin: 0;
     justify-content: space-between;
-    z-index: 2;
+    z-index: 3;
 }
 
 .mobileHeader__logoWrapper {
@@ -141,6 +164,7 @@ ul {
 .mobileMenu {
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
     min-height: 100vh;
@@ -151,6 +175,7 @@ ul {
     transform: scaleX(0);
     transform-origin: 100%;
     transition: .4s all;
+    overflow: auto;
 }
 
 .mobileMenu > * {
@@ -170,7 +195,7 @@ ul {
 
 .mobileMenu__closeBtn {
     background: transparent;
-    width: 40px;
+    width: 32px;
     padding: 0 !important;
 }
 
@@ -181,8 +206,7 @@ ul {
 
 .mobileMenu__menu {
     padding: 0;
-    margin-top: 50px;
-    margin-left: 0;
+    margin: 50px 0 40px 0;
 }
 
 .mobileMenu__item {
@@ -223,11 +247,10 @@ ul {
 }
 
 .mobileMenu__bottomMenu {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
     padding: 5%;
     margin-left: 0;
+    display: inline;
+    vertical-align: bottom;
 }
 
 .mobileBottomMenu__item {
@@ -236,6 +259,8 @@ ul {
     font-weight: 400;
     font-size: 15px;
     padding: 7px 0;
+    opacity: 0;
+    transition: .4s all;
 }
 
 .mobileBottomMenu__item__discount {
@@ -255,7 +280,7 @@ ul {
 /* Mobile landing */
 .mobileLanding {
     width: 100%;
-    margin-top: 50px;
+    margin-top: 75px;
 }
 
 .mobileLanding__img {
@@ -294,6 +319,10 @@ ul {
 
 /* Frontpage carousel */
 .carousel {
+    background: #FFFFFF;
+    background: -webkit-linear-gradient(to bottom, #FFFFFF 0%, #F5F4F3 100%);
+    background: -moz-linear-gradient(to bottom, #FFFFFF 0%, #F5F4F3 100%);
+    background: linear-gradient(to bottom, #FFFFFF 0%, #F5F4F3 100%);
     padding: 20px 0;
 }
 
@@ -575,3 +604,64 @@ ul {
     margin-top: 30px !important;
 }
 
+/* Test with scrollbar */
+#page {
+    padding-right: 0 !important;
+}
+
+/* Preorder page */
+.button--gofry {
+    margin: 60px auto 30px auto;
+    display: block;
+}
+
+/* Sticky countdown */
+.stickyCountdown {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background: #d94926;
+    z-index: 3;
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ycd-simple-mode-textUnderCountdown {
+    background: #fff;
+    padding: 5px 20px;
+    border-radius: 10px;
+    width: fit-content;
+    width: -moz-max-content;
+    margin: 10px;
+    display: flex;
+}
+
+.ycd-simple-countdown-number, .ycd-simple-timer-dots {
+    font-size: 18px !important;
+}
+
+.stickyCountdown__header {
+    font-size: 15px;
+    color: #fff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    margin: auto;
+}
+
+.stickyCountdown__btn {
+    background: #fff;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.ycd-simple-current-unite, .ycd-simple-current-unite-wrapper {
+    display: flex !important;
+}
+
+.ycd-simple-current-unite-days, .ycd-simple-current-unite-seconds {
+    display: none !important;
+}
