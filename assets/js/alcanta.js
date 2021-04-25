@@ -1,3 +1,10 @@
+/* Check if top bar exists */
+const topBar = document.querySelector(".topBar");
+if(!topBar) {
+    document.querySelector(".mobileHeader").style.top = "0";
+    document.querySelector(".mobileLanding").style.marginTop = "50px";
+}
+
 /* Mobile menu */
 const mobileMenu = document.querySelector(".mobileMenu");
 const mobileMenuChildren = document.querySelectorAll(".mobileMenu > *");
@@ -121,8 +128,23 @@ document.querySelector(".preorderPopupOpen").addEventListener("click", () => {
 //     draggable: true
 // });
 
-const swiper = new Swiper('.swiper-container', {
-   freeMode: true,
-   slidesPerView: 2
-});
-console.log(swiper);
+// const swiper = new Swiper('.swiper-container', {
+//    freeMode: true,
+//    slidesPerView: 2
+// });
+
+/* Sticky count down - check if countdown is over */
+const stickyCountdown = document.querySelector(".stickyCountdown");
+
+const checkIfTimerExists = () => {
+    if(!document.querySelector(".ycd-simple-countdown-number")) {
+        stickyCountdown.style.display = "none";
+        clearTimeout(timerTimeout);
+    }
+}
+
+checkIfTimerExists();
+
+let timerTimeout = setTimeout(() => {
+    checkIfTimerExists();
+}, 10000);

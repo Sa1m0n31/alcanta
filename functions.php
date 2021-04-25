@@ -69,13 +69,13 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
-    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla', 'swiper-js'), 1.2, true);
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array(), 1.2, true);
 
-    wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', null, null, true);
+   // wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', null, null, true);
     //wp_enqueue_script('glider-js', get_stylesheet_directory_uri() . '/assets/js/glider.min.js', array(), 1.0,  true);
 
-    wp_enqueue_style('swiper-css', '//unpkg.com/swiper/swiper-bundle.min.css');
-    wp_enqueue_script('swiper-js', '//unpkg.com/swiper/swiper-bundle.min.js', array(), 1.0, true);
+//    wp_enqueue_style('swiper-css', '//unpkg.com/swiper/swiper-bundle.min.css');
+//    wp_enqueue_script('swiper-js', '//unpkg.com/swiper/swiper-bundle.min.js', array(), 1.0, true);
 
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
     //wp_enqueue_style('glider', get_stylesheet_directory_uri() . '/assets/css/alcanta/glider.min.css', array(), 1.0);
@@ -102,9 +102,20 @@ function alcanta_content_top() {
     ?>
 
     <!-- TOP BAR -->
-    <aside class="topBar">
-        <h4 class="topBar__header">Każde zamówienie do końca dnia -20%</h4>
-    </aside>
+    <?php
+        $topBarText = get_field('top_bar', 403);
+        if($topBarText) {
+            ?>
+
+            <aside class="topBar">
+                <h4 class="topBar__header">
+                    <?php echo $topBarText; ?>
+                </h4>
+            </aside>
+
+                <?php
+        }
+    ?>
 
     <!-- HEADER -->
     <header class="mobileHeader d-flex d-md-none align-items-center">
@@ -241,7 +252,7 @@ function alcanta_homepage() {
 
     <!-- MOBILE LANDING -->
     <main class="mobileLanding">
-        <img class="mobileLanding__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/landing.png'; ?>" alt="alcanta-pierwszenstwo-zakupu" />
+        <img class="mobileLanding__img" src="<?php echo get_field('zdjecie_glowne', 410); ?>" alt="alcanta-pierwszenstwo-zakupu" />
 
         <div class="mobileLanding__content">
             <h1 class="mobileLanding__header">
@@ -295,7 +306,7 @@ function alcanta_homepage() {
     <section class="frontpageBasicCollection">
         <img class="frontpageBasicCollection__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant.png'; ?>" alt="alcanta-logo" />
 
-        <img class="frontpageBasicCollection__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/girl.png'; ?>" alt="girl" />
+        <img class="frontpageBasicCollection__img" src="<?php echo get_field('zdjecie_kolekcji_basic', 410); ?>" alt="girl" />
 
         <button class="moreInfoBtn moreInfoBtn--basicCollection button--animated">
             <a class="button__link" href=".">
@@ -368,7 +379,7 @@ function alcanta_footer() {
             Gofry - preorder
         </h3>
         <button class="stickyCountdown__btn">
-            ->
+            <img class="stickyCountdown__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/right-arrow.png'; ?>" alt="right-arrow" />
         </button>
     </div>
 
