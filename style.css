@@ -220,6 +220,15 @@ ul {
     position: relative;
 }
 
+.mobileMenu__item__link {
+    color: inherit;
+}
+
+.mobileMenu__item__link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 .mobileMenu__item__arrow {
     position: absolute;
     right: 0;
@@ -682,4 +691,9 @@ ul {
     font-size: 13px !important;
     font-weight: 700 !important;
     margin-left: 2px !important;
+}
+
+/* TODO */
+.footer {
+    margin-bottom: 60px;
 }

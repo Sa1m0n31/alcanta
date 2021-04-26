@@ -69,16 +69,12 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
-    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array(), 1.2, true);
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla'), 1.2, true);
 
-   // wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', null, null, true);
-    //wp_enqueue_script('glider-js', get_stylesheet_directory_uri() . '/assets/js/glider.min.js', array(), 1.0,  true);
+    wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', array(), 1.0, true);
 
-//    wp_enqueue_style('swiper-css', '//unpkg.com/swiper/swiper-bundle.min.css');
-//    wp_enqueue_script('swiper-js', '//unpkg.com/swiper/swiper-bundle.min.js', array(), 1.0, true);
 
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
-    //wp_enqueue_style('glider', get_stylesheet_directory_uri() . '/assets/css/alcanta/glider.min.css', array(), 1.0);
 
     wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, 1.0, true);
     wp_enqueue_style('bootstrap-style');
@@ -144,83 +140,53 @@ function alcanta_content_top() {
             </button>
         </div>
 
+            <?php
+            $items = wp_get_nav_menu_items( 'Menu 1' );
+            $i = 0;
+            if( $items ) {
+                ?>
         <ul class="mobileMenu__menu">
-            <li class="mobileMenu__item" onclick="mobileMenuAccordion(0)">
-                Sklep
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
 
-                <ul class="mobileMenu__submenu">
-                    <li class="mobileSubmenu__item">
-                        Bluzki
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Spodnie
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Kurtyki
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Bluzki
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Spodnie
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Kurtyki
-                    </li>
-                </ul>
-            </li>
-            <li class="mobileMenu__item" onclick="mobileMenuAccordion(1)">
-                Kolekcja basic
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+        <?php
+                foreach( $items as $index => $item ) {
+                    if( $item->menu_item_parent == 0 ) {
+                        ?>
+                        <li class="mobileMenu__item" onclick="mobileMenuAccordion(<?php echo $i; ?>)">
+                            <a class="mobileMenu__item__link" href="<?php echo $item->url; ?>">
+                                <?php echo $item->post_title; ?>
+                            </a>
+                        <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
 
-                <ul class="mobileMenu__submenu">
-                    <li class="mobileSubmenu__item">
-                        Bluzki
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Spodnie
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Kurtyki
-                    </li>
-                </ul>
 
-            </li>
-            <li class="mobileMenu__item" onclick="mobileMenuAccordion(2)">
-                Looked collection
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                        <ul class="mobileMenu__submenu">
+                        <?php
+                        foreach($items as $indexSub => $itemSub) {
+                            if($itemSub->menu_item_parent == $item->ID) {
+                                ?>
 
-                <ul class="mobileMenu__submenu">
-                    <li class="mobileSubmenu__item">
-                        Bluzki
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Spodnie
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Kurtyki
-                    </li>
-                </ul>
+                                        <li class="mobileSubmenu__item">
+                                            <a class="mobileMenu__item__link" href="<?php echo $itemSub->url; ?>">
+                                                <?php echo $itemSub->post_title; ?>
+                                            </a>
+                                        </li>
 
-            </li>
-            <li class="mobileMenu__item" onclick="mobileMenuAccordion(3)">
-                Kolekcje
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                                    <?php
+                            }
+                        }
+                        ?>
+                        </ul>
+                        </li>
 
-                <ul class="mobileMenu__submenu">
-                    <li class="mobileSubmenu__item">
-                        Bluzki
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Spodnie
-                    </li>
-                    <li class="mobileSubmenu__item">
-                        Kurtyki
-                    </li>
-                </ul>
-            </li>
+                            <?php
+
+                        $i++;
+                    }
+                }
+                ?>
         </ul>
+            <?php
+            }
+            ?>
 
         <ul class="mobileMenu__bottomMenu">
             <li class="mobileBottomMenu__item">
@@ -269,25 +235,31 @@ function alcanta_homepage() {
         </div>
     </main>
 
-    <!-- CAROUSEL -->
+<!-- CAROUSEL -->
     <section class="carousel">
         <div class="carousel__content swiper-container">
             <div class="carousel__embla swiper-wrapper">
-                <a class="carousel__item" href=".">
-                    <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
-                </a>
 
-                <a class="carousel__item" href=".">
-                    <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
-                </a>
+                <?php
+                    $carousel_options = array(
+                            'post_type' => 'homepage_carousel'
+                    );
+                    $carousel_query = new WP_Query($carousel_options);
+                    if($carousel_query->have_posts()) {
+                        while($carousel_query->have_posts()) {
+                            $carousel_query->the_post();
+                            ?>
 
-                <a class="carousel__item" href=".">
-                    <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
-                </a>
+                            <a class="carousel__item" href="<?php echo get_field('link'); ?>">
+                                <img class="carousel__item__img" src="<?php echo get_field('zdjecie'); ?>" alt="carousel-item" />
+                            </a>
 
-                <a class="carousel__item" href=".">
-                    <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
-                </a>
+
+
+                <?php
+                        }
+                    }
+                ?>
             </div>
         </div>
 
@@ -387,3 +359,28 @@ function alcanta_footer() {
 }
 
 add_action('storefront_footer', 'alcanta_footer');
+
+// Add homepage carousel post type
+function alcanta_add_homepage_carousel_post_type() {
+    $supports = array(
+        'title'
+    );
+
+    $labels = array(
+        'name' => 'Karuzela główna'
+    );
+
+    $args = array(
+        'labels'               => $labels,
+        'supports'             => $supports,
+        'public'               => true,
+        'capability_type'      => 'post',
+        'has_archive'          => true,
+        'menu_position'        => 30,
+        'menu_icon'            => 'dashicons-desktop'
+    );
+
+    register_post_type("homepage_carousel", $args);
+}
+
+add_action("init", "alcanta_add_homepage_carousel_post_type");
