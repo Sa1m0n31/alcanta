@@ -37,13 +37,15 @@ Images License: GNU General Public License v2 or later
 .site-info,
 br, .pum-container .pum-content>:first-child,
 .ycd-simple-current-unite-minutes .ycd-simple-timer-dots,
-.ycd-simple-current-unite-seconds, .ycd-simple-current-unite-days
+.ycd-simple-current-unite-seconds, .ycd-simple-current-unite-days,
+.collectionItems .add_to_cart_button, .collectionItems .products::before, .collectionItems .products::after
 {
     display: none !important;
 }
 
 /* Global */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -69,7 +71,7 @@ button:hover, button:active, button:focus, a:hover, a:active, a:focus {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: inherit;
 }
 
@@ -696,4 +698,97 @@ ul {
 /* TODO */
 .footer {
     margin-bottom: 60px;
+}
+
+/* Collection page */
+.mobileLanding--collection {
+    position: relative;
+}
+
+.collectionHeader {
+    background: rgb(221,219,217);
+    background: linear-gradient(180deg, rgba(221,219,217,0) 0%, rgba(255,255,255,.5) 50%, rgba(245,244,243,1) 100%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-top: 100px;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.collection, .collectionName, .collectionSubtitle {
+    text-align: center;
+    color: #564a44;
+}
+
+.collection {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.collectionName {
+    text-transform: uppercase;
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.collectionSubtitle {
+    font-size: 16px;
+}
+
+.collectionItems {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: #f5f4f3;
+}
+
+.collectionItems ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.collectionItems .product {
+    width: 48%;
+    height: auto;
+    margin: 0 0 40px 0;
+    padding: 0;
+}
+
+.collectionItems .product img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.collectionItems .woocommerce-loop-product__title,
+.collectionItems .price {
+    color: #171616 !important;
+    font-size: 14px !important;
+    text-align: left;
+    padding-left: 20px;
+    text-decoration: none !important;
+}
+
+.collectionItems .woocommerce-loop-product__title {
+    font-weight: 700 !important;
+}
+
+.collectionItems .price {
+    font-weight: 400;
+}
+
+.collection__alcantaLogo {
+    display: block;
+    width: 50%;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto 50px;
 }
