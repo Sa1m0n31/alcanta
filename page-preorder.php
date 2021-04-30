@@ -12,19 +12,19 @@ get_header();
     <div class="carousel__content swiper-container">
         <div class="carousel__embla swiper-wrapper">
             <a class="carousel__item" href=".">
-                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
+                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-locked.png'; ?>" alt="carousel-item" />
             </a>
 
             <a class="carousel__item" href=".">
-                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
+                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-locked.png'; ?>" alt="carousel-item" />
             </a>
 
             <a class="carousel__item" href=".">
-                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
+                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-locked.png'; ?>" alt="carousel-item" />
             </a>
 
             <a class="carousel__item" href=".">
-                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-looked.png'; ?>" alt="carousel-item" />
+                <img class="carousel__item__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/slider-locked.png'; ?>" alt="carousel-item" />
             </a>
         </div>
     </div>

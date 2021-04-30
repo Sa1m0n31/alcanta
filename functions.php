@@ -410,8 +410,8 @@ function alcanta_add_collection_post_type() {
 
 add_action("init", "alcanta_add_collection_post_type");
 
-// Add collection looked post type
-function alcanta_add_collection_looked_post_type() {
+// Add collection locked post type
+function alcanta_add_collection_locked_post_type() {
     $supports = array(
         'title'
     );
@@ -430,7 +430,7 @@ function alcanta_add_collection_looked_post_type() {
         'menu_icon'            => 'dashicons-welcome-view-site'
     );
 
-    register_post_type("collection_looked", $args);
+    register_post_type("collection_locked", $args);
 }
 
-add_action("init", "alcanta_add_collection_looked_post_type");
+add_action("init", "alcanta_add_collection_locked_post_type");

@@ -133,10 +133,10 @@ let timerTimeout = setTimeout(() => {
     checkIfTimerExists();
 }, 10000);
 
-/* Collection looked - FAQ open and close */
-const faqAnswers = document.querySelectorAll(".collectionLooked__faq__answer");
-const faqMinuses = document.querySelectorAll(".collectionLooked__faq__minus");
-const faqPluses = document.querySelectorAll(".collectionLooked__faq__plus");
+/* Collection locked - FAQ open and close */
+const faqAnswers = document.querySelectorAll(".collectionLocked__faq__answer");
+const faqMinuses = document.querySelectorAll(".collectionLocked__faq__minus");
+const faqPluses = document.querySelectorAll(".collectionLocked__faq__plus");
 
 const faqToggle = n => {
     const faqToToggle = faqAnswers[n];
@@ -155,7 +155,7 @@ const faqToggle = n => {
     }
 }
 
-/* Collection looked - calculate time to presentation */
+/* Collection locked - calculate time to presentation */
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 const presentationTime = document.querySelector(".presentationTime");

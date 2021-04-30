@@ -3,14 +3,14 @@ get_header();
 ?>
 
 <!-- LANDING -->
-<header class="mobileLanding mobileLanding--collectionLooked">
-    <img class="mobileLanding__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/collection-looked-header.png'; ?>" alt="alcanta-pierwszenstwo-zakupu" />
-    <header class="collectionLooked__counter">
-        <h2 class="collectionLooked__counter__header">
+<header class="mobileLanding mobileLanding--collectionLocked">
+    <img class="mobileLanding__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/collection-locked-header.png'; ?>" alt="alcanta-pierwszenstwo-zakupu" />
+    <header class="collectionLocked__counter">
+        <h2 class="collectionLocked__counter__header">
             Premiera - <?php echo get_field('data_premiery'); ?>
         </h2>
-        <div class="collectionLooked__counter__buttonsContainer">
-            <div class="collectionLooked__counter__countdown">
+        <div class="collectionLocked__counter__buttonsContainer">
+            <div class="collectionLocked__counter__countdown">
                 <?php
                     $date = get_field('data_premiery');
                     $year = substr($date, 0, 4);
@@ -31,44 +31,45 @@ get_header();
                 </span>
             </div>
 
-            <button class="collectionLooked__counter__waitlistBtn button--animated button--animated--black preorderPopupOpen">
+            <button class="collectionLocked__counter__waitlistBtn button--animated button--animated--black preorderPopupOpen">
                 <span class="button__link">
                     WAITLIST
+                    <img class="collectionLocked__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/right-arrow.png'; ?>" alt="waitlist" />
                 </span>
             </button>
         </div>
-        <h3 class="collectionLooked__counter__caption">
+        <h3 class="collectionLocked__counter__caption">
             Kolekcja w dropie - mocno limitowana
         </h3>
     </header>
 </header>
 
 <!-- COLLECTION INFO -->
-<main class="collectionLooked__desc">
-    <h4 class="collectionLooked__desc__header">
+<main class="collectionLocked__desc">
+    <h4 class="collectionLocked__desc__header">
         O kolekcji
     </h4>
-    <div class="collectionLooked__desc__text">
+    <div class="collectionLocked__desc__text">
         <?php echo get_field('o_kolekcji'); ?>
     </div>
 
-    <img class="collectionLooked__img collectionLooked__img--marginBottom" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/looked-collection-1.png'; ?>" alt="<?php echo the_title(); ?>" />
+    <img class="collectionLocked__img collectionLocked__img--marginBottom" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/locked-collection-1.png'; ?>" alt="<?php echo the_title(); ?>" />
 
-    <h4 class="collectionLooked__desc__header">
+    <h4 class="collectionLocked__desc__header">
         Motyw
     </h4>
-    <div class="collectionLooked__desc__text">
+    <div class="collectionLocked__desc__text">
         <?php echo get_field('motyw'); ?>
     </div>
 </main>
 
 <!-- COLLECTION CAROUSEL -->
-<section class="carousel lookedCollection__carousel">
-    <h3 class="lookedCollection__carousel__headerBefore">
+<section class="carousel lockedCollection__carousel">
+    <h3 class="lockedCollection__carousel__headerBefore">
         Locked collection
-        <img class="lookedCollection__lockIcon" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/lock.svg'; ?>" alt="lock" />
+        <img class="lockedCollection__lockIcon" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/lock.svg'; ?>" alt="lock" />
     </h3>
-    <h4 class="lookedCollection__carousel__subheaderBefore">
+    <h4 class="lockedCollection__carousel__subheaderBefore">
         Premiera już wkrótce
     </h4>
 
@@ -124,13 +125,13 @@ get_header();
         <span class="carousel__progressBar"></span>
     </span>
 
-    <h1 class="mobileLanding__header mobileLanding__header--lookedCollection">
+    <h1 class="mobileLanding__header mobileLanding__header--lockedCollection">
         WAITLIST
     </h1>
     <h2 class="mobileLanding__subheader">
         Zdobądź pierszeństwo zakupu
     </h2>
-    <button class="mobileLanding__btn button--animated button--animated--black preorderPopupOpen mobileLanding__btn--lookedCollection">
+    <button class="mobileLanding__btn button--animated button--animated--black preorderPopupOpen mobileLanding__btn--lockedCollection">
         <span class="button__link">
             Zapisuję się >
         </span>
@@ -138,89 +139,89 @@ get_header();
 </section>
 
 <!-- FAQ -->
-<section class="collectionLooked__faq">
-    <h3 class="collectionLooked__faq__header">
+<section class="collectionLocked__faq">
+    <h3 class="collectionLocked__faq__header">
         Q&A
     </h3>
 
-    <ul class="collectionLooked__faq__list">
-        <li class="collectionLooked__faq__list__item">
-            <label class="collectionLooked__faq__question">
+    <ul class="collectionLocked__faq__list">
+        <li class="collectionLocked__faq__list__item">
+            <label class="collectionLocked__faq__question">
                 <span><?php echo get_field('pytanie_1'); ?></span>
-                <button class="collectionLooked__faq__btn" onclick="faqToggle(0)">
-                    <span class="collectionLooked__faq__plus">
+                <button class="collectionLocked__faq__btn" onclick="faqToggle(0)">
+                    <span class="collectionLocked__faq__plus">
                         +
                     </span>
-                    <span class="collectionLooked__faq__minus">
+                    <span class="collectionLocked__faq__minus">
                         -
                     </span>
                 </button>
             </label>
-            <span class="collectionLooked__faq__answer">
+            <span class="collectionLocked__faq__answer">
                 <?php echo get_field('odpowiedz_1'); ?>
             </span>
         </li>
-        <li class="collectionLooked__faq__list__item">
-            <label class="collectionLooked__faq__question">
+        <li class="collectionLocked__faq__list__item">
+            <label class="collectionLocked__faq__question">
                 <?php echo get_field('pytanie_2'); ?>
-                <button class="collectionLooked__faq__btn" onclick="faqToggle(1)">
-                    <span class="collectionLooked__faq__plus">
+                <button class="collectionLocked__faq__btn" onclick="faqToggle(1)">
+                    <span class="collectionLocked__faq__plus">
                         +
                     </span>
-                    <span class="collectionLooked__faq__minus">
+                    <span class="collectionLocked__faq__minus">
                         -
                     </span>
                 </button>
             </label>
-            <span class="collectionLooked__faq__answer">
+            <span class="collectionLocked__faq__answer">
                 <?php echo get_field('odpowiedz_2'); ?>
             </span>
         </li>
-        <li class="collectionLooked__faq__list__item">
-            <label class="collectionLooked__faq__question">
+        <li class="collectionLocked__faq__list__item">
+            <label class="collectionLocked__faq__question">
                 <?php echo get_field('pytanie_3'); ?>
-                <button class="collectionLooked__faq__btn" onclick="faqToggle(2)">
-                    <span class="collectionLooked__faq__plus">
+                <button class="collectionLocked__faq__btn" onclick="faqToggle(2)">
+                    <span class="collectionLocked__faq__plus">
                         +
                     </span>
-                    <span class="collectionLooked__faq__minus">
+                    <span class="collectionLocked__faq__minus">
                         -
                     </span>
                 </button>
             </label>
-            <span class="collectionLooked__faq__answer">
+            <span class="collectionLocked__faq__answer">
                 <?php echo get_field('odpowiedz_3'); ?>
             </span>
         </li>
-        <li class="collectionLooked__faq__list__item">
-            <label class="collectionLooked__faq__question">
+        <li class="collectionLocked__faq__list__item">
+            <label class="collectionLocked__faq__question">
                 <?php echo get_field('pytanie_4'); ?>
-                <button class="collectionLooked__faq__btn" onclick="faqToggle(3)">
-                    <span class="collectionLooked__faq__plus">
+                <button class="collectionLocked__faq__btn" onclick="faqToggle(3)">
+                    <span class="collectionLocked__faq__plus">
                         +
                     </span>
-                    <span class="collectionLooked__faq__minus">
+                    <span class="collectionLocked__faq__minus">
                         -
                     </span>
                 </button>
             </label>
-            <span class="collectionLooked__faq__answer">
+            <span class="collectionLocked__faq__answer">
                 <?php echo get_field('odpowiedz_4'); ?>
             </span>
         </li>
-        <li class="collectionLooked__faq__list__item">
-            <label class="collectionLooked__faq__question"">
+        <li class="collectionLocked__faq__list__item">
+            <label class="collectionLocked__faq__question"">
                 <?php echo get_field('pytanie_5'); ?>
-                <button class="collectionLooked__faq__btn" onclick="faqToggle(4)">
-                    <span class="collectionLooked__faq__plus">
+                <button class="collectionLocked__faq__btn" onclick="faqToggle(4)">
+                    <span class="collectionLocked__faq__plus">
                         +
                     </span>
-                    <span class="collectionLooked__faq__minus">
+                    <span class="collectionLocked__faq__minus">
                         -
                     </span>
                 </button>
             </label>
-            <span class="collectionLooked__faq__answer">
+            <span class="collectionLocked__faq__answer">
                 <?php echo get_field('odpowiedz_5'); ?>
             </span>
         </li>
@@ -228,19 +229,19 @@ get_header();
 </section>
 
 <!-- WAITLIST -->
-<section class="collectionLooked__waitlist">
-    <h2 class="collectionLooked__waitlist__header">
+<section class="collectionLocked__waitlist">
+    <h2 class="collectionLocked__waitlist__header">
         Zapisz się na waitlistę
     </h2>
-    <h3 class="collectionLooked__waitlist__subheader">
+    <h3 class="collectionLocked__waitlist__subheader">
         i otrzymaj wcześniejszy dostęp zakupu
     </h3>
 
-    <h2 class="collectionLooked__counter__header">
+    <h2 class="collectionLocked__counter__header">
         Premiera - <?php echo get_field('data_premiery'); ?>
     </h2>
-    <div class="collectionLooked__counter__buttonsContainer">
-        <div class="collectionLooked__counter__countdown">
+    <div class="collectionLocked__counter__buttonsContainer">
+        <div class="collectionLocked__counter__countdown">
             <span class="differenceTime">
                     <span class="daysDifference"></span> d :
                     <span class="hoursDifference"></span> h :
@@ -248,20 +249,21 @@ get_header();
                 </span>
         </div>
 
-        <button class="collectionLooked__counter__waitlistBtn button--animated button--animated--black preorderPopupOpen">
+        <button class="collectionLocked__counter__waitlistBtn button--animated button--animated--black preorderPopupOpen">
                 <span class="button__link">
                     WAITLIST
+                    <img class="collectionLocked__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/right-arrow.png'; ?>" alt="waitlist" />
                 </span>
         </button>
     </div>
-    <h3 class="collectionLooked__counter__caption">
+    <h3 class="collectionLocked__counter__caption">
         Kolekcja w dropie - mocno limitowana
     </h3>
 </section>
 
 
 <!-- BOTTOM IMAGE -->
-<img class="collectionLooked__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/looked-collection-2.png'; ?>" alt="<?php echo the_title(); ?>" />
+<img class="collectionLocked__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/locked-collection-2.png'; ?>" alt="<?php echo the_title(); ?>" />
 
 
 <?php

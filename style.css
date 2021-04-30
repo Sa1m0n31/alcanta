@@ -51,7 +51,7 @@ br, .pum-container .pum-content>:first-child,
     box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, p, li, a, button, input {
+h1, h2, h3, h4, h5, h6, p, li, a, button, input, span {
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -793,13 +793,13 @@ ul {
     margin: 0 auto 50px;
 }
 
-/* Collection looked */
-.mobileLanding--collectionLooked {
+/* Collection locked */
+.mobileLanding--collectionLocked {
     margin-top: 100px;
     position: relative;
 }
 
-.collectionLooked__counter {
+.collectionLocked__counter {
     width: 90%;
     margin: auto;
     position: absolute;
@@ -809,50 +809,61 @@ ul {
     background: linear-gradient(180deg, rgba(221,219,217,0) 0%, rgba(255,255,255,.5) 50%, rgba(245,244,243,1) 100%);
 }
 
-.collectionLooked__counter__header,
-.collectionLooked__counter__caption {
+.collectionLocked__counter__header,
+.collectionLocked__counter__caption {
     font-size: 14px;
     color: #211e1b;
     text-align: center;
     font-weight: 700;
 }
 
-.collectionLooked__counter__caption {
+.collectionLocked__counter__caption {
     font-weight: 400;
     margin-top: 10px;
 }
 
-.collectionLooked__counter__buttonsContainer {
+.collectionLocked__counter__buttonsContainer {
     display: flex;
     justify-content: space-between;
 }
 
-.collectionLooked__counter__buttonsContainer > * {
+.collectionLocked__counter__buttonsContainer > * {
     width: 48%;
 }
 
-.collectionLooked__counter__countdown {
+.collectionLocked__counter__countdown {
     padding: 15px 5px;
     border: 1px solid #211e1b;
 }
 
-.collectionLooked__counter__waitlistBtn {
+.collectionLocked__counter__waitlistBtn {
     background: #d94926;
 }
 
-.collectionLooked__desc {
+.collectionLocked__counter__waitlistBtn .button__link {
+    font-weight: 700;
+}
+
+.collectionLocked__btn__img {
+    filter: brightness(0) invert(1);
+    width: 20px;
+    margin-left: 10px;
+    height: auto;
+}
+
+.collectionLocked__desc {
     background: rgba(245,244,243,1);
     padding: 150px 0 40px;
 }
 
-.collectionLooked__desc__header {
+.collectionLocked__desc__header {
     position: relative;
     font-size: 17px;
     font-weight: 700;
     padding: 0 5%;
 }
 
-.collectionLooked__desc__header::after {
+.collectionLocked__desc__header::after {
     content: "";
     position: absolute;
     left: 5%;
@@ -863,121 +874,121 @@ ul {
     background: linear-gradient(90deg, rgba(217,73,38,1) 0%, rgba(223,223,223,1) 41%, rgba(245,244,243,1) 100%);
 }
 
-.collectionLooked__desc__text {
+.collectionLocked__desc__text {
     margin: 40px 0 50px;
     padding: 0 5%;
 }
 
-.collectionLooked__desc__text p {
+.collectionLocked__desc__text p {
     font-size: 14px;
 }
 
-.collectionLooked__img {
+.collectionLocked__img {
     width: 100%;
     height: auto;
 }
 
-.collectionLooked__img--marginBottom {
+.collectionLocked__img--marginBottom {
     margin-bottom: 50px;
 }
 
-.collectionLooked__faq {
+.collectionLocked__faq {
     background: rgba(245,244,243,1);
     padding: 5%;
 }
 
-.collectionLooked__faq__header {
+.collectionLocked__faq__header {
     color: #b9b9b8;
     text-align: center;
     margin: 20px;
     font-weight: 700;
 }
 
-.collectionLooked__faq__list {
+.collectionLocked__faq__list {
     margin-top: 25px;
     padding-left: 0;
 }
 
-.collectionLooked__faq__question {
+.collectionLocked__faq__question {
     position: relative;
     display: block;
     width: 100%;
     font-weight: 700;
 }
 
-.collectionLooked__faq__btn {
+.collectionLocked__faq__btn {
     position: absolute;
     right: 0;
     background: transparent;
     font-weight: 700;
 }
 
-.collectionLooked__faq__answer {
+.collectionLocked__faq__answer {
     display: none;
     padding: 15px 0 20px;
     font-size: 14px;
 }
 
-.collectionLooked__faq__list__item {
+.collectionLocked__faq__list__item {
     padding: 15px 0;
     color: #7c7c7c !important;
     border-top: 1px solid #7c7c7c;
 }
 
-.collectionLooked__faq__minus {
+.collectionLocked__faq__minus {
     display: none;
 }
 
-.collectionLooked__waitlist {
+.collectionLocked__waitlist {
     padding: 5% 5% 50px 5%;
     background: rgba(245,244,243,1);
 }
 
-.collectionLooked__waitlist__header,
-.collectionLooked__waitlist__subheader
+.collectionLocked__waitlist__header,
+.collectionLocked__waitlist__subheader
 {
     color: #575553;
     font-size: 17px;
     text-align: center;
 }
 
-.collectionLooked__waitlist__header {
+.collectionLocked__waitlist__header {
     font-weight: 700;
     margin-top: 40px;
     text-transform: uppercase;
 }
 
-.collectionLooked__waitlist__subheader {
+.collectionLocked__waitlist__subheader {
     margin-bottom: 40px;
 }
 
-.lookedCollection__carousel {
+.lockedCollection__carousel {
     background: #f5f4f3;
 }
 
-.mobileLanding__header--lookedCollection {
+.mobileLanding__header--lockedCollection {
     text-align: center;
     margin-top: 40px;
 }
 
-.mobileLanding__btn--lookedCollection {
+.mobileLanding__btn--lockedCollection {
     margin: auto;
     display: block;
 }
 
-.lookedCollection__carousel__headerBefore,
-.lookedCollection__carousel__subheaderBefore {
+.lockedCollection__carousel__headerBefore,
+.lockedCollection__carousel__subheaderBefore {
     text-align: center;
     font-size: 16px;
 }
 
-.lookedCollection__lockIcon {
+.lockedCollection__lockIcon {
     margin-left: 5px;
     width: 10px;
     height: auto;
 }
 
-.lookedCollection__carousel__subheaderBefore {
+.lockedCollection__carousel__subheaderBefore {
     margin-bottom: 40px;
     font-weight: 700;
     text-transform: uppercase;
