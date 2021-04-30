@@ -101,16 +101,21 @@ const emblaOptions = {
     containScroll: "trimSnaps"
 };
 
-const embla = EmblaCarousel(emblaContainer, emblaOptions);
+let embla;
+if(emblaContainer) {
+    embla = EmblaCarousel(emblaContainer, emblaOptions);
+}
 
 /* Frontpage carousel progress bar */
 const progressBar = document.querySelector(".carousel__progressBar");
 let progressBarWidth = 0;
 
-embla.on('scroll', () => {
-    progressBarWidth = (embla.scrollProgress() * 100) + "%";
-    progressBar.style.width = progressBarWidth;
-});
+if(embla) {
+    embla.on('scroll', () => {
+        progressBarWidth = (embla.scrollProgress() * 100) + "%";
+        progressBar.style.width = progressBarWidth;
+    });
+}
 
 /* Sticky count down - check if countdown is over */
 const stickyCountdown = document.querySelector(".stickyCountdown");
@@ -127,3 +132,74 @@ checkIfTimerExists();
 let timerTimeout = setTimeout(() => {
     checkIfTimerExists();
 }, 10000);
+
+/* Collection looked - FAQ open and close */
+const faqAnswers = document.querySelectorAll(".collectionLooked__faq__answer");
+const faqMinuses = document.querySelectorAll(".collectionLooked__faq__minus");
+const faqPluses = document.querySelectorAll(".collectionLooked__faq__plus");
+
+const faqToggle = n => {
+    const faqToToggle = faqAnswers[n];
+    const minusToToggle = faqMinuses[n];
+    const plusToToggle = faqPluses[n];
+
+    if(window.getComputedStyle(faqToToggle).getPropertyValue('display') === 'none') {
+        faqToToggle.style.display = "block";
+        plusToToggle.style.display = "none";
+        minusToToggle.style.display = "block";
+    }
+    else {
+        faqToToggle.style.display = "none";
+        minusToToggle.style.display = "none";
+        plusToToggle.style.display = "block";
+    }
+}
+
+/* Collection looked - calculate time to presentation */
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+const presentationTime = document.querySelector(".presentationTime");
+if(presentationTime) {
+    const presentationTimeContent = presentationTime.textContent;
+    const presentationDateArray = presentationTimeContent.split(":");
+    const currentDate = new Date();
+    const presentationDate = new Date(parseInt(presentationDateArray[0]),
+                                        parseInt(presentationDateArray[1])-1,
+                                        parseInt(presentationDateArray[2]),
+                                        parseInt(presentationDateArray[3]),
+                                        parseInt(presentationDateArray[4]),
+                                        0
+        );
+
+    const dateDifference = presentationDate - currentDate;
+    const daysDifference = Math.floor(dateDifference / MS_PER_DAY);
+    let hoursDifference = presentationDate.getHours() - currentDate.getHours();
+    let minutesDifference = presentationDate.getMinutes() - currentDate.getMinutes();
+    if(minutesDifference < 0) {
+           minutesDifference = 60 + minutesDifference;
+           hoursDifference -= 1;
+           if(hoursDifference < 0) {
+               hoursDifference = 24 + hoursDifference;
+           }
+    }
+    else {
+        if(hoursDifference < 0) {
+            hoursDifference = 24 + hoursDifference;
+        }
+    }
+
+    const daysDifferenceSpan = document.querySelectorAll(".daysDifference");
+    const hoursDifferenceSpan = document.querySelectorAll(".hoursDifference");
+    const minutesDifferenceSpan = document.querySelectorAll(".minutesDifference");
+
+    daysDifferenceSpan.forEach(item => {
+        item.textContent = daysDifference.toString();
+    });
+    hoursDifferenceSpan.forEach(item => {
+        item.textContent = hoursDifference.toString();
+    });
+    minutesDifferenceSpan.forEach(item => {
+        item.textContent = minutesDifference.toString();
+    });
+
+}

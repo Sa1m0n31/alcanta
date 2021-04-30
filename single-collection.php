@@ -10,17 +10,17 @@ get_header();
             Collection
         </h2>
         <h1 class="collectionName">
-            Gofry
+            <?php echo the_title(); ?>
         </h1>
         <h3 class="collectionSubtitle">
-            It means idziemy smażyć
+            <?php echo get_field('podtytul'); ?>
         </h3>
     </header>
 </header>
 
 <!-- SHOP ITEMS -->
 <main class="collectionItems">
-    <?php echo do_shortcode('[product_category category="kolekcja-1" columns="2"]'); ?>
+    <?php echo do_shortcode('[product_category category="' . get_field('kategoria_produktu_do_wyswietlenia') . '" columns="2"]'); ?>
 
     <img class="collection__alcantaLogo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-collection.png'; ?>" alt="alcanta" />
 </main>

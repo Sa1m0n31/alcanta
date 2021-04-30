@@ -384,3 +384,53 @@ function alcanta_add_homepage_carousel_post_type() {
 }
 
 add_action("init", "alcanta_add_homepage_carousel_post_type");
+
+// Add collection post type
+function alcanta_add_collection_post_type() {
+    $supports = array(
+        'title'
+    );
+
+    $labels = array(
+        'name' => 'Kolekcje'
+    );
+
+    $args = array(
+        'labels'               => $labels,
+        'supports'             => $supports,
+        'public'               => true,
+        'capability_type'      => 'post',
+        'has_archive'          => true,
+        'menu_position'        => 30,
+        'menu_icon'            => 'dashicons-universal-access-alt'
+    );
+
+    register_post_type("collection", $args);
+}
+
+add_action("init", "alcanta_add_collection_post_type");
+
+// Add collection looked post type
+function alcanta_add_collection_looked_post_type() {
+    $supports = array(
+        'title'
+    );
+
+    $labels = array(
+        'name' => 'Kolekcje przedpremierowe'
+    );
+
+    $args = array(
+        'labels'               => $labels,
+        'supports'             => $supports,
+        'public'               => true,
+        'capability_type'      => 'post',
+        'has_archive'          => true,
+        'menu_position'        => 30,
+        'menu_icon'            => 'dashicons-welcome-view-site'
+    );
+
+    register_post_type("collection_looked", $args);
+}
+
+add_action("init", "alcanta_add_collection_looked_post_type");
