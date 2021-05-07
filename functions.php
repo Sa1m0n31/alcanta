@@ -69,10 +69,10 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
-    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla'), 1.2, true);
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla', 'jquery'), 1.2, true);
 
     wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', array(), 1.0, true);
-
+    wp_enqueue_script('jquery', get_stylesheet_directory_uri() . '/assets/js/jquery.js', array(), 1.0, true);
 
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
 
@@ -120,10 +120,10 @@ function alcanta_content_top() {
         </a>
 
         <div class="mobileHeader__right d-flex">
-            <button class="mobileHeader__btn">
+            <a class="mobileHeader__btn" href="<?php echo wc_get_cart_url(); ?>">
                 <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
                 <span class="mobileHeader__btn__text">Koszyk</span>
-            </button>
+            </a>
             <button class="mobileHeader__btn" onclick="openMobileMenu()">
                 <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/menu.svg'; ?>" alt="menu" />
                 <span class="mobileHeader__btn__text">Menu</span>
@@ -495,6 +495,60 @@ function alcanta_after_single_product() {
 
 add_action('woocommerce_after_single_product', 'alcanta_after_single_product');
 
+/* Added to cart popup */
+function alcanta_added_to_cart_popup() {
+    ?>
+
+    <div class="addedToCartPopup">
+        <button class="addedToCartPopup__closeBtn" onclick="closeAddedToCartPopup()">
+            &times;
+        </button>
+
+        <?php
+        $product_id = get_the_ID();
+        $product = wc_get_product($product_id);
+        $price = $product->get_price();
+        ?>
+
+        <img class="checkedImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/checked.svg'; ?>" alt="dodano-do-koszyka" />
+        <h2 class="addedToCartPopup__header">
+            Udało Ci się dodać produkt do koszyka
+        </h2>
+
+        <img class="addedToCartPopup__productImg" src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo the_title(); ?>" />
+
+        <div class="addedToCartPopup__flex">
+            <h3 class="addedToCartPopup__meta">
+                <?php echo the_title(); ?>
+            </h3>
+            <h3 class="addedToCartPopup__meta">
+                <?php echo $price; ?> PLN
+            </h3>
+        </div>
+        <div class="addedToCartPopup__flex">
+            <h3 class="addedToCartPopup__meta addedToCartPopup__meta--size">
+                Rozmiar: <span></span>
+            </h3>
+        </div>
+
+        <button class="mobileLanding__btn button--popup button--animated button--animated--black">
+                    <a class="button__link" href="<?php echo wc_get_cart_url(); ?>">
+                        Przejdź do zamówienia >
+                    </a>
+        </button>
+
+        <button class="addedToCartPopup__continueBtn" onclick="closeAddedToCartPopup()">
+            Kontynuuj zakupy
+        </button>
+
+    </div>
+
+
+<?php
+}
+
+add_action('woocommerce_share', 'alcanta_added_to_cart_popup');
+
 // Add homepage carousel post type
 function alcanta_add_homepage_carousel_post_type() {
     $supports = array(
@@ -569,3 +623,37 @@ function alcanta_add_collection_locked_post_type() {
 }
 
 add_action("init", "alcanta_add_collection_locked_post_type");
+
+
+/* AJAX add to cart */
+add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+
+function woocommerce_ajax_add_to_cart() {
+
+    $product_id = apply_filters('woocommerce_add_to_cart_product_id', absint($_POST['product_id']));
+    $quantity = empty($_POST['quantity']) ? 1 : wc_stock_amount($_POST['quantity']);
+    $variation_id = absint($_POST['variation_id']);
+    $passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $quantity);
+    $product_status = get_post_status($product_id);
+
+    if ($passed_validation && WC()->cart->add_to_cart($product_id, $quantity, $variation_id) && 'publish' === $product_status) {
+
+        do_action('woocommerce_ajax_added_to_cart', $product_id);
+
+        if ('yes' === get_option('woocommerce_cart_redirect_after_add')) {
+            wc_add_to_cart_message(array($product_id => $quantity), true);
+        }
+
+        WC_AJAX :: get_refreshed_fragments();
+    } else {
+
+        $data = array(
+            'error' => true,
+            'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id));
+
+        echo wp_send_json($data);
+    }
+
+    wp_die();
+}
