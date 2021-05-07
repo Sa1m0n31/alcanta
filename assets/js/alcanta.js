@@ -88,18 +88,29 @@ const mobileMenuAccordion = n => {
 }
 
 /* Popup */
-document.querySelector(".preorderPopupOpen").addEventListener("click", () => {
-    setTimeout(() => {
-        document.querySelector(".preorderPopup__input").blur();
-    }, 500);
-});
+const popup = document.querySelector(".preorderPopupOpen");
+if(popup) {
+    popup.addEventListener("click", () => {
+        setTimeout(() => {
+            document.querySelector(".preorderPopup__input").blur();
+        }, 500);
+    });
+}
 
-/* Frontpage carousel */
-const emblaContainer = document.querySelector(".carousel__content");
+/* Single product carousel */
 const emblaOptions = {
     dragFree: true,
     containScroll: "trimSnaps"
 };
+
+const singleProductCarousel = document.querySelector(".single-product .related");
+let singleProductEmbla;
+if(singleProductCarousel) {
+    singleProductEmbla = EmblaCarousel(singleProductCarousel, emblaOptions);
+}
+
+/* Frontpage carousel */
+const emblaContainer = document.querySelector(".carousel__content");
 
 let embla;
 if(emblaContainer) {

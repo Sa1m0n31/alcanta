@@ -360,6 +360,141 @@ function alcanta_footer() {
 
 add_action('storefront_footer', 'alcanta_footer');
 
+function alcanta_single_post_before() {
+    ?>
+
+    <!-- FAQ -->
+    <section class="collectionLocked__faq">
+
+        <ul class="collectionLocked__faq__list">
+            <li class="collectionLocked__faq__list__item">
+                <label class="collectionLocked__faq__question">
+                    <span>Opis</span>
+                    <button class="collectionLocked__faq__btn" onclick="faqToggle(0)">
+                    <span class="collectionLocked__faq__plus">
+                        +
+                    </span>
+                        <span class="collectionLocked__faq__minus">
+                        -
+                    </span>
+                    </button>
+                </label>
+                <span class="collectionLocked__faq__answer">
+                <?php echo the_content(); ?>
+            </span>
+            </li>
+            <li class="collectionLocked__faq__list__item">
+                <label class="collectionLocked__faq__question">
+                    Kiedy dostanę produkty Alcanta?
+                    <button class="collectionLocked__faq__btn" onclick="faqToggle(1)">
+                    <span class="collectionLocked__faq__plus">
+                        +
+                    </span>
+                        <span class="collectionLocked__faq__minus">
+                        -
+                    </span>
+                    </button>
+                </label>
+                <span class="collectionLocked__faq__answer">
+                <?php echo get_field('kiedy_dostane_produkty_alcanta'); ?>
+            </span>
+            </li>
+            <li class="collectionLocked__faq__list__item">
+                <label class="collectionLocked__faq__question">
+                    Dostawa i płatność
+                    <button class="collectionLocked__faq__btn" onclick="faqToggle(2)">
+                    <span class="collectionLocked__faq__plus">
+                        +
+                    </span>
+                        <span class="collectionLocked__faq__minus">
+                        -
+                    </span>
+                    </button>
+                </label>
+                <span class="collectionLocked__faq__answer">
+                <?php echo get_field('dostawa_i_platnosc'); ?>
+            </span>
+            </li>
+            <li class="collectionLocked__faq__list__item">
+                <label class="collectionLocked__faq__question">
+                    Skład i konserwacja
+                    <button class="collectionLocked__faq__btn" onclick="faqToggle(3)">
+                    <span class="collectionLocked__faq__plus">
+                        +
+                    </span>
+                        <span class="collectionLocked__faq__minus">
+                        -
+                    </span>
+                    </button>
+                </label>
+                <span class="collectionLocked__faq__answer">
+                <?php echo get_field('sklad_i_konserwacja'); ?>
+            </span>
+            </li>
+        </ul>
+    </section>
+
+<?php
+}
+
+add_action("woocommerce_after_single_product_summary", "alcanta_single_post_before");
+
+function alcanta_after_single_product() {
+    ?>
+
+    <!-- CAROUSEL -->
+    <section class="carousel carousel--single">
+        <div class="carousel__content swiper-container">
+            <div class="carousel__embla swiper-wrapper">
+
+                <?php
+                $product = new WC_Product(get_the_ID());
+                $upsells = $product->get_upsells();
+                if (!$upsells)
+                    return;
+
+                $meta_query = WC()->query->get_meta_query();
+
+                $args = array(
+                    'post_type' => 'product',
+                    'ignore_sticky_posts' => 1,
+                    'no_found_rows' => 1,
+                    'posts_per_page' => 4,
+                    'post__in' => $upsells,
+                    'post__not_in' => array($product->id),
+                    'meta_query' => $meta_query
+                );
+
+                $carousel_query = new WP_Query($args);
+
+                if($carousel_query->have_posts()) {
+                    while($carousel_query->have_posts()) {
+                        $carousel_query->the_post();
+                        ?>
+
+                        <a class="carousel__item" href="<?php echo the_permalink(); ?>">
+                            <img class="carousel__item__img" src="<?php echo the_post_thumbnail_url(); ?>" alt="carousel-item" />
+                        </a>
+
+
+
+                        <?php
+                    }
+                }
+                ?>
+            </div>
+        </div>
+
+        <span class="carousel__progressBarContainer">
+            <span class="carousel__progressBar"></span>
+        </span>
+    </section>
+
+<?php
+}
+
+add_action('woocommerce_after_single_product', 'alcanta_after_single_product');
+
 // Add homepage carousel post type
 function alcanta_add_homepage_carousel_post_type() {
     $supports = array(

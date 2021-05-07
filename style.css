@@ -38,7 +38,12 @@ Images License: GNU General Public License v2 or later
 br, .pum-container .pum-content>:first-child,
 .ycd-simple-current-unite-minutes .ycd-simple-timer-dots,
 .ycd-simple-current-unite-seconds, .ycd-simple-current-unite-days,
-.collectionItems .add_to_cart_button, .collectionItems .products::before, .collectionItems .products::after
+.collectionItems .add_to_cart_button, .collectionItems .products::before, .collectionItems .products::after,
+.woocommerce-product-gallery__trigger, .reset_variations, td label[for="rozmiar"], .single-product .quantity,
+.single-product .product_meta, .single-product .wc-tabs-wrapper,
+.single-product .related .products, .single-product .up-sells .products,
+.single-product .woo-selected-variation-item-name, .single-product .single_variation_wrap .price,
+.woocommerce-message
 {
     display: none !important;
 }
@@ -939,6 +944,14 @@ ul {
     display: none;
 }
 
+.single-product li:first-child .collectionLocked__faq__plus {
+    display: none;
+}
+
+.single-product li:first-child .collectionLocked__faq__minus {
+    display: block;
+}
+
 .collectionLocked__waitlist {
     padding: 5% 5% 50px 5%;
     background: rgba(245,244,243,1);
@@ -1005,4 +1018,116 @@ ul {
     display: block;
     font-weight: 700;
     text-align: center;
+}
+
+/* Single product */
+.single-product .woocommerce-product-gallery {
+    margin-bottom: 20px !important;
+}
+
+.single-product .woocommerce-product-gallery__wrapper > div {
+    margin-top: 100px !important;
+}
+
+.single-product .wp-post-image {
+    width: 100%;
+    height: auto;
+}
+
+.single-product .entry-summary {
+    padding: 0 5vw;
+}
+
+.single-product .product_title {
+    font-weight: 700;
+}
+
+.single-product .price {
+    margin-top: 10px !important;
+    font-size: 14px !important;
+}
+
+.single-product .variations {
+    margin-top: 40px !important;
+    position: relative;
+    width: 100%;
+}
+
+.single-product .variations::before {
+    content: "Kliknij i wybierz rozmiar";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #a6a5a4;
+    width: 100%;
+    text-align: center;
+}
+
+.single_add_to_cart_button {
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    position: relative;
+    background-color: #1d1a1f !important;
+    transition: .2s all;
+}
+
+.single_add_to_cart_button:hover, .single_add_to_cart_button:focus, .single_add_to_cart_button:active {
+    background-color: #333333 !important;
+}
+
+.single-product #primary {
+    background: #f5f4f3 !important;
+}
+
+.single-product li:nth-child(1) > .collectionLocked__faq__answer {
+    display: block;
+}
+
+.single-product .related {
+    padding: 0 5vw;
+}
+
+.single-product .up-sells h2 {
+    text-align: center;
+    font-size: 18px !important;
+    font-weight: 700;
+    color: #1d1a1f;
+}
+
+.carousel--single {
+    background: #f5f4f3;
+}
+
+.single-product .variable-items-wrapper {
+    justify-content: center;
+}
+
+.single-product .button-variable-item {
+    width: 60px !important;
+    height: 60px !important;
+    background: transparent !important;
+    border-radius: 50% !important;
+    border: 1px solid #a7a6a6 !important;
+    margin: 0 10px !important;
+    box-shadow: none !important;
+    transition: .2s all;
+}
+
+.variable-item-span {
+    font-weight: 700;
+    color: #171a1d; !important;
+}
+
+.single-product .variable-items-wrapper .selected {
+    border: 2px solid #d94926 !important;
+}
+
+
+.single-product .carousel__embla a,
+.single-product .carousel__embla,
+.single-product .carousel__embla a img {
+    height: 300px !important;
 }
