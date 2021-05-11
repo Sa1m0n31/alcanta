@@ -123,6 +123,9 @@ function alcanta_content_top() {
             <a class="mobileHeader__btn" href="<?php echo wc_get_cart_url(); ?>">
                 <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
                 <span class="mobileHeader__btn__text">Koszyk</span>
+                <span class="mobileHeader__cartCount">
+                    <?php echo WC()->cart->get_cart_contents_count(); ?>
+                </span>
             </a>
             <button class="mobileHeader__btn" onclick="openMobileMenu()">
                 <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/menu.svg'; ?>" alt="menu" />
@@ -647,7 +650,6 @@ function woocommerce_ajax_add_to_cart() {
 
         WC_AJAX :: get_refreshed_fragments();
     } else {
-
         $data = array(
             'error' => true,
             'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink($product_id), $product_id));
@@ -657,3 +659,33 @@ function woocommerce_ajax_add_to_cart() {
 
     wp_die();
 }
+
+/* Cart - before button */
+function alcanta_cart_totals_after_order_total() {
+    ?>
+
+    <img class="guaranteeImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/gwarancja-zwrotu.png'; ?>" alt="gwarancja" />
+
+    <h3 class="guaranteeText">
+        <img class="guaranteeText__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/lock.svg'; ?>" alt="lock" />
+        Bezpieczny system płatności
+    </h3>
+
+<?php
+}
+
+add_action('woocommerce_cart_totals_after_order_total', 'alcanta_cart_totals_after_order_total');
+
+function alcanta_cart_contents() {
+    ?>
+<div class="cart__afterCoupon">
+    <h3 class="cart__info">
+        <img class="cart__info__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/information.svg'; ?>" alt="info" />
+        <span>Nie zwlekaj z zakupem, dodanie artykułów do koszyka nie oznacza ich rezerwacji.</span>
+    </h3>
+</div>
+
+<?php
+}
+
+add_action('woocommerce_cart_coupon', 'alcanta_cart_contents');
