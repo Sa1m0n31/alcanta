@@ -19,6 +19,16 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
+<!-- TOP BAR -->
+<header class="checkoutTopBar">
+    <a class="checkoutTopBar__back" href="<?php echo wc_get_cart_url(); ?>">
+        <img class="checkoutTopBar__back__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow-left.png'; ?>" alt="wroc" />
+        Powrót
+    </a>
+
+    <img class="checkoutTopBar__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-checkout.png'; ?>" alt="alcanta" />
+</header>
+
 <!-- WYSYLKA -->
 <?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
     <!-- CUSTOM CODE -->
@@ -31,7 +41,7 @@ defined( 'ABSPATH' ) || exit;
             </span>
     </h2>
 
-    <?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
+<!--    --><?php //do_action( 'woocommerce_review_order_before_shipping' ); ?>
 
     <?php wc_cart_totals_shipping_html(); ?>
 

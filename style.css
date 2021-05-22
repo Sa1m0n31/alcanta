@@ -1606,3 +1606,108 @@ button[name=woocommerce_checkout_place_order]:focus {
 .woocommerce-checkout #page {
     overflow-x: hidden;
 }
+
+.checkoutTopBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: #f5f4f3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5vw;
+    z-index: 10;
+}
+
+.checkoutTopBar__back {
+    display: flex;
+    align-items: center;
+}
+
+.checkoutTopBar__back__img {
+    margin-right: 15px;
+    width: 30px;
+    height: auto;
+}
+
+.checkoutTopBar__logo {
+    height: 80%;
+    width: auto;
+}
+
+.woocommerce-checkout .entry-content {
+    margin-top: 100px;
+}
+
+.woocommerce-checkout-review-order-table {
+    width: 100%;
+}
+
+.woocommerce-checkout-review-order-table tfoot tr td {
+    text-align: right;
+}
+
+.alg_wc_shipping_icon {
+    width: 110px;
+    height: auto;
+    margin-right: 10px;
+}
+
+#shipping_method input[type=radio] {
+    visibility: hidden;
+    width: 0;
+    margin: 0;
+}
+
+.woocommerce-shipping-methods {
+    padding-left: 0 !important;
+    background: #fff;
+    position: relative;
+}
+
+.woocommerce-shipping-methods::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background: #fff;
+}
+
+#shipping_method > li {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-top: 1px solid #acacac;
+    width: 90%;
+    margin: auto;
+}
+
+.shippingMethodBtn {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid #171a1d;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.shippingMethodBtn:focus {
+    background: #d94926 !important;
+}
+
+.shippingMethodBtn__content {
+    font-size: 20px;
+    color: #fff;
+    display: none;
+}
+
+#shipping_method > li > label {
+    padding-right: 100px;
+}

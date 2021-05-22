@@ -302,3 +302,34 @@ if(variableButtons) {
 
     checkCurrentVariableProduct();
 }
+
+/* Change shipping method */
+const changeShippingMethod = (name, isInput) => {
+    /* Button to mark */
+    let btnToMark, spanToMark;
+    if(isInput) {
+        btnToMark = document.getElementById(`btn_${name.value}`);
+        spanToMark = document.getElementById(`span_${name.value}`);
+    }
+    else {
+        btnToMark = name;
+        let cutId = name.id.replace("btn_", "");
+        spanToMark = document.getElementById(`span_${cutId}`);
+    }
+
+    /* Gasimy buttony */
+    const allBtns = document.querySelectorAll(".shippingMethodBtn");
+    allBtns.forEach(item => {
+        item.style.background = "transparent";
+        item.style.border = "1px solid #171a1d";
+    });
+    const appBtns__content = document.querySelectorAll(".shippingMethodBtn>span");
+    appBtns__content.forEach(item => {
+       item.style.display = "none";
+    });
+
+    /* Przechodzimy po wszystkich buttonach i sprawdzamy czy name pasuje do id */
+    btnToMark.style.background = "#d94926";
+    btnToMark.style.border = "none";
+    spanToMark.style.display = "block";
+}
