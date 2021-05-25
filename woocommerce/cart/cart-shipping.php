@@ -51,19 +51,26 @@ $calculator_text          = '';
 					</li>
 				<?php endforeach; ?>
 			</ul>
-			<?php if ( is_cart() ) : ?>
-				<p class="woocommerce-shipping-destination">
-					<?php
-					if ( $formatted_destination ) {
-						// Translators: $s shipping destination.
-						printf( esc_html__( 'Shipping to %s.', 'woocommerce' ) . ' ', '<strong>' . esc_html( $formatted_destination ) . '</strong>' );
-						$calculator_text = esc_html__( 'Change address', 'woocommerce' );
-					} else {
-						echo wp_kses_post( apply_filters( 'woocommerce_shipping_estimate_html', __( 'Shipping options will be updated during checkout.', 'woocommerce' ) ) );
-					}
-					?>
-				</p>
-			<?php endif; ?>
+            <div class="woocommerce-shipping-destination">
+                <h2 class="shippingDestinationHeader">
+                    Wybrany punkt odbioru
+                </h2>
+
+                <div class="shippingDestinationFlex">
+                    <img class="shippingDestinationIcon" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/map-locator.svg'; ?>" alt="adres-dostawy" />
+
+                    <?php
+                    if ( $formatted_destination ) {
+                        // Translators: $s shipping destination.
+                        echo '<strong>' . esc_html( $formatted_destination ) . '</strong>';
+                        $calculator_text = esc_html__( 'Change address', 'woocommerce' );
+                    } else {
+                        echo wp_kses_post( apply_filters( 'woocommerce_shipping_estimate_html', __( 'Shipping options will be updated during checkout.', 'woocommerce' ) ) );
+                    }
+                    ?>
+                </div>
+            </div>
+
 			<?php
 		elseif ( ! $has_calculated_shipping || ! $formatted_destination ) :
 			if ( is_cart() && 'no' === get_option( 'woocommerce_enable_shipping_calc' ) ) {
@@ -80,12 +87,9 @@ $calculator_text          = '';
 		endif;
 		?>
 
-		<?php if ( $show_package_details ) : ?>
 			<?php echo '<p class="woocommerce-shipping-contents"><small>' . esc_html( $package_details ) . '</small></p>'; ?>
-		<?php endif; ?>
 
 		<?php if ( $show_shipping_calculator ) : ?>
 			<?php woocommerce_shipping_calculator( $calculator_text ); ?>
 		<?php endif; ?>
-	</td>
 </tr>

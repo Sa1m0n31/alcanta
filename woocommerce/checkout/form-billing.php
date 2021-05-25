@@ -17,6 +17,9 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$formatted_destination    = isset( $formatted_destination ) ? $formatted_destination : WC()->countries->get_formatted_address( $package['destination'], ', ' );
+
 ?>
 
 <!-- TOP BAR -->
@@ -28,6 +31,61 @@ defined( 'ABSPATH' ) || exit;
 
     <img class="checkoutTopBar__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-checkout.png'; ?>" alt="alcanta" />
 </header>
+
+<!-- CART -->
+<section class="checkoutCart">
+    <div class="checkoutCart__header" onclick="toggleCheckoutCart()">
+        <div class="checkoutCart__header__cartIconWrapper">
+            <span class="mobileHeader__cartCount mobileHeader__cartCount--checkout">
+                    <?php echo WC()->cart->get_cart_contents_count(); ?>
+        </span>
+            <img class="checkoutCart__header__icon" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
+        </div>
+        <h2 class="checkoutCart__header__h">
+            Pokaż przedmioty w koszyku
+        </h2>
+        <img class="checkoutCart__header__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="zwin-rozwin" />
+    </div>
+</section>
+
+<!-- CART CAROUSEL -->
+<section class="checkoutCarousel">
+    <div class="carousel__content swiper-container">
+        <div class="carousel__embla swiper-wrapper">
+
+            <?php
+            global $woocommerce;
+            $items = $woocommerce->cart->get_cart();
+            foreach($items as $item => $values) {
+                $_product =  wc_get_product( $values['data']->get_id() );
+                $getProductDetail = wc_get_product( $values['product_id'] );
+                ?>
+
+                <a class="carousel__item" href="<?php echo get_permalink($values['product_id']); ?>">
+                    <img class="carousel__item__img" src="<?php echo get_the_post_thumbnail_url($values['product_id']); ?>" alt="carousel-item" />
+                    <h4 class="carousel__item__header">
+                        <?php echo get_the_title($values['product_id']); ?>
+                    </h4>
+                    <h5 class="carousel__item__subheader">
+                        Rozmiar:
+                        <?php
+                        $variation = new WC_Product_Variation($values['variation_id']);
+                        $variationName = implode(" / ", $variation->get_variation_attributes());
+                        echo $variationName;
+                        ?>
+                    </h5>
+                </a>
+
+            <?php
+            }
+            ?>
+        </div>
+    </div>
+    <span class="carousel__progressBarContainer">
+            <span class="carousel__progressBar"></span>
+    </span>
+</section>
+
 
 <!-- WYSYLKA -->
 <?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
@@ -48,6 +106,63 @@ defined( 'ABSPATH' ) || exit;
     <?php do_action( 'woocommerce_review_order_after_shipping' ); ?>
 
 <?php endif; ?>
+
+<!-- SHIPPING FORM -->
+
+<div class="woocommerce-shipping-fields">
+    <?php if ( true === WC()->cart->needs_shipping_address() ) : ?>
+
+        <h3 id="ship-to-different-address">
+            <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+                <input id="ship-to-different-address-checkbox" type="checkbox" name="ship_to_different_address" value="1" checked /> <span><?php esc_html_e( 'Ship to a different address?', 'woocommerce' ); ?></span>
+            </label>
+        </h3>
+
+        <div class="shipping_address">
+
+            <?php do_action( 'woocommerce_before_checkout_shipping_form', $checkout ); ?>
+
+            <div class="woocommerce-shipping-fields__field-wrapper">
+                <?php
+                $fields = $checkout->get_checkout_fields( 'shipping' );
+
+                foreach ( $fields as $key => $field ) {
+                    woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
+                }
+                ?>
+            </div>
+
+            <?php do_action( 'woocommerce_after_checkout_shipping_form', $checkout ); ?>
+
+        </div>
+
+    <?php endif; ?>
+</div>
+<div class="woocommerce-additional-fields">
+    <?php do_action( 'woocommerce_before_order_notes', $checkout ); ?>
+
+    <?php if ( apply_filters( 'woocommerce_enable_order_notes_field', 'yes' === get_option( 'woocommerce_enable_order_comments', 'yes' ) ) ) : ?>
+
+        <?php if ( ! WC()->cart->needs_shipping() || wc_ship_to_billing_address_only() ) : ?>
+
+            <h3><?php esc_html_e( 'Additional information', 'woocommerce' ); ?></h3>
+
+        <?php endif; ?>
+
+        <div class="woocommerce-additional-fields__field-wrapper">
+            <?php foreach ( $checkout->get_checkout_fields( 'order' ) as $key => $field ) : ?>
+                <?php woocommerce_form_field( $key, $field, $checkout->get_value( $key ) ); ?>
+            <?php endforeach; ?>
+        </div>
+
+    <?php endif; ?>
+
+    <?php do_action( 'woocommerce_after_order_notes', $checkout ); ?>
+</div>
+
+
+
+<!-- END SHIPPING FORM -->
 
 <?php wc_get_template(' checkout/form-shipping.php'); ?>
 

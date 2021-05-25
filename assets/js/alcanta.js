@@ -306,16 +306,28 @@ if(variableButtons) {
 /* Change shipping method */
 const changeShippingMethod = (name, isInput) => {
     /* Button to mark */
-    let btnToMark, spanToMark;
+    let btnToMark, spanToMark, shippingMethod;
     if(isInput) {
+        shippingMethod = name.value;
         btnToMark = document.getElementById(`btn_${name.value}`);
         spanToMark = document.getElementById(`span_${name.value}`);
     }
     else {
         btnToMark = name;
         let cutId = name.id.replace("btn_", "");
+        shippingMethod = cutId;
         spanToMark = document.getElementById(`span_${cutId}`);
     }
+
+    const shippingForm = document.querySelector(".shipping_address");
+    /* Rozwijamy formularz adresu dostawy */
+    if(shippingMethod === 'flat_rate:1') {
+        shippingForm.style.display = "block";
+    }
+    else {
+        shippingForm.style.display = "none";
+    }
+
 
     /* Gasimy buttony */
     const allBtns = document.querySelectorAll(".shippingMethodBtn");
@@ -332,4 +344,24 @@ const changeShippingMethod = (name, isInput) => {
     btnToMark.style.background = "#d94926";
     btnToMark.style.border = "none";
     spanToMark.style.display = "block";
+}
+
+/* Checkout cart */
+const toggleCheckoutCart = () => {
+    console.log("click");
+    const checkoutCarousel = document.querySelector(".checkoutCarousel");
+    const checkoutCartHeader = document.querySelector(".checkoutCart__header__h");
+    const checkoutCartArrow = document.querySelector(".checkoutCart__header__arrow");
+    if(sessionStorage.getItem('alcanta-cart') === 'true') {
+        sessionStorage.setItem('alcanta-cart', '');
+        checkoutCarousel.style.display = "none";
+        checkoutCartArrow.style.transform = "rotate(270deg)";
+        checkoutCartHeader.textContent = "Pokaż przedmioty w koszyku";
+    }
+    else {
+        checkoutCarousel.style.display = "block";
+        checkoutCartArrow.style.transform = "rotate(90deg)";
+        checkoutCartHeader.textContent = "Ukryj przedmioty w koszyku";
+        sessionStorage.setItem('alcanta-cart', 'true');
+    }
 }
