@@ -348,7 +348,6 @@ const changeShippingMethod = (name, isInput) => {
 
 /* Checkout cart */
 const toggleCheckoutCart = () => {
-    console.log("click");
     const checkoutCarousel = document.querySelector(".checkoutCarousel");
     const checkoutCartHeader = document.querySelector(".checkoutCart__header__h");
     const checkoutCartArrow = document.querySelector(".checkoutCart__header__arrow");
@@ -365,3 +364,51 @@ const toggleCheckoutCart = () => {
         sessionStorage.setItem('alcanta-cart', 'true');
     }
 }
+
+/* Single product gallery carousel */
+const emblaOptionsSingleProductGallery = {
+    containScroll: "trimSnaps"
+};
+
+const singleProductGalleryCarousel = document.querySelector(".carousel--singleGallery");
+let singleProductGalleryEmbla;
+const singleProductGalleryButtons = document.querySelectorAll(".singleGalleryDot");
+const singleProductGalleryButtonsInner = document.querySelectorAll(".singleGalleryDotInner");
+if(singleProductGalleryCarousel) {
+    singleProductGalleryEmbla = EmblaCarousel(singleProductGalleryCarousel, emblaOptionsSingleProductGallery);
+    let currentIndex;
+
+    singleProductGalleryEmbla.on('settle', () => {
+        /* Turn off all dots */
+        currentIndex = singleProductGalleryEmbla.selectedScrollSnap();
+        singleProductGalleryButtons.forEach((item, index) => {
+            item.style.border = "none";
+            singleProductGalleryButtonsInner[index].style.background = "#c8c8c8";
+        });
+
+        /* Turn on current dot */
+        singleProductGalleryButtons[currentIndex].style.border = "1px solid #171a1a";
+        singleProductGalleryButtonsInner[currentIndex].style.background = "#d94926";
+    });
+}
+
+const singleProductGalleryChangeSlide = (el) => {
+    const n = parseInt(el.id.split("-")[1]);
+    singleProductGalleryEmbla.scrollTo(n);
+}
+
+/* AJAX request to change shipping address */
+document.querySelector(".changeShippingAddressBtn").addEventListener("click", (event) => {
+    event.preventDefault();
+
+    wp.ajax.post( "get_shipping_address", {
+        address: sessionStorage.getItem('alcanta-paczkomat')
+    } )
+        .done(function(response) {
+            alert(response);
+
+            /* Zmieniamy wartosc pola zawierajacego adres dostawy */
+            document.querySelector(".shippingDestinationFlex>strong").textContent = response;
+
+        });
+});

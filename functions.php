@@ -75,6 +75,8 @@ function alcanta_enqueue_script() {
     wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', array(), 1.0, true);
     wp_enqueue_script('jquery', get_stylesheet_directory_uri() . '/assets/js/jquery.js', array(), 1.0, true);
 
+    wp_enqueue_script( 'wp-util' ); // Option 1: Manually enqueue the wp-util library.
+
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
 
     wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, 1.0, true);
@@ -86,6 +88,20 @@ function alcanta_enqueue_script() {
 }
 
 add_action('wp_enqueue_scripts', 'alcanta_enqueue_script');
+
+add_action( 'wp_ajax_nopriv_change_shipping_address', 'alcanta_change_shipping_address' );
+add_action( 'wp_ajax_change_shipping_address', 'alcanta_change_shipping_address' );
+
+function alcanta_change_shipping_address() {
+    WC()->customer->set_shipping_address($_POST['address']);
+}
+
+add_action('wp_ajax_nopriv_get_shipping_address', 'alcanta_get_shipping_address');
+add_action('wp_ajax_get_shipping_address', 'alcanta_get_shipping_address');
+
+function alcanta_get_shipping_address() {
+    wp_send_json_success(WC()->customer->get_shipping_address() . ' ' . WC()->customer->get_shipping_postcode() . ' ' . WC()->customer->get_shipping_city());
+}
 
 /* Add InPost Geowidget */
 add_action('wp_head', 'inpost_script_javascript', 9);
@@ -120,14 +136,33 @@ function inpost_script_javascript()
                     width: 500,
                     height: 600
                 })
+
+                console.log("opening modal...");
+                sessionStorage.setItem('alcanta-paczkomat', '');
+                wp.ajax.post( "change_shipping_address", {
+                    address: sessionStorage.getItem('alcanta-paczkomat')
+                } )
+                    .done(function(response) {
+                        sessionStorage.removeItem('alcanta-paczkomat');
+                    });
+                document.querySelector(".shippingDestinationFlex>strong").textContent = sessionStorage.getItem('alcanta-paczkomat');
             };
             // funkcja chowająca popup
             function closeModalPopup() {
                 var e = document.getElementById("widget-modal");
                 e.parentNode.style.display = "none", e.removeEventListener("click", closeModalPopup)
 
+                console.log("close");
+
                 /* Zmieniamy wartosc pola zawierajacego adres dostawy */
                 document.querySelector(".shippingDestinationFlex>strong").textContent = sessionStorage.getItem('alcanta-paczkomat');
+
+                wp.ajax.post( "change_shipping_address", {
+                    address: sessionStorage.getItem('alcanta-paczkomat')
+                } )
+                    .done(function(response) {
+                        sessionStorage.removeItem('alcanta-paczkomat');
+                    });
             }
 
             window.easyPackAsyncInit = function() {
@@ -516,7 +551,7 @@ function alcanta_after_single_product() {
 
     <!-- CAROUSEL -->
     <section class="carousel carousel--single">
-        <div class="carousel__content swiper-container">
+        <div class="carousel__content swiper-container carousel--single">
             <div class="carousel__embla swiper-wrapper">
 
                 <?php
@@ -753,16 +788,9 @@ add_action('woocommerce_cart_coupon', 'alcanta_cart_contents');
 function wc_remove_checkout_fields( $fields ) {
 
     // Billing fields
-//    unset( $fields['billing']['billing_email'] );
     unset( $fields['billing']['billing_phone'] );
     unset( $fields['billing']['billing_state'] );
 
-    // Shipping fields
-//    unset( $fields['shipping']['shipping_company'] );
-//    unset( $fields['shipping']['shipping_phone'] );
-//    unset( $fields['shipping']['shipping_state'] );
-//    unset( $fields['shipping']['shipping_first_name'] );
-//    unset( $fields['shipping']['shipping_last_name'] );
 
     // Order fields
     unset( $fields['order']['order_comments'] );
@@ -770,34 +798,3 @@ function wc_remove_checkout_fields( $fields ) {
     return $fields;
 }
 add_filter( 'woocommerce_checkout_fields', 'wc_remove_checkout_fields' );
-
-/* Change quantity input to quantity select */
-function woocommerce_quantity_input() {
-    global $product;
-    $defaults = array(
-        'input_name'    => 'quantity',
-        'input_value'   => '1',
-        'max_value'     => apply_filters( 'woocommerce_quantity_input_max', '', $product ),
-        'min_value'     => apply_filters( 'woocommerce_quantity_input_min', '', $product ),
-        'contact' => apply_filters('woocommerce_quantity_input_max', 'Contact'),
-        'step'      => apply_filters( 'woocommerce_quantity_input_step', '1', $product ),
-        'style'     => apply_filters( 'woocommerce_quantity_style', 'float:left; margin-right:10px;', $product )
-    );
-    if ( ! empty( $defaults['min_value'] ) )
-        $min = $defaults['min_value'];
-    else $min = 1;
-    if ( ! empty( $defaults['max_value'] ) )
-        $max = $defaults['max_value'];
-    else $max = 6;
-    if ( ! empty( $defaults['step'] ) )
-        $step = $defaults['step'];
-    else $step = 1;
-    $options = '';
-    for ( $count = $min; $count <= $max + 1; $count = $count+$step ) {
-        if($count <= $max){
-            $options .= '<option value="' . $count . '">' . $count . '</option>';
-        }
-    }
-    echo '<div class="quantity_select" style="' . $defaults['style'] . '"><select name="' . esc_attr( $defaults['input_name'] ) . '" title="' . _x( 'Qty', 'Product quantity input tooltip', 'woocommerce' ) . '" class="qty">' . $options . '</select></div>';
-}
-

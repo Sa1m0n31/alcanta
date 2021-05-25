@@ -35,6 +35,7 @@ $calculator_text          = '';
 						if ( 1 < count( $available_methods ) ) {
 							printf( '<input onclick="changeShippingMethod(this, true)" type="radio" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" aria-label="%2$s" value="%3$s" class="shipping_method" %4$s />', $index, esc_attr( sanitize_title( $method->id ) ), esc_attr( $method->id ), checked( $method->id, $chosen_method, false ) ); // WPCS: XSS ok.
 						    ?>
+                            <!-- SHIPPING METHODS -->
                             <button onclick="changeShippingMethod(this, false)" class="shippingMethodBtn" id="btn_<?php echo $method->id; ?>">
                                 <span class="shippingMethodBtn__content" id="span_<?php echo $method->id; ?>">
                                    <i class="fas fa-check"></i>

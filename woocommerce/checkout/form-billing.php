@@ -132,6 +132,12 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
                 ?>
             </div>
 
+            <button class="mobileLanding__btn changeShippingAddressBtn button--animated button--animated--black">
+                    <span class="button__link">
+                        Zmień adres dostawy
+                    </span>
+            </button>
+
             <?php do_action( 'woocommerce_after_checkout_shipping_form', $checkout ); ?>
 
         </div>

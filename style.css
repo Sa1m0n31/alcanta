@@ -44,7 +44,8 @@ br, .pum-container .pum-content>:first-child,
 .single-product .related .products, .single-product .up-sells .products,
 .single-product .woo-selected-variation-item-name, .single-product .single_variation_wrap .price,
 .woocommerce-message, .single-product .added_to_cart,
-.woocommerce-error,
+/*.woocommerce-error,*/
+.woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image,
 .woocommerce-cart .stickyCountdown,
 .woocommerce-cart .woocommerce-shipping-contents,
 .woocommerce-cart .woocommerce-shipping-destination,
@@ -1061,6 +1062,31 @@ ul {
     margin-bottom: 20px !important;
 }
 
+.single-product .product-carousel {
+
+}
+
+.woocommerce-product-gallery__image {
+    flex-basis: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.carousel--singleGallery {
+    margin-top: 80px;
+}
+
+.carousel--singleGallery > div {
+    display: flex;
+    align-items: center;
+}
+
+.carousel--singleGallery > div a, .carousel--singleGallery > div img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 .single-product .woocommerce-product-gallery__wrapper > div {
     margin-top: 100px !important;
 }
@@ -1178,6 +1204,44 @@ ul {
     height: 300px !important;
 }
 
+.carousel--singleGallery__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.singleGalleryDot {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: transparent;
+    margin: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.singleGalleryDotInner {
+    display: flex;
+    width: 50%;
+    height: 50%;
+    flex-basis: 50%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #c8c8c8;
+}
+
+.singleGalleryDot:first-child {
+    border: 1px solid #171a1d;
+}
+
+.singleGalleryDot:first-child .singleGalleryDotInner {
+    background: #d94926;
+}
+
 /* Added to cart popup */
 .addedToCartPopup {
     visibility: hidden;
@@ -1254,6 +1318,28 @@ ul {
 }
 
 /* Cart */
+
+.cart-empty {
+    background-color: #d94926 !important;
+    margin-top: 40px;
+}
+
+.woocommerce-cart .return-to-shop {
+    width: 90%;
+    background: #171a1d;
+    margin: 10px auto 60px;
+    padding: 20px;
+}
+
+.woocommerce-cart .return-to-shop a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    color: #fff;
+}
 
 .woocommerce-cart .site-content {
     padding: 0 5vw;
@@ -1503,6 +1589,17 @@ table.cart td.actions {
 }
 
 /* Shiping and payment */
+.changeShippingAddressBtn {
+    margin: 20px auto;
+    width: 60%;
+    display: block;
+    white-space: nowrap;
+}
+
+.woocommerce-shipping-contents {
+    margin: 0 !important;
+}
+
 #customer_details .col-1 {
     max-width: none !important;
     background: #f5f4f3;
@@ -1844,11 +1941,14 @@ button[name=woocommerce_checkout_place_order]:focus {
 .woocommerce-shipping-fields__field-wrapper {
     width: 90%;
     margin: auto;
+    padding-top: 30px;
 }
 
 .woocommerce-shipping-destination {
-    width: 90%;
-    margin: 30px auto 10px auto;
+    width: 100%;
+    margin: 30px auto 0 auto;
+    padding: 20px 5%;
+    background: #fff;
 }
 
 .woocommerce-shipping-destination strong {
@@ -1869,6 +1969,7 @@ button[name=woocommerce_checkout_place_order]:focus {
     visibility: hidden;
     margin: 0;
     padding: 0;
+    height: 0;
 }
 
 label[for=shipping_method_0_flat_rate2] {
@@ -1894,11 +1995,86 @@ label[for=shipping_method_0_flat_rate2] {
 .carousel__item__header {
     font-weight: 700;
     font-size: 15px;
-    text-align: center;
     margin-top: 7px;
 }
 
 .carousel__item__subheader {
+    font-size: 14px;
+}
+
+.carousel__item__header, .carousel__item__subheader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    width: -moz-max-content;
+    margin-left: 100px;
+    transform: translateX(-50%);
+}
+
+/* Thank you page */
+.thankYou__carousel {
+    margin-top: 150px;
+}
+
+.thankYou__main {
+    background: #f5f4f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.thankYou__logo {
+    margin-top: 40px;
+    width: 150px;
+    height: auto;
+}
+
+.thankYou__header, .thankYou__subheader {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 18px;
+}
+
+.thankYou__header {
+    font-weight: 700;
+    margin-top: 100px;
+}
+
+.thankYou__subheader {
+    font-weight: 400;
+    position: relative;
+}
+
+.thankYou__subheader::after {
+    content: "";
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(245,244,243,1) 25%, rgba(217,73,38,1) 50%, rgba(245,244,243,1) 75%);
+}
+
+.thankYou__text {
+    margin-top: 100px;
     text-align: center;
     font-size: 14px;
 }
+
+.button--thankYou {
+    white-space: nowrap;
+    margin: 40px auto 90px;
+    padding: 20px 40px;
+    width: 90%;
+}
+
+.thankYou__carousel .carousel__embla,
+.thankYou__carousel .carousel__embla a,
+.thankYou__carousel a img
+{
+    height: 200px;
+}
+
