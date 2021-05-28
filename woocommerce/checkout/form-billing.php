@@ -119,6 +119,7 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
         </h3>
 
         <div class="shipping_address">
+            <span class="shipping__address__href"></span>
 
             <?php do_action( 'woocommerce_before_checkout_shipping_form', $checkout ); ?>
 

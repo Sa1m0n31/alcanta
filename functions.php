@@ -375,8 +375,8 @@ function alcanta_homepage() {
         </span>
 
         <button class="moreInfoBtn button--animated">
-            <a class="button__link" href="<?php echo get_page_link(get_page_by_title('Preorder')->ID); ?>">
-                Więcej informacji >
+            <a class="button__link" href="<?php echo get_field('link_do_buttona_1', 410); ?>">
+                <?php echo get_field('tekst_buttona_1', 410); ?>
             </a>
         </button>
     </section>
@@ -388,8 +388,8 @@ function alcanta_homepage() {
         <img class="frontpageBasicCollection__img" src="<?php echo get_field('zdjecie_kolekcji_basic', 410); ?>" alt="girl" />
 
         <button class="moreInfoBtn moreInfoBtn--basicCollection button--animated">
-            <a class="button__link" href=".">
-                Kolekcja basic >
+            <a class="button__link" href="<?php echo get_field('link_do_buttona_2', 410); ?>">
+                <?php echo get_field('tekst_buttona_2', 410); ?>
             </a>
         </button>
     </section>
@@ -413,20 +413,102 @@ function alcanta_footer() {
     <section class="beforeFooter">
         <ul class="beforeFooter__list">
             <li class="beforeFooter__list__item">
-                Dostawa i zwroty
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                <button class="beforeFooter__list__item__btn" onclick="toggleBeforeFooter(1)">
+                    Dostawa i zwroty
+                    <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                </button>
+                <div class="beforeFooter__dropdown">
+                    <p class="beforeFooter__dropdown__text">
+                        W naszym sklepie realizujemy zwroty <b>do 30 dni</b> zgodnie z naszą polityką zwrotów.
+                    </p>
+
+                    <p class="beforeFooter__dropdown__text">
+                        <span class="beforeFooter__dropdown__span">Formy dostawy:</span>
+                        <span class="beforeFooter__dropdown__span">- kurier InPost</span>
+                        <span class="beforeFooter__dropdown__span">- paczkomaty InPost</span>
+                    </p>
+
+                    <p class="beforeFooter__dropdown__text">
+                        Wysyłka:<br/>
+                        Twoje zamówienie starannie pakujemy i wysyłamy do 48 h od momentu zaksięgowania wpłaty
+                    </p>
+
+                    <p class="beforeFooter__dropdown__text">
+                        Dostępne metody płatności <button class="beforeFooter__dropdown__paymentBtn" onclick="togglePaymentMethods()">Pokaż wszystkie</button>
+                    </p>
+
+                    <div class="beforeFooter__paymentMethods">
+                        <img class="beforeFooter__paymentMethods__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/metody-platnosci.png'; ?>" alt="metody-platnosci" />
+                    </div>
+                </div>
             </li>
             <li class="beforeFooter__list__item">
-                Newsletter
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                <button class="beforeFooter__list__item__btn" onclick="toggleBeforeFooter(2)">
+                    Newsletter
+                    <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                </button>
+                <div class="beforeFooter__dropdown">
+                    <p class="beforeFooter__dropdown__text">
+                        Chcesz zgarnąć -50% na pierwsze zakupy i być na bieżąco z naszymi nowościami? Zapisz się do newslettera!
+                    </p>
+
+                        <label class="label beforeFooter__label">
+                            Adres e-mail
+                            <input class="input beforeFooter__input"
+                                   placeholder="Adres email" />
+                        </label>
+                        <label class="newsletterCheckboxLabel">
+                            <button class="newsletterCheckbox">
+
+                            </button>
+                            Akceptuję warunki newslettera
+                        </label>
+                        <button class="beforeFooter__submitBtn mobileLanding__btn button--animated button--animated--black">
+                            <span class="button__link">
+                                Zapisuję się
+                            </span>
+                        </button>
+                </div>
             </li>
             <li class="beforeFooter__list__item">
-                Marka Alcanta
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                <button class="beforeFooter__list__item__btn" onclick="toggleBeforeFooter(3)">
+                    Marka Alcanta
+                    <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                </button>
             </li>
             <li class="beforeFooter__list__item">
-                Pomoc online
-                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                <button class="beforeFooter__list__item__btn" onclick="toggleBeforeFooter(4)">
+                    Pomoc online
+                    <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
+                </button>
+                <div class="beforeFooter__dropdown">
+                    <p class="beforeFooter__dropdown__text">
+                        Odszukaj odpowiedzi na swoje pytania lub uzyskaj pomoc kontaktując się z nami.
+                    </p>
+
+                    <button class="beforeFooter__questionBtn popmake-517">
+                        Tabele rozmiarowe >
+                    </button>
+                    <button class="beforeFooter__questionBtn popmake-517">
+                        Regulamin >
+                    </button>
+                    <button class="beforeFooter__questionBtn popmake-517">
+                        Polityka prywatności >
+                    </button>
+                    <button class="beforeFooter__questionBtn popmake-517">
+                        Czas dostawy >
+                    </button>
+
+                    <p class="beforeFooter__dropdown__text">
+                        Kontakt (odpowiadamy pon.-pt. 8:00-16:00
+                    </p>
+
+                    <a class="beforeFooter__mailLink" href="mailto:kontakt@alcanta.pl">
+                        <img class="beforeFooter__mailImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/email.svg'; ?>" alt="mail" />
+                        <span>kontakt@alcanta.pl</span>
+                    </a>
+
+                </div>
             </li>
 
         </ul>

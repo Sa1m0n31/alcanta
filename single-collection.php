@@ -4,7 +4,7 @@ get_header();
 
 <!-- LANDING -->
 <header class="mobileLanding mobileLanding--collection">
-    <img class="mobileLanding__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/preorder-landing.png'; ?>" alt="alcanta-pierwszenstwo-zakupu" />
+    <img class="mobileLanding__img" src="<?php echo get_field('zdjecie_kolekcji'); ?>" alt="alcanta-kolekcja" />
     <header class="collectionHeader">
         <h2 class="collection">
             Collection

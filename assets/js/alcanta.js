@@ -100,6 +100,7 @@ if(popup) {
 /* Single product carousel */
 const emblaOptions = {
     dragFree: true,
+    draggable: true,
     containScroll: "trimSnaps"
 };
 
@@ -305,6 +306,8 @@ if(variableButtons) {
 
 /* Change shipping method */
 const changeShippingMethod = (name, isInput) => {
+    event.preventDefault();
+
     /* Button to mark */
     let btnToMark, spanToMark, shippingMethod;
     if(isInput) {
@@ -323,9 +326,11 @@ const changeShippingMethod = (name, isInput) => {
     /* Rozwijamy formularz adresu dostawy */
     if(shippingMethod === 'flat_rate:1') {
         shippingForm.style.display = "block";
+        shippingForm.style.height = "auto";
     }
     else {
         shippingForm.style.display = "none";
+        shippingForm.style.height = "0";
     }
 
 
@@ -347,21 +352,21 @@ const changeShippingMethod = (name, isInput) => {
 }
 
 /* Checkout cart */
+const checkoutCarousel = document.querySelector(".checkoutCarousel");
 const toggleCheckoutCart = () => {
-    const checkoutCarousel = document.querySelector(".checkoutCarousel");
     const checkoutCartHeader = document.querySelector(".checkoutCart__header__h");
     const checkoutCartArrow = document.querySelector(".checkoutCart__header__arrow");
-    if(sessionStorage.getItem('alcanta-cart') === 'true') {
-        sessionStorage.setItem('alcanta-cart', '');
-        checkoutCarousel.style.display = "none";
+    if(window.getComputedStyle(checkoutCarousel).getPropertyValue('visibility') === 'visible') {
+        checkoutCarousel.style.visibility = "hidden";
+        checkoutCarousel.style.height = "0";
         checkoutCartArrow.style.transform = "rotate(270deg)";
         checkoutCartHeader.textContent = "Pokaż przedmioty w koszyku";
     }
     else {
-        checkoutCarousel.style.display = "block";
+        checkoutCarousel.style.visibility = "visible";
+        checkoutCarousel.style.height = "auto";
         checkoutCartArrow.style.transform = "rotate(90deg)";
         checkoutCartHeader.textContent = "Ukryj przedmioty w koszyku";
-        sessionStorage.setItem('alcanta-cart', 'true');
     }
 }
 
@@ -398,17 +403,83 @@ const singleProductGalleryChangeSlide = (el) => {
 }
 
 /* AJAX request to change shipping address */
-document.querySelector(".changeShippingAddressBtn").addEventListener("click", (event) => {
-    event.preventDefault();
+if(document.querySelector(".changeShippingAddressBtn")) {
+    document.querySelector(".changeShippingAddressBtn").addEventListener("click", (event) => {
+        event.preventDefault();
 
-    wp.ajax.post( "get_shipping_address", {
-        address: sessionStorage.getItem('alcanta-paczkomat')
-    } )
-        .done(function(response) {
-            alert(response);
+        wp.ajax.post( "get_shipping_address", {
+            address: sessionStorage.getItem('alcanta-paczkomat')
+        } )
+            .done(function(response) {
 
-            /* Zmieniamy wartosc pola zawierajacego adres dostawy */
-            document.querySelector(".shippingDestinationFlex>strong").textContent = response;
+                /* Zmieniamy wartosc pola zawierajacego adres dostawy */
+                document.querySelector(".shippingDestinationFlex>strong").textContent = response;
 
-        });
-});
+            });
+    });
+}
+
+/* Open coupon input */
+const couponInnerBtn = document.querySelector(".couponInner__btn");
+if(couponInnerBtn) {
+    couponInnerBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const couponInner = document.querySelector(".couponInner");
+        couponInner.style.display = "flex";
+        couponInner.style.marginTop = "40px";
+    })
+}
+
+/* Change shipping destination */
+const changeShippingDestinationBtn = document.querySelector(".changeShippingDestination");
+if(changeShippingDestinationBtn) {
+    changeShippingDestinationBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        if(window.getComputedStyle(document.querySelector(".shipping_address")).getPropertyValue('display') === 'block') {
+            /* Current shipping method - Kurier */
+            const el = document.querySelector(".shipping__address__href");
+            setTimeout(() => {
+                el.scrollIntoView({
+                    top: -200,
+                    behavior: "smooth"
+                });
+            }, 300);
+        }
+        else {
+            /* Current shipping method = Paczkomaty */
+            openModal();
+        }
+    });
+}
+
+/* Toggle before footer dropdown */
+const toggleBeforeFooter = (n) => {
+    const dropdownToToggle = document.querySelector(`.beforeFooter__list__item:nth-child(${n})>.beforeFooter__dropdown`);
+    const arrowToRotate = document.querySelector(`.beforeFooter__list__item:nth-child(${n})>button>.mobileMenu__item__arrow`);
+
+    if(window.getComputedStyle(dropdownToToggle).getPropertyValue('display') === 'none') {
+        dropdownToToggle.style.display = "block";
+        arrowToRotate.style.transform = "rotate(-90deg)";
+    }
+    else {
+        dropdownToToggle.style.display = "none";
+        arrowToRotate.style.transform = "rotate(180deg)";
+    }
+}
+
+/* Toggle payment methods */
+const togglePaymentMethods = () => {
+    const paymentMethods = document.querySelector(".beforeFooter__paymentMethods");
+    const paymentMethodsBtn = document.querySelector(".beforeFooter__dropdown__paymentBtn");
+
+    if(window.getComputedStyle(paymentMethods).getPropertyValue('display') === 'none') {
+        paymentMethods.style.display = "block";
+        paymentMethodsBtn.textContent = "Ukryj wszystkie";
+    }
+    else {
+        paymentMethods.style.display = "none";
+        paymentMethodsBtn.textContent = "Pokaż wszystkie";
+    }
+}

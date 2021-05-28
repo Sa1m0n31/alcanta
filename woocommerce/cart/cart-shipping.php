@@ -45,7 +45,15 @@ $calculator_text          = '';
 						} else {
 							printf( '<input type="hidden" name="shipping_method[%1$d]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s" class="shipping_method" />', $index, esc_attr( sanitize_title( $method->id ) ), esc_attr( $method->id ) ); // WPCS: XSS ok.
 						}
-						printf( '<label for="shipping_method_%1$s_%2$s">%3$s</label>', $index, esc_attr( sanitize_title( $method->id ) ), wc_cart_totals_shipping_method_label( $method ) ); // WPCS: XSS ok.
+						printf( '<label for="shipping_method_%1$s_%2$s">
+                                    %3$s
+                                    <span class="shippingMethod__free">ZA DARMO (dzisiaj)</span>
+                                    <span class="shippingMethod__deliveryTime">
+                                    <img class="shippingMethod__deliveryTime__img" src="' . get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/time.png' .'" alt="czas" />
+                                    1 - 4 dni roboczych
+</span>
+                                    
+                                    </label>', $index, esc_attr( sanitize_title( $method->id ) ), wc_cart_totals_shipping_method_label( $method ) ); // WPCS: XSS ok.
 						do_action( 'woocommerce_after_shipping_rate', $method, $index );
 						?>
 
@@ -53,9 +61,18 @@ $calculator_text          = '';
 				<?php endforeach; ?>
 			</ul>
             <div class="woocommerce-shipping-destination">
-                <h2 class="shippingDestinationHeader">
-                    Wybrany punkt odbioru
-                </h2>
+                <div class="shippingDestinationFirstLine">
+                    <h2 class="shippingDestinationHeader">
+                        Wybrany punkt odbioru
+                    </h2>
+
+                    <button class="changeShippingDestination">
+                        Zmień
+                        <div class="changeShippingDestination__imgWrapper">
+                            <img class="changeShippingDestination__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/draw.svg'; ?>" alt="zmien-adres-dostawy" />
+                        </div>
+                    </button>
+                </div>
 
                 <div class="shippingDestinationFlex">
                     <img class="shippingDestinationIcon" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/map-locator.svg'; ?>" alt="adres-dostawy" />
@@ -66,7 +83,7 @@ $calculator_text          = '';
                         echo '<strong>' . esc_html( $formatted_destination ) . '</strong>';
                         $calculator_text = esc_html__( 'Change address', 'woocommerce' );
                     } else {
-                        echo wp_kses_post( apply_filters( 'woocommerce_shipping_estimate_html', __( 'Shipping options will be updated during checkout.', 'woocommerce' ) ) );
+                        echo '<strong>' . wp_kses_post( apply_filters( 'woocommerce_shipping_estimate_html', __( 'Shipping options will be updated during checkout.', 'woocommerce' ) ) ) . '</strong>';
                     }
                     ?>
                 </div>
