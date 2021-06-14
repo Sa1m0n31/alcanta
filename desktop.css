@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
+
+@media(min-width: 768px) {
+    .topBar {
+        height: 40px;
+    }
+
+    .desktopHeader {
+        width: 90%;
+        margin: 40px auto 15px;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 3px solid #b8b7b7;
+    }
+
+    .desktopHeader__logo {
+        width: 200px;
+        height: auto;
+    }
+
+    .desktopHeader__logo__img {
+        width: 100%;
+        height: auto;
+    }
+
+    .mobileHeader__cartCount {
+        top: 50%;
+        transform: translateY(-50%);
+        right: -30px;
+    }
+
+    .desktopMenu__menu {
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: auto;
+    }
+
+    .desktopMenu__item {
+        margin: 0 15px;
+    }
+
+    .desktopLanding {
+        width: 100%;
+        height: calc(100vh - 200px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .desktopLanding__img {
+        width: 100%;
+        height: auto;
+        filter: brightness(.5);
+    }
+
+    .desktopLanding__content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .desktopLanding__header {
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        font-size: 36px;
+    }
+
+    .desktopLanding__subheader {
+        font-weight: 400;
+        font-size: 26px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .desktopLanding__btn {
+        margin: 25px auto;
+        width: 300px;
+        height: 70px;
+    }
+
+    /* Slogan */
+    .desktopSlogan {
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        margin: -50px auto 0 auto;
+    }
+
+    .desktopSlogan__header {
+        position: relative;
+        font-size: 24px;
+    }
+
+    .desktopSlogan__border {
+        padding-bottom: 5px;
+        border-bottom: 2px solid #d94926;
+    }
+
+    .desktopSlogan__box {
+        margin-left: 30px;
+        width: 70px;
+        height: auto;
+    }
+
+    .site-main {
+        background: #f5f4f3;
+    }
+
+    /* Frontpage basic collection */
+    .frontpageBasicCollectionDesktop {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 0 40px;
+    }
+
+    .basic__h2, .basic__h3, .basic__h4 {
+        text-align: center;
+    }
+
+    .basic__h2, .basic__h4 {
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+    .basic__h2 {
+        font-size: 18px;
+    }
+
+    .basic__h3 {
+        font-size: 32px;
+    }
+
+    .basic__h4 {
+        font-size: 24px;
+    }
+
+    .basicCollection__desktopBtn {
+        margin-top: 40px;
+        display: flex;
+        text-decoration: underline;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        font-size: 20px;
+    }
+
+    .basicCollection__desktopBtn__img {
+        width: 20px;
+        height: auto;
+        margin-left: 20px;
+        transform: rotate(180deg);
+    }
+}
+
+@media(min-width: 992px) {
+    /* Slogan */
+    .desktopSlogan {
+        margin-top: 0;
+    }
+
+    /* Carousel */
+    .carousel__progressBarContainer,
+    .carousel {
+        width: clamp(300px, 60vw, 900px);
+        margin: auto;
+    }
+
+    .carousel {
+        background: #f5f4f3;
+    }
+
+    .carousel__progressBarContainer {
+        margin-top: 30px;
+    }
+
+    /* Footer */
+    .footerDesktop {
+        background: #504c4b;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footerDesktop__logo {
+        width: 150px;
+        height: auto;
+        padding: 30px 0;
+        filter: brightness(0) invert(1);
+    }
+
+    .footerDesktop__menu {
+        padding: 30px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+    }
+
+    .footerDesktop__menu__list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footerDesktop__menu__item {
+        padding: 0 20px;
+    }
+
+    .footerDesktop__menu__item:not(:last-child) {
+        border-right: 1px solid #fff;
+    }
+
+    .footerDesktop__menu__item a {
+        text-transform: uppercase;
+        color: #fff !important;
+    }
+
+    /* Newsletter */
+    .newsletterDesktop {
+        padding: 50px 0;
+        margin: 50px 0;
+        background: #f4f1ef;
+        -webkit-box-shadow: 0px 5px 35px 3px rgba(0,0,0,0.4);
+        box-shadow: 0px 5px 35px 3px rgba(0,0,0,0.4);
+    }
+
+    .newsletterDesktop__header {
+        text-align: center;
+        font-weight: 900;
+        font-size: 44px;
+        margin-bottom: 50px;
+    }
+
+    .newsletterDesktop h3, .newsletterDesktop h4 {
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .newsletterDesktop__h3 {
+        font-size: 22px;
+    }
+
+    .newsletterDesktop__h4 {
+        font-size: 17px;
+    }
+
+    .newsletterDesktop__form {
+        padding: 40px 0 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .newsletterDesktop__input {
+        width: clamp(400px, 50vw, 700px);
+        height: 60px;
+        padding: 5px 15px;
+        margin-right: 20px;
+    }
+
+    .arrowWhite {
+        filter: brightness(0) invert(1);
+    }
+
+    .newsletterDesktop__label {
+        margin-bottom: 0;
+    }
+
+    .newsletterDesktop__label span {
+        font-weight: 700;
+        padding-bottom: 10px;
+    }
+
+    .newsletterDesktop__input {
+        border: none;
+        outline: none;
+    }
+
+    .newsletterDesktop__btn {
+        height: 60px;
+    }
+
+    /* About brand */
+    .aboutDesktop {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 40px auto 0;
+        padding-bottom: 40px;
+        max-width: 1200px;
+    }
+
+    .aboutDesktop__img {
+        width: 600px;
+        height: auto;
+    }
+
+    .aboutDesktop__p {
+        margin-bottom: 20px;
+    }
+}
+
+@media(min-width: 1200px) {
+    /* Slogan */
+    .desktopSlogan {
+        margin-top: 30px;
+    }
+
+    .desktopSlogan__header {
+        font-size: 36px;
+    }
+}
+
+@media(min-width: 1400px) {
+
+}

@@ -74,10 +74,10 @@ function alcanta_enqueue_script() {
 
     wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', array(), 1.0, true);
     wp_enqueue_script('jquery', get_stylesheet_directory_uri() . '/assets/js/jquery.js', array(), 1.0, true);
-
     wp_enqueue_script( 'wp-util' ); // Option 1: Manually enqueue the wp-util library.
 
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
+    wp_enqueue_style('desktop', get_stylesheet_directory_uri() . '/desktop.css', array(), 1.0);
 
     wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, 1.0, true);
     wp_enqueue_style('bootstrap-style');
@@ -217,6 +217,67 @@ function alcanta_content_top() {
         }
     ?>
 
+    <!-- HEADER DESKTOP -->
+    <header class="desktopHeader d-none d-md-flex">
+        <a class="desktopHeader__logo" href="<?php echo home_url(); ?>">
+            <img class="desktopHeader__logo__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant.png'; ?>" alt="alcanta-logo" />
+        </a>
+        <a class="desktopHeader__btn desktopHeader__cartBtn" href="<?php echo wc_get_cart_url(); ?>">
+            <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
+            <span class="mobileHeader__btn__text">Koszyk</span>
+            <span class="mobileHeader__cartCount">
+                    <?php echo WC()->cart->get_cart_contents_count(); ?>
+                </span>
+        </a>
+    </header>
+    <menu class="desktopMenu d-none d-md-flex">
+        <?php
+        $items = wp_get_nav_menu_items( 'Menu 1' );
+        $i = 0;
+        if( $items ) {
+            ?>
+            <ul class="desktopMenu__menu d-flex">
+
+                <?php
+                foreach( $items as $index => $item ) {
+                    if( $item->menu_item_parent == 0 ) {
+                        ?>
+                        <li class="desktopMenu__item" onclick="mobileMenuAccordion(<?php echo $i; ?>)">
+                            <a class="mobileMenu__item__link" href="<?php echo $item->url; ?>">
+                                <?php echo $item->post_title; ?>
+                            </a>
+
+<!--                            <ul class="mobileMenu__submenu">-->
+<!--                                --><?php
+//                                foreach($items as $indexSub => $itemSub) {
+//                                    if($itemSub->menu_item_parent == $item->ID) {
+//                                        ?>
+<!---->
+<!--                                        <li class="mobileSubmenu__item">-->
+<!--                                            <a class="mobileMenu__item__link" href="--><?php //echo $itemSub->url; ?><!--">-->
+<!--                                                --><?php //echo $itemSub->post_title; ?>
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!---->
+<!--                                        --><?php
+//                                    }
+//                                }
+//                                ?>
+<!--                            </ul>-->
+                        </li>
+
+                        <?php
+
+                        $i++;
+                    }
+                }
+                ?>
+            </ul>
+            <?php
+        }
+        ?>
+    </menu>
+
     <!-- HEADER -->
     <header class="mobileHeader d-flex d-md-none align-items-center">
         <a class="mobileHeader__logoWrapper" href="<?php echo home_url(); ?>">
@@ -323,8 +384,26 @@ add_action('storefront_header', 'alcanta_content_top', 13);
 function alcanta_homepage() {
     ?>
 
+    <!-- DESKTOP LANDING -->
+    <main class="desktopLanding d-none d-md-block">
+        <img class="desktopLanding__img" src="<?php echo get_field('zdjecie_glowne_-_desktop', 410); ?>" alt="alcanta" />
+        <section class="desktopLanding__content">
+            <h1 class="desktopLanding__header">
+                Kolekcja basic
+            </h1>
+            <h2 class="desktopLanding__subheader">
+                już dostępna na stronie
+            </h2>
+            <button class="desktopLanding__btn mobileLanding__btn button--animated button--animated--black">
+                    <a class="button__link" href="#">
+                        Sprawdź teraz
+                    </a>
+            </button>
+        </section>
+    </main>
+
     <!-- MOBILE LANDING -->
-    <main class="mobileLanding">
+    <main class="mobileLanding d-md-none">
         <img class="mobileLanding__img" src="<?php echo get_field('zdjecie_glowne', 410); ?>" alt="alcanta-pierwszenstwo-zakupu" />
 
         <div class="mobileLanding__content">
@@ -341,6 +420,14 @@ function alcanta_homepage() {
             </button>
         </div>
     </main>
+
+    <!-- DESKTOP SLOGAN -->
+    <section class="desktopSlogan d-none d-lg-flex">
+        <h2 class="desktopSlogan__header">
+            Każde zamówienie to niezapomiane <span class="desktopSlogan__border">doświadczenie</span>
+        </h2>
+        <img class="desktopSlogan__box" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/box.svg'; ?>" alt="pudelko" />
+    </section>
 
 <!-- CAROUSEL -->
     <section class="carousel">
@@ -374,15 +461,33 @@ function alcanta_homepage() {
             <span class="carousel__progressBar"></span>
         </span>
 
-        <button class="moreInfoBtn button--animated">
+        <button class="moreInfoBtn button--animated d-lg-none">
             <a class="button__link" href="<?php echo get_field('link_do_buttona_1', 410); ?>">
                 <?php echo get_field('tekst_buttona_1', 410); ?>
             </a>
         </button>
     </section>
 
-    <!-- BASIC COLLECTION -->
-    <section class="frontpageBasicCollection">
+    <!-- BASIC COLLECTION DESKTOP -->
+    <section class="frontpageBasicCollectionDesktop d-none d-lg-flex">
+        <h2 class="basic__h2">
+            Kolekcja Basic
+        </h2>
+        <h3 class="basic__h3">
+            Sprawdź najpopularniejsze produkty Alcanta
+        </h3>
+        <h4 class="basic__h4">
+            Dowiedz się więcej
+        </h4>
+
+        <button class="basicCollection__desktopBtn">
+            Kolekcja BASIC
+            <img class="basicCollection__desktopBtn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow-left.png'; ?>" alt="strzalka" />
+        </button>
+    </section>
+
+    <!-- BASIC COLLECTION MOBILE -->
+    <section class="frontpageBasicCollection d-lg-none">
         <img class="frontpageBasicCollection__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant.png'; ?>" alt="alcanta-logo" />
 
         <img class="frontpageBasicCollection__img" src="<?php echo get_field('zdjecie_kolekcji_basic', 410); ?>" alt="girl" />
@@ -392,6 +497,51 @@ function alcanta_homepage() {
                 <?php echo get_field('tekst_buttona_2', 410); ?>
             </a>
         </button>
+    </section>
+
+    <!-- NEWSLETTER DESKTOP -->
+    <section class="newsletterDesktop d-none d-lg-block">
+        <h2 class="newsletterDesktop__header">
+            Newsletter
+        </h2>
+        <h3 class="newsletterDesktop__h3">
+            Dołącz do społeczności z wyczuciem stylu
+        </h3>
+        <h4 class="newsletterDesktop__h4">
+            Zdobądź -10% na pierwsze zakupy, specjalne promocje i informacje
+        </h4>
+
+        <form class="newsletterDesktop__form">
+            <label class="newsletterDesktop__label">
+                <span class="d-block">E-mail</span>
+                <input class="newsletterDesktop__input" placeholder="Wpisz tutaj swój email" />
+            </label>
+            <button class="newsletterDesktop__btn mobileLanding__btn button--animated button--animated--black newsletterDesktop__btn">
+                Zapisuję się
+                <img class="basicCollection__desktopBtn__img arrowWhite" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow-left.png'; ?>" alt="strzalka" />
+            </button>
+        </form>
+    </section>
+
+    <!-- ABOUT DESKTOP -->
+    <section class="aboutDesktop d-none d-lg-flex">
+        <div class="aboutDesktop__left">
+
+        </div>
+        <div class="aboutDesktop__right">
+            <img class="aboutDesktop__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant-big.png'; ?>" alt="alcanta-logo" />
+        </div>
+        <div class="aboutDesktop__left">
+            <p class="aboutDesktop__p">
+                Alcanta to polska streetwearowa marka odzieżowa. Stworzona z myślą o tych,
+                którzy lubią się wyróżnić. Osobach, które stawiają na tworzenie własnego,
+                unikalnego stylu. Dla pewnych siebie.
+            </p>
+            <p class="aboutDesktop__p">
+                Alcanta to przecięcie rożnych kombinacji i historii, poparta znakomitej
+                jakości produktami.
+            </p>
+        </div>
     </section>
 
     <?php
@@ -410,7 +560,7 @@ function alcanta_footer() {
     ?>
 
     <!-- BEFORE FOOTER -->
-    <section class="beforeFooter">
+    <section class="beforeFooter d-lg-none">
         <ul class="beforeFooter__list">
             <li class="beforeFooter__list__item">
                 <button class="beforeFooter__list__item__btn" onclick="toggleBeforeFooter(1)">
@@ -514,8 +664,46 @@ function alcanta_footer() {
         </ul>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
+    <!-- FOOTER DESKTOP -->
+    <footer class="footerDesktop d-none d-lg-flex">
+        <img class="footerDesktop__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant.png'; ?>" alt="alcanta-logo" />
+
+        <menu class="footerDesktop__menu">
+            <ul class="footerDesktop__menu__list">
+                <li class="footerDesktop__menu__item">
+                    <a>
+                        Regulamin
+                    </a>
+                </li>
+                <li class="footerDesktop__menu__item">
+                    <a>
+                        Cookies
+                    </a>
+                </li>
+                <li class="footerDesktop__menu__item">
+                    <a>
+                        Polityka prywatności
+                    </a>
+                </li>
+                <li class="footerDesktop__menu__item">
+                    <a>
+                        Zwrot i reklamacja
+                    </a>
+                </li>
+                <li class="footerDesktop__menu__item">
+                    <a>
+                        Płatności
+                    </a>
+                </li>
+
+            </ul>
+        </menu>
+
+        <h6 class="footer__caption">&copy; ALCANTA WEAR | All rights reserved</h6>
+    </footer>
+
+    <!-- FOOTER MOBILE -->
+    <footer class="footer d-lg-none">
         <div class="footer__socialMediaIcons d-flex">
             <a class="footer__socialMediaIcons__link" href="https://facebook.com">
                 <img class="footer__socialMediaImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/facebook.svg'; ?>" alt="facebook" />
@@ -534,7 +722,7 @@ function alcanta_footer() {
     </footer>
 
     <!-- Sticky countdown at the bottom of the page -->
-    <div class="stickyCountdown">
+    <div class="stickyCountdown d-md-none">
         <?php echo do_shortcode('[ycd_countdown id=399]'); ?>
         <h3 class="stickyCountdown__header">
             Gofry - preorder

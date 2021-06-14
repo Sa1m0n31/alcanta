@@ -133,6 +133,17 @@ ul {
 }
 
 /* Header */
+.desktopHeader {
+    position: relative;
+}
+
+.desktopHeader__cartBtn {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .site-header {
     margin: 0 !important;
     padding-bottom: 0 !important;
@@ -184,6 +195,7 @@ ul {
     text-transform: uppercase;
     font-size: 12px;
     margin-top: 5px;
+    color: #171a1d;
 }
 
 .mobileHeader__cartCount {
