@@ -483,3 +483,11 @@ const togglePaymentMethods = () => {
         paymentMethodsBtn.textContent = "Pokaż wszystkie";
     }
 }
+
+/* Change newsletter input placeholders */
+const newsletterInputs = document.querySelectorAll(".tnp-email");
+if(newsletterInputs) {
+    newsletterInputs.forEach(item => {
+        item.placeholder = 'Tu wpisz swój adres e-mail';
+    })
+}

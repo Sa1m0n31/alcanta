@@ -511,16 +511,11 @@ function alcanta_homepage() {
             Zdobądź -10% na pierwsze zakupy, specjalne promocje i informacje
         </h4>
 
-        <form class="newsletterDesktop__form">
-            <label class="newsletterDesktop__label">
-                <span class="d-block">E-mail</span>
-                <input class="newsletterDesktop__input" placeholder="Wpisz tutaj swój email" />
-            </label>
-            <button class="newsletterDesktop__btn mobileLanding__btn button--animated button--animated--black newsletterDesktop__btn">
-                Zapisuję się
-                <img class="basicCollection__desktopBtn__img arrowWhite" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow-left.png'; ?>" alt="strzalka" />
-            </button>
-        </form>
+        <div class="newsletterDesktop__form">
+            <?php
+            echo do_shortcode('[newsletter_form list="1"]');
+            ?>
+        </div>
     </section>
 
     <!-- ABOUT DESKTOP -->
