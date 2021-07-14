@@ -57,7 +57,8 @@ br, .product span.onsale,
 .woocommerce-shipping-calculator,
 td[data-title=Suma]::after, .cart-discount td::after,
 .woocommerce-checkout .site-header, .woocommerce-checkout .beforeFooter, .woocommerce-checkout .footer, .woocommerce-checkout .stickyCountdown,
-.woocommerce-checkout .entry-title, .woocommerce-checkout .woocommerce-form-coupon-toggle
+.woocommerce-checkout .entry-title, .woocommerce-checkout .woocommerce-form-coupon-toggle,
+.d-desktop
 {
     display: none !important;
 }
@@ -1669,6 +1670,10 @@ table.cart td.actions {
     margin-bottom: 0 !important;
 }
 
+.coupon--desktop {
+    display: none !important;
+}
+
 .coupon .input-text {
     width: 35% !important;
     border: none !important;
@@ -2047,6 +2052,11 @@ button[name=woocommerce_checkout_place_order]:focus {
     background: #fff;
 }
 
+.woocommerce-shipping-methods li label {
+    width: 100%;
+    height: 100%;
+}
+
 #shipping_method > li {
     display: flex;
     align-items: center;
@@ -2338,6 +2348,7 @@ label[for=shipping_method_0_flat_rate2] {
     margin: 40px auto 90px;
     padding: 20px 40px;
     width: 90%;
+    max-width: 400px;
 }
 
 .thankYou__carousel .carousel__embla,

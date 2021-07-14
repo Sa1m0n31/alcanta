@@ -100,9 +100,9 @@ defined( 'ABSPATH' ) || exit;
 
 	</table>
 
-    <img class="guaranteeImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/gwarancja-zwrotu.png'; ?>" alt="gwarancja" />
+    <img class="guaranteeImg d-mobile" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/gwarancja-zwrotu.png'; ?>" alt="gwarancja" />
 
-    <h3 class="guaranteeText">
+    <h3 class="guaranteeText d-mobile">
         <img class="guaranteeText__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/lock.svg'; ?>" alt="lock" />
         Bezpieczny system płatności
     </h3>
@@ -111,6 +111,13 @@ defined( 'ABSPATH' ) || exit;
 		<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
 	</div>
 
+    <h3 class="guaranteeText d-desktop">
+        <img class="guaranteeText__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/lock.svg'; ?>" alt="lock" />
+        Bezpieczny system płatności
+    </h3>
+
 	<?php do_action( 'woocommerce_after_cart_totals' ); ?>
 
 </div>
+
+<img class="guaranteeImg d-desktop" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/gwarancja-zwrotu.png'; ?>" alt="gwarancja" />

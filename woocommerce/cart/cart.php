@@ -22,7 +22,15 @@ do_action( 'woocommerce_before_cart' ); ?>
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
+
+    <div class="cart__afterCoupon d-desktop">
+        <h3 class="cart__info">
+            <img class="cart__info__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/information.svg'; ?>" alt="info" />
+            <span>Nie zwlekaj z zakupem, dodanie artykułów do koszyka nie oznacza ich rezerwacji.</span>
+        </h3>
+    </div>
+
+    <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
 		<thead>
 			<tr>
 				<th class="product-remove">&nbsp;</th>
@@ -135,11 +143,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 			<?php do_action( 'woocommerce_cart_contents' ); ?>
 
+            <!-- MOBILE COUPON -->
 			<tr>
 				<td colspan="6" class="actions">
 
 					<?php if ( wc_coupons_enabled() ) { ?>
-						<div class="coupon">
+						<div class="coupon coupon--mobile">
                             <div class="cart__afterCoupon">
                                 <h3 class="cart__info">
                                     <img class="cart__info__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/information.svg'; ?>" alt="info" />
@@ -176,6 +185,28 @@ do_action( 'woocommerce_before_cart' ); ?>
 <?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
 
 <div class="cart-collaterals">
+
+    <!-- DESKTOP COUPON -->
+    <?php if ( wc_coupons_enabled() ) { ?>
+        <div class="coupon coupon--desktop">
+            <button class="couponInner__btn"">
+            Mam kupon rabatowy
+            <img class="couponInner__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="rozwin" />
+            </button>
+
+            <div class="couponInner couponInner--desktop">
+                <label for="coupon_code"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <button type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?></button>
+                <?php do_action( 'woocommerce_cart_coupon' ); ?>
+            </div>
+        </div>
+    <?php } ?>
+
+    <button type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
+
+    <?php do_action( 'woocommerce_cart_actions' ); ?>
+
+    <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+
 	<?php
 		/**
 		 * Cart collaterals hook.

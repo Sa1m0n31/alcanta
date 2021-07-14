@@ -867,6 +867,53 @@ function alcanta_after_single_product() {
 
 add_action('woocommerce_after_single_product', 'alcanta_after_single_product');
 
+
+add_action('woocommerce_after_cart', 'alcanta_after_cart');
+
+/* After cart carousel */
+function alcanta_after_cart() {
+    ?>
+        <section class="afterCart d-desktop">
+            <h2 class="afterCart__header">
+                Zobacz jeszcze
+            </h2>
+            <section class="thankYou__carousel thankYou__carousel--afterCart">
+                <div class="carousel__content swiper-container">
+                    <div class="carousel__embla swiper-wrapper">
+
+                        <?php
+                        $carousel_options = array(
+                            'post_type' => 'homepage_carousel'
+                        );
+                        $carousel_query = new WP_Query($carousel_options);
+                        if($carousel_query->have_posts()) {
+                            while($carousel_query->have_posts()) {
+                                $carousel_query->the_post();
+                                ?>
+
+                                <a class="carousel__item" href="<?php echo get_field('link'); ?>">
+                                    <img class="carousel__item__img" src="<?php echo get_field('zdjecie'); ?>" alt="carousel-item" />
+                                </a>
+
+
+
+                                <?php
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <span class="carousel__progressBarContainer">
+            <span class="carousel__progressBar"></span>
+        </span>
+
+            </section>
+
+        </section>
+        <?php
+}
+
 /* Added to cart popup */
 function alcanta_added_to_cart_popup() {
     ?>

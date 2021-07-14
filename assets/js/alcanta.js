@@ -420,14 +420,18 @@ if(document.querySelector(".changeShippingAddressBtn")) {
 }
 
 /* Open coupon input */
-const couponInnerBtn = document.querySelector(".couponInner__btn");
+const couponInnerBtn = document.querySelectorAll(".couponInner__btn");
 if(couponInnerBtn) {
-    couponInnerBtn.addEventListener("click", (event) => {
-        event.preventDefault();
+    couponInnerBtn.forEach(item => {
+        item.addEventListener("click", (event) => {
+            event.preventDefault();
 
-        const couponInner = document.querySelector(".couponInner");
-        couponInner.style.display = "flex";
-        couponInner.style.marginTop = "40px";
+            const couponInner = document.querySelectorAll(".couponInner");
+            couponInner.forEach(item => {
+                item.style.display = "flex";
+                item.style.marginTop = "40px";
+            })
+        });
     })
 }
 
