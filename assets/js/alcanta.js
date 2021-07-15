@@ -4,6 +4,11 @@ if(!topBar) {
     document.querySelector(".mobileHeader").style.top = "0";
     document.querySelector(".mobileLanding").style.marginTop = "50px";
 }
+else {
+    /* If top bar exists - add animation */
+
+}
+
 
 /* Mobile menu */
 const mobileMenu = document.querySelector(".mobileMenu");
@@ -266,14 +271,20 @@ if(presentationTime) {
 })(jQuery);
 
 const addedToCartPopup = document.querySelector(".addedToCartPopup");
+const addedToCartPopupWrapper = document.querySelector(".addedToCartPopupWrapper");
 
 const showAddedToCartPopup = () => {
+    addedToCartPopupWrapper.style.opacity = "1";
+    addedToCartPopupWrapper.style.zIndex = "2";
     addedToCartPopup.style.visibility = "visible";
     addedToCartPopup.style.opacity = "1";
     document.querySelector(".addedToCartPopup__meta--size>span").textContent = currentSelectedVariable;
+
 }
 
 const closeAddedToCartPopup = () => {
+    addedToCartPopupWrapper.style.opacity = "0";
+    addedToCartPopupWrapper.style.zIndex = "-1";
     addedToCartPopup.style.opacity = "0";
     setTimeout(() => {
         addedToCartPopup.style.visibility = "hidden";

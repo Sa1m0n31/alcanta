@@ -58,9 +58,14 @@ br, .product span.onsale,
 td[data-title=Suma]::after, .cart-discount td::after,
 .woocommerce-checkout .site-header, .woocommerce-checkout .beforeFooter, .woocommerce-checkout .footer, .woocommerce-checkout .stickyCountdown,
 .woocommerce-checkout .entry-title, .woocommerce-checkout .woocommerce-form-coupon-toggle,
-.d-desktop
+.d-desktop,
+.storefront-product-pagination, .woocommerce-cart .cross-sells
 {
     display: none !important;
+}
+
+.secondary-navigation {
+    display: none;
 }
 
 /* Global */
@@ -131,6 +136,10 @@ ul {
     font-size: 12px;
     text-align: center;
     margin: 0;
+}
+
+.topBar__header__h__link {
+    font-size: 12px;
 }
 
 /* Header */

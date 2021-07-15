@@ -28,7 +28,7 @@ $attachment_ids = $product->get_gallery_image_ids();
 
 if ( $attachment_ids && $product->get_image_id() ) {
     ?>
-    <section class="carousel">
+    <section class="carousel d-mobile">
         <div class="carousel--singleGallery">
             <div>
 

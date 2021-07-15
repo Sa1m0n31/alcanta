@@ -203,14 +203,29 @@ function alcanta_content_top() {
 
     <!-- TOP BAR -->
     <?php
-        $topBarText = get_field('top_bar', 403);
+        $topBarText = get_field('top_bar_-_tekst_1', 403);
         if($topBarText) {
             ?>
 
             <aside class="topBar">
-                <h4 class="topBar__header">
-                    <?php echo $topBarText; ?>
-                </h4>
+                <div class="topBar__header">
+                    <?php
+                    // Loop through all texts
+                    for($i=1; $i<6; $i++) {
+                        $field = get_field('top_bar_-_tekst_' . $i, 403);
+                        if($field) {
+                        ?>
+                            <h5 class="topBar__header__h">
+                                <a class="topBar__header__h__link" href="<?php echo get_field('top_bar_-_link_' . $i, 403); ?>">
+                                    <?php echo $field; ?>
+                                </a>
+                            </h5>
+
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
             </aside>
 
                 <?php
@@ -220,7 +235,7 @@ function alcanta_content_top() {
     <!-- HEADER DESKTOP -->
     <header class="desktopHeader d-none d-md-flex">
         <a class="desktopHeader__logo" href="<?php echo home_url(); ?>">
-            <img class="desktopHeader__logo__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant.png'; ?>" alt="alcanta-logo" />
+            <img class="desktopHeader__logo__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant-small.png'; ?>" alt="alcanta-logo" />
         </a>
         <a class="desktopHeader__btn desktopHeader__cartBtn" href="<?php echo wc_get_cart_url(); ?>">
             <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
@@ -230,53 +245,6 @@ function alcanta_content_top() {
                 </span>
         </a>
     </header>
-    <menu class="desktopMenu d-none d-md-flex">
-        <?php
-        $items = wp_get_nav_menu_items( 'Menu 1' );
-        $i = 0;
-        if( $items ) {
-            ?>
-            <ul class="desktopMenu__menu d-flex">
-
-                <?php
-                foreach( $items as $index => $item ) {
-                    if( $item->menu_item_parent == 0 ) {
-                        ?>
-                        <li class="desktopMenu__item" onclick="mobileMenuAccordion(<?php echo $i; ?>)">
-                            <a class="mobileMenu__item__link" href="<?php echo $item->url; ?>">
-                                <?php echo $item->post_title; ?>
-                            </a>
-
-<!--                            <ul class="mobileMenu__submenu">-->
-<!--                                --><?php
-//                                foreach($items as $indexSub => $itemSub) {
-//                                    if($itemSub->menu_item_parent == $item->ID) {
-//                                        ?>
-<!---->
-<!--                                        <li class="mobileSubmenu__item">-->
-<!--                                            <a class="mobileMenu__item__link" href="--><?php //echo $itemSub->url; ?><!--">-->
-<!--                                                --><?php //echo $itemSub->post_title; ?>
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!---->
-<!--                                        --><?php
-//                                    }
-//                                }
-//                                ?>
-<!--                            </ul>-->
-                        </li>
-
-                        <?php
-
-                        $i++;
-                    }
-                }
-                ?>
-            </ul>
-            <?php
-        }
-        ?>
-    </menu>
 
     <!-- HEADER -->
     <header class="mobileHeader d-flex d-md-none align-items-center">
@@ -377,6 +345,21 @@ function alcanta_content_top() {
 
 <?php
 }
+
+function menu_set_dropdown( $sorted_menu_items, $args ) {
+    $last_top = 0;
+    foreach ( $sorted_menu_items as $key => $obj ) {
+        // it is a top lv item?
+        if ( 0 == $obj->menu_item_parent ) {
+            // set the key of the parent
+            $last_top = $key;
+        } else {
+            $sorted_menu_items[$last_top]->classes['dropdownItem'] = 'dropdownItem';
+        }
+    }
+    return $sorted_menu_items;
+}
+add_filter( 'wp_nav_menu_objects', 'menu_set_dropdown', 10, 2 );
 
 add_action('storefront_header', 'alcanta_content_top', 13);
 
@@ -918,48 +901,49 @@ function alcanta_after_cart() {
 function alcanta_added_to_cart_popup() {
     ?>
 
-    <div class="addedToCartPopup">
-        <button class="addedToCartPopup__closeBtn" onclick="closeAddedToCartPopup()">
-            &times;
-        </button>
+    <div class="addedToCartPopupWrapper">
+        <main class="addedToCartPopup">
+            <button class="addedToCartPopup__closeBtn" onclick="closeAddedToCartPopup()">
+                &times;
+            </button>
 
-        <?php
-        $product_id = get_the_ID();
-        $product = wc_get_product($product_id);
-        $price = $product->get_price();
-        ?>
+            <?php
+            $product_id = get_the_ID();
+            $product = wc_get_product($product_id);
+            $price = $product->get_price();
+            ?>
 
-        <img class="checkedImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/checked.svg'; ?>" alt="dodano-do-koszyka" />
-        <h2 class="addedToCartPopup__header">
-            Udało Ci się dodać produkt do koszyka
-        </h2>
+            <img class="checkedImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/checked.svg'; ?>" alt="dodano-do-koszyka" />
+            <h2 class="addedToCartPopup__header">
+                Udało Ci się dodać produkt do koszyka
+            </h2>
 
-        <img class="addedToCartPopup__productImg" src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo the_title(); ?>" />
+            <img class="addedToCartPopup__productImg" src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php echo the_title(); ?>" />
 
-        <div class="addedToCartPopup__flex">
-            <h3 class="addedToCartPopup__meta">
-                <?php echo the_title(); ?>
-            </h3>
-            <h3 class="addedToCartPopup__meta">
-                <?php echo $price; ?> PLN
-            </h3>
-        </div>
-        <div class="addedToCartPopup__flex">
-            <h3 class="addedToCartPopup__meta addedToCartPopup__meta--size">
-                Rozmiar: <span></span>
-            </h3>
-        </div>
+            <div class="addedToCartPopup__flex">
+                <h3 class="addedToCartPopup__meta">
+                    <?php echo the_title(); ?>
+                </h3>
+                <h3 class="addedToCartPopup__meta">
+                    <?php echo $price; ?> PLN
+                </h3>
+            </div>
+            <div class="addedToCartPopup__flex">
+                <h3 class="addedToCartPopup__meta addedToCartPopup__meta--size">
+                    Rozmiar: <span></span>
+                </h3>
+            </div>
 
-        <button class="mobileLanding__btn button--popup button--animated button--animated--black">
-                    <a class="button__link" href="<?php echo wc_get_cart_url(); ?>">
-                        Przejdź do zamówienia >
-                    </a>
-        </button>
+            <button class="mobileLanding__btn button--popup button--animated button--animated--black">
+                        <a class="button__link" href="<?php echo wc_get_cart_url(); ?>">
+                            Przejdź do zamówienia >
+                        </a>
+            </button>
 
-        <button class="addedToCartPopup__continueBtn" onclick="closeAddedToCartPopup()">
-            Kontynuuj zakupy
-        </button>
-
+            <button class="addedToCartPopup__continueBtn" onclick="closeAddedToCartPopup()">
+                Kontynuuj zakupy
+            </button>
+        </main>
     </div>
 
 
