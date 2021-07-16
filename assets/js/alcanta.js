@@ -15,10 +15,7 @@ const galleryMain = document.querySelector(".woocommerce-product-gallery__wrappe
 
 galleryItems.forEach(item => {
     item.addEventListener("click", () => {
-        console.log("click!");
         const href = item.getAttribute("href");
-        console.log(href);
-        console.log(galleryMain);
         galleryMain.setAttribute("src", href);
     });
 })
@@ -289,10 +286,11 @@ const addedToCartPopupWrapper = document.querySelector(".addedToCartPopupWrapper
 
 const showAddedToCartPopup = () => {
     addedToCartPopupWrapper.style.opacity = "1";
-    addedToCartPopupWrapper.style.zIndex = "2";
+    addedToCartPopupWrapper.style.zIndex = "11";
     addedToCartPopup.style.visibility = "visible";
-    addedToCartPopup.style.opacity = "1";
+    addedToCartPopup.style.opacity = "12";
     document.querySelector(".addedToCartPopup__meta--size>span").textContent = currentSelectedVariable;
+    document.querySelector(".addedToCartPopup .addedToCartPopup--price").textContent = sessionStorage.getItem('alcanta-current-price') + ' PLN';
 
 }
 
@@ -597,8 +595,7 @@ const sizeFilter = (n) => {
         const elementClasses = item.classList;
         let isProductVisible = false;
         elementClasses.forEach(classItem => {
-            if(isInArray(classItem, visibleSizes)) {
-                console.log(classItem);
+            if(isInArray(classItem.toLowerCase(), visibleSizes)) {
                 isProductVisible = true;
                 return 0;
             }
@@ -629,4 +626,27 @@ if(document.querySelector(`.collectionItems__circle:first-of-type`)) {
     document.querySelectorAll(".collectionItems__circle").forEach(item => {
        item.style.border = "2px solid rgb(217,73,38)";
     });
+}
+
+/* Add animations classes to buttons */
+const newsletterBtn = document.querySelector(".newsletterDesktop>.newsletterDesktop__form>.tnp-subscription>form>.tnp-field-button");
+if(newsletterBtn) {
+    newsletterBtn.classList.add("desktopLanding__btn");
+    newsletterBtn.classList.add("mobileLanding__btn");
+    newsletterBtn.classList.add("button--animated");
+    newsletterBtn.classList.add("button--animated--black");
+}
+
+const addToCartBtn = document.querySelector(".single_add_to_cart_button");
+if(addToCartBtn) {
+    addToCartBtn.classList.add("desktopLanding__btn");
+    addToCartBtn.classList.add("mobileLanding__btn");
+    addToCartBtn.classList.add("button--animated");
+}
+
+const checkoutBtn = document.querySelector(".woocommerce-checkout .place-order .button");
+if(checkoutBtn) {
+    checkoutBtn.classList.add("desktopLanding__btn");
+    checkoutBtn.classList.add("mobileLanding__btn");
+    checkoutBtn.classList.add("button--animated");
 }

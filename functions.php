@@ -326,18 +326,20 @@ function alcanta_content_top() {
 
         <ul class="mobileMenu__bottomMenu">
             <li class="mobileBottomMenu__item">
-                Marka Alcanta >
+                <a href="<?php echo get_page_link(get_page_by_title('O marce')->ID); ?>">
+                    Marka Alcanta >
+                </a>
             </li>
-            <li class="mobileBottomMenu__item">
+            <li class="mobileBottomMenu__item" onclick="window.scrollTo(0,document.body.scrollHeight); closeMobileMenu(); toggleBeforeFooter(2)">
                 <span class="mobileBottomMenu__item__discount">
                     -10%
                 </span>
                 Newsletter >
             </li>
-            <li class="mobileBottomMenu__item">
+            <li class="mobileBottomMenu__item" onclick="window.scrollTo(0,document.body.scrollHeight); closeMobileMenu(); toggleBeforeFooter(4)">
                 Polityka zwrotów >
             </li>
-            <li class="mobileBottomMenu__item">
+            <li class="mobileBottomMenu__item" onclick="window.scrollTo(0,document.body.scrollHeight); closeMobileMenu(); toggleBeforeFooter(4)">
                 Pomoc >
             </li>
         </ul>
@@ -463,10 +465,10 @@ function alcanta_homepage() {
             Dowiedz się więcej
         </h4>
 
-        <button class="basicCollection__desktopBtn">
+        <a class="basicCollection__desktopBtn"  href="https://skylo-test1.pl/collection/basic">
             Kolekcja BASIC
             <img class="basicCollection__desktopBtn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow-left.png'; ?>" alt="strzalka" />
-        </button>
+        </a>
     </section>
 
     <!-- BASIC COLLECTION MOBILE -->
@@ -579,34 +581,16 @@ function alcanta_footer() {
                     <p class="beforeFooter__dropdown__text">
                         Chcesz zgarnąć -50% na pierwsze zakupy i być na bieżąco z naszymi nowościami? Zapisz się do newslettera!
                     </p>
-
                     <?php
                     echo do_shortcode('[newsletter_form list="1"]');
                     ?>
-
-<!--                        <label class="label beforeFooter__label">-->
-<!--                            Adres e-mail-->
-<!--                            <input class="input beforeFooter__input"-->
-<!--                                   placeholder="Adres email" />-->
-<!--                        </label>-->
-<!--                        <label class="newsletterCheckboxLabel">-->
-<!--                            <button class="newsletterCheckbox">-->
-<!---->
-<!--                            </button>-->
-<!--                            Akceptuję warunki newslettera-->
-<!--                        </label>-->
-<!--                        <button class="beforeFooter__submitBtn mobileLanding__btn button--animated button--animated--black">-->
-<!--                            <span class="button__link">-->
-<!--                                Zapisuję się-->
-<!--                            </span>-->
-<!--                        </button>-->
                 </div>
             </li>
             <li class="beforeFooter__list__item">
-                <button class="beforeFooter__list__item__btn" onclick="toggleBeforeFooter(3)">
+                <a class="beforeFooter__list__item__btn" href="<?php echo get_page_link(get_page_by_title('O marce')->ID); ?>">
                     Marka Alcanta
                     <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
-                </button>
+                </a>
             </li>
             <li class="beforeFooter__list__item">
                 <button class="beforeFooter__list__item__btn" onclick="toggleBeforeFooter(4)">
@@ -681,7 +665,7 @@ function alcanta_footer() {
     </footer>
 
     <!-- Sticky countdown at the bottom of the page -->
-    <div class="stickyCountdown d-md-none">
+    <a class="stickyCountdown d-md-none" href="https://skylo-test1.pl/collection_locked/gofry/">
         <?php echo do_shortcode('[ycd_countdown id=399]'); ?>
         <h3 class="stickyCountdown__header">
             Gofry - preorder
@@ -689,7 +673,7 @@ function alcanta_footer() {
         <button class="stickyCountdown__btn">
             <img class="stickyCountdown__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/right-arrow.png'; ?>" alt="right-arrow" />
         </button>
-    </div>
+    </a>
 
 <?php
 }
@@ -905,8 +889,8 @@ function alcanta_added_to_cart_popup() {
                 <h3 class="addedToCartPopup__meta">
                     <?php echo the_title(); ?>
                 </h3>
-                <h3 class="addedToCartPopup__meta">
-                    <?php echo $price; ?> PLN
+                <h3 class="addedToCartPopup__meta addedToCartPopup--price">
+
                 </h3>
             </div>
             <div class="addedToCartPopup__flex">
@@ -929,6 +913,49 @@ function alcanta_added_to_cart_popup() {
 
 
 <?php
+}
+
+add_action( 'woocommerce_before_add_to_cart_quantity', 'func_option_valgt' );
+
+function func_option_valgt() {
+    global $product;
+
+    if ( $product->is_type('variable') ) {
+        $variations_data =[]; // Initializing
+
+        // Loop through variations data
+        foreach($product->get_available_variations() as $variation ) {
+            // Set for each variation ID the corresponding price in the data array (to be used in jQuery)
+            $variations_data[$variation['variation_id']] = $variation['display_price'];
+        }
+        ?>
+        <script>
+            jQuery(function($) {
+                var jsonData = <?php echo json_encode($variations_data); ?>,
+                    inputVID = 'input.variation_id';
+
+                $('input').change( function(){
+                    if( '' != $(inputVID).val() ) {
+                        var vid      = $(inputVID).val(), // VARIATION ID
+                            length   = $('#cfwc-title-field').val(), // LENGTH
+                            diameter = $('#diameter').val(),  // DIAMETER
+                            vprice   = ''; // Initilizing
+
+                        // Loop through variation IDs / Prices pairs
+                        $.each( jsonData, function( index, price ) {
+                            if( index == $(inputVID).val() ) {
+                                vprice = price; // The right variation price
+                                sessionStorage.setItem('alcanta-current-price', vprice);
+                                document.querySelector(".single-product div.product p.price").textContent = vprice + " PLN";
+                            }
+                        });
+
+                    }
+                });
+            });
+        </script>
+        <?php
+    }
 }
 
 //add_filter( 'woocommerce_variation_option_price', 'display_price_in_variation_option_name' );

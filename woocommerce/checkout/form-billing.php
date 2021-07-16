@@ -67,12 +67,12 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
                         <?php echo get_the_title($values['product_id']); ?>
                     </h4>
                     <h5 class="carousel__item__subheader">
+                        <!-- TODO -->
                         Rozmiar:
                         <?php
                         $variation = new WC_Product_Variation($values['variation_id']);
                         $variationName = implode(" / ", $variation->get_variation_attributes());
                         echo $variationName;
-                        echo $_product->get_attribute('rozmiar');
                         ?>
                     </h5>
                 </a>

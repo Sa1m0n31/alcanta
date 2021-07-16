@@ -133,7 +133,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 3;
+    z-index: 15;
 }
 
 .topBar__header {
@@ -174,7 +174,7 @@ ul {
     padding: 0 3%;
     margin: 0;
     justify-content: space-between;
-    z-index: 3;
+    z-index: 15;
 }
 
 .mobileHeader__logoWrapper {
@@ -241,7 +241,7 @@ ul {
     width: 100%;
     min-height: 100vh;
     background: #fff;
-    z-index: 10;
+    z-index: 20;
     margin: 0;
     padding: 20px;
     transform: scaleX(0);
@@ -342,6 +342,10 @@ ul {
     padding: 7px 0;
     opacity: 0;
     transition: .4s all;
+}
+
+.mobileBottomMenu__item a {
+    color: inherit !important;
 }
 
 .mobileBottomMenu__item__discount {
@@ -548,8 +552,11 @@ ul {
     background: transparent;
     width: 100%;
     display: flex;
+    text-transform: none !important;
     justify-content: space-between;
     align-items: center;
+    position: relative !important;
+    padding-left: 0 !important;
 }
 
 .beforeFooter__dropdown, .beforeFooter__paymentMethods {
@@ -684,6 +691,10 @@ ul {
 
 .pum-content {
     margin-top: 50px;
+}
+
+.pum-content > p > img {
+    max-width: 60% !important;
 }
 
 .preorderPopup {
@@ -829,6 +840,10 @@ ul {
     padding: 10px;
     justify-content: space-between;
     align-items: center;
+}
+
+.stickyCountdown:hover {
+    background: #d94926 !important;
 }
 
 .ycd-simple-mode-textUnderCountdown {
@@ -1401,7 +1416,7 @@ ul {
     width: 100vw;
     height: 100vh;
     background: #f5f4f3;
-    z-index: 10;
+    z-index: 20;
     transition: .5s all ease-in-out;
 }
 
@@ -1447,7 +1462,7 @@ ul {
 
 .addedToCartPopup__continueBtn {
     display: block;
-    margin: 40px auto;
+    margin: 20px auto;
     text-decoration: underline;
     color: #181818;
     background: transparent;
@@ -2002,7 +2017,7 @@ button[name=woocommerce_checkout_place_order]:focus {
     justify-content: space-between;
     align-items: center;
     padding: 10px 5vw;
-    z-index: 10;
+    z-index: 20;
 }
 
 .checkoutTopBar__back {
@@ -2387,3 +2402,59 @@ label[for=shipping_method_0_flat_rate2] {
 .tnp-email {
     background: #fff !important;
 }
+
+/* Page about us */
+.pageAboutUs {
+    width: clamp(200px, 90%, 1300px);
+    margin: 30px auto 0;
+}
+
+.pageAboutUs__btn {
+    width: clamp(200px, 100%, 400px);
+    margin: 40px auto !important;
+    background: #171a1d;
+    display: block;
+}
+
+.pageAboutUs p {
+    font-size: 14px;
+}
+
+/* Animated buttons */
+.woocommerce-checkout .button--animated {
+    z-index: 10 !important;
+    position: relative;
+    width: 100% !important;
+}
+
+.single-product .button--animated::before,
+.woocommerce-checkout .button--animated::before
+{
+    z-index: -1;
+}
+
+.single-product .addedToCartPopup .button--animated::before {
+    z-index: 1;
+}
+
+.single_add_to_cart_button {
+    max-width: 400px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Added to cart popup */
+.addedToCartPopup__meta--size {
+    width: 100%;
+    position: relative;
+}
+
+.addedToCartPopup__meta--size span {
+    position: absolute;
+    right: 0;
+}
+
+.addedToCartPopup .button--popup {
+    margin: 10px auto;
+}
+

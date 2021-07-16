@@ -208,6 +208,7 @@
         align-items: center;
         background: transparent;
         font-size: 20px;
+        color: inherit !important;
     }
 
     .basicCollection__desktopBtn__img {
@@ -749,6 +750,10 @@
 
     .single_add_to_cart_button {
         max-width: 400px;
+        position: relative;
+        z-index: 10;
+        margin-left: 0 !important;
+        width: clamp(300px, 90%, 500px);
     }
 
     .single-product .variable-items-wrapper {
@@ -1201,18 +1206,22 @@
     }
 
     .newsletterDesktop__form .tnp-submit {
-        height: 60px !important;
-        background: #d94926 !important;
+        height: 100% !important;
+        background: transparent !important;
         transition: .4s all ease-in-out;
         text-transform: uppercase !important;
         padding: 0 20px !important;
+    }
+
+    .newsletterDesktop>.newsletterDesktop__form>.tnp-subscription>form>.tnp-field-button {
+        height: 60px;
+        position: relative;
     }
 
     .tnp-submit:hover,
     .tnp-submit:active,
     .tnp-submit:focus
     {
-        background: #2e2b28 !important;
         color: #fff !important;
     }
 
@@ -1253,6 +1262,11 @@
 
     .collection, .collectionSubtitle {
         font-size: 17px;
+    }
+
+    /* Page about us */
+    .pageAboutUs p {
+        font-size: 16px;
     }
 }
 
