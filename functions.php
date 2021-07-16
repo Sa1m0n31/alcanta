@@ -372,14 +372,14 @@ function alcanta_homepage() {
         <img class="desktopLanding__img" src="<?php echo get_field('zdjecie_glowne_-_desktop', 410); ?>" alt="alcanta" />
         <section class="desktopLanding__content">
             <h1 class="desktopLanding__header">
-                Kolekcja basic
+                <?php echo get_field('landing_desktop_-_header', 410); ?>
             </h1>
             <h2 class="desktopLanding__subheader">
-                już dostępna na stronie
+                <?php echo get_field('landing_desktop_-_subheader', 410); ?>
             </h2>
             <button class="desktopLanding__btn mobileLanding__btn button--animated button--animated--black">
-                    <a class="button__link" href="#">
-                        Sprawdź teraz
+                    <a class="button__link" href="<?php echo get_field('landing_desktop_-_link_buttona', 410); ?>">
+                        <?php echo get_field('landing_desktop_-_tekst_buttona', 410); ?>
                     </a>
             </button>
         </section>
@@ -580,22 +580,26 @@ function alcanta_footer() {
                         Chcesz zgarnąć -50% na pierwsze zakupy i być na bieżąco z naszymi nowościami? Zapisz się do newslettera!
                     </p>
 
-                        <label class="label beforeFooter__label">
-                            Adres e-mail
-                            <input class="input beforeFooter__input"
-                                   placeholder="Adres email" />
-                        </label>
-                        <label class="newsletterCheckboxLabel">
-                            <button class="newsletterCheckbox">
+                    <?php
+                    echo do_shortcode('[newsletter_form list="1"]');
+                    ?>
 
-                            </button>
-                            Akceptuję warunki newslettera
-                        </label>
-                        <button class="beforeFooter__submitBtn mobileLanding__btn button--animated button--animated--black">
-                            <span class="button__link">
-                                Zapisuję się
-                            </span>
-                        </button>
+<!--                        <label class="label beforeFooter__label">-->
+<!--                            Adres e-mail-->
+<!--                            <input class="input beforeFooter__input"-->
+<!--                                   placeholder="Adres email" />-->
+<!--                        </label>-->
+<!--                        <label class="newsletterCheckboxLabel">-->
+<!--                            <button class="newsletterCheckbox">-->
+<!---->
+<!--                            </button>-->
+<!--                            Akceptuję warunki newslettera-->
+<!--                        </label>-->
+<!--                        <button class="beforeFooter__submitBtn mobileLanding__btn button--animated button--animated--black">-->
+<!--                            <span class="button__link">-->
+<!--                                Zapisuję się-->
+<!--                            </span>-->
+<!--                        </button>-->
                 </div>
             </li>
             <li class="beforeFooter__list__item">
@@ -647,34 +651,11 @@ function alcanta_footer() {
         <img class="footerDesktop__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant.png'; ?>" alt="alcanta-logo" />
 
         <menu class="footerDesktop__menu">
-            <ul class="footerDesktop__menu__list">
-                <li class="footerDesktop__menu__item">
-                    <a>
-                        Regulamin
-                    </a>
-                </li>
-                <li class="footerDesktop__menu__item">
-                    <a>
-                        Cookies
-                    </a>
-                </li>
-                <li class="footerDesktop__menu__item">
-                    <a>
-                        Polityka prywatności
-                    </a>
-                </li>
-                <li class="footerDesktop__menu__item">
-                    <a>
-                        Zwrot i reklamacja
-                    </a>
-                </li>
-                <li class="footerDesktop__menu__item">
-                    <a>
-                        Płatności
-                    </a>
-                </li>
-
-            </ul>
+            <?php
+            wp_nav_menu( array(
+                'menu' => 'Footer menu'
+            ) );
+            ?>
         </menu>
 
         <h6 class="footer__caption">&copy; ALCANTA WEAR | All rights reserved</h6>
@@ -948,6 +929,39 @@ function alcanta_added_to_cart_popup() {
 
 
 <?php
+}
+
+//add_filter( 'woocommerce_variation_option_price', 'display_price_in_variation_option_name' );
+
+function display_price_in_variation_option_name( $term ) {
+    global $wpdb, $product;
+
+    if ( empty( $term ) ) return $term;
+    if ( empty( $product->id ) ) return $term;
+
+    $id = $product->get_id();
+
+    $result = $wpdb->get_col( "SELECT slug FROM {$wpdb->prefix}terms WHERE name = '$term'" );
+
+    $term_slug = ( !empty( $result ) ) ? $result[0] : $term;
+
+    $query = "SELECT postmeta.post_id AS product_id
+                FROM {$wpdb->prefix}postmeta AS postmeta
+                    LEFT JOIN {$wpdb->prefix}posts AS products ON ( products.ID = postmeta.post_id )
+                WHERE postmeta.meta_key LIKE 'attribute_%'
+                    AND postmeta.meta_value = '$term_slug'
+                    AND products.post_parent = $id";
+
+    $variation_id = $wpdb->get_col( $query );
+
+    $parent = wp_get_post_parent_id( $variation_id[0] );
+
+    if ( $parent > 0 ) {
+        $_product = new WC_Product_Variation( $variation_id[0] );
+        return $term . ' (' . wp_kses( woocommerce_price( $_product->get_price() ), array() ) . ')';
+    }
+    return $term;
+
 }
 
 add_action('woocommerce_share', 'alcanta_added_to_cart_popup');

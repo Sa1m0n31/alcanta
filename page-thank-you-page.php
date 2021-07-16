@@ -2,7 +2,31 @@
 get_header();
 ?>
 
+<main class="thankYou__main thankYou__main--desktop d-desktop">
+    <img class="thankYou__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-checkout.png'; ?>" alt="alcanta" />
+
+    <h1 class="thankYou__header">
+        Dziękujemy za dokonanie zakupu
+    </h1>
+    <h2 class="thankYou__subheader">
+        W naszym sklepie
+    </h2>
+
+    <p class="thankYou__text">
+        Zamówienie zostało przekazane do realizacji. Wkrótce znajdzie się u Ciebie.
+    </p>
+
+    <button class="moreInfoBtn button--animated button--thankYou">
+        <a class="button__link" href="<?php echo get_home_url(); ?>">
+            Przejdź do strony głównej
+        </a>
+    </button>
+</main>
+
 <section class="thankYou__carousel">
+    <h2 class="thankYou__carouselHeader d-desktop">
+        Zobacz jeszcze
+    </h2>
     <div class="carousel__content swiper-container">
         <div class="carousel__embla swiper-wrapper">
 
@@ -35,7 +59,7 @@ get_header();
 
 </section>
 
-<main class="thankYou__main">
+<main class="thankYou__main d-mobile">
     <img class="thankYou__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-checkout.png'; ?>" alt="alcanta" />
 
     <h1 class="thankYou__header">

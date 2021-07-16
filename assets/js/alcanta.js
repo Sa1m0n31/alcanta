@@ -9,6 +9,20 @@ else {
 
 }
 
+/* Single product gallery */
+const galleryItems = document.querySelectorAll(".desktopGallery>div>.woocommerce-product-gallery__image>a");
+const galleryMain = document.querySelector(".woocommerce-product-gallery__wrapper>div>a>img");
+
+galleryItems.forEach(item => {
+    item.addEventListener("click", () => {
+        console.log("click!");
+        const href = item.getAttribute("href");
+        console.log(href);
+        console.log(galleryMain);
+        galleryMain.setAttribute("src", href);
+    });
+})
+
 
 /* Mobile menu */
 const mobileMenu = document.querySelector(".mobileMenu");
@@ -505,4 +519,114 @@ if(newsletterInputs) {
     newsletterInputs.forEach(item => {
         item.placeholder = 'Tu wpisz swój adres e-mail';
     })
+}
+
+/* Add class to buttons */
+const returnToShopButtons = document.querySelectorAll(".return-to-shop");
+returnToShopButtons.forEach(item => {
+   item.classList.add("button--animated");
+   item.style.position = "relative";
+});
+
+/* Add class to newsletter submit */
+const newsletterSubmitBtn = document.querySelector(".beforeFooter .tnp-submit");
+console.log(newsletterSubmitBtn);
+if(newsletterSubmitBtn) {
+    newsletterSubmitBtn.classList.add("beforeFooter__submitBtn");
+    newsletterSubmitBtn.classList.add("mobileLanding__btn");
+    newsletterSubmitBtn.classList.add("button--animated");
+    newsletterSubmitBtn.classList.add("button--animated--black");
+}
+
+/* Helper function */
+const isInArray = (el, arr) => {
+    return arr.filter(item => {
+        return item === el;
+    }).length > 0;
+}
+
+/* Size filter */
+const sizeFilter = (n) => {
+    /* Toggle border color */
+    if(n) {
+        const circleToToggle = document.querySelector(`.collectionItems__circle:nth-of-type(${n})`);
+        let isClicked;
+        let key;
+        switch(n) {
+            case 1:
+                key = 'alcanta-rozmiar-xs';
+                break;
+            case 2:
+                key = 'alcanta-rozmiar-s';
+                break;
+            case 3:
+                key = 'alcanta-rozmiar-m';
+                break;
+            case 4:
+                key = 'alcanta-rozmiar-l';
+                break;
+            case 5:
+                key = 'alcanta-rozmiar-xl';
+                break;
+            default:
+                break;
+        }
+        isClicked = sessionStorage.getItem(key);
+
+        if(!isClicked) {
+            circleToToggle.style.border = "2px solid rgb(217,73,38)";
+            sessionStorage.setItem(key, "T");
+        }
+        else {
+            sessionStorage.removeItem(key);
+            circleToToggle.style.border = "1px solid #a3a3a3";
+        }
+    }
+
+    /* Check current visible sizes */
+    let visibleSizes = [];
+    if(sessionStorage.getItem('alcanta-rozmiar-xs')) visibleSizes.push('alcanta-rozmiar-xs');
+    if(sessionStorage.getItem('alcanta-rozmiar-s')) visibleSizes.push('alcanta-rozmiar-s');
+    if(sessionStorage.getItem('alcanta-rozmiar-m')) visibleSizes.push('alcanta-rozmiar-m');
+    if(sessionStorage.getItem('alcanta-rozmiar-l')) visibleSizes.push('alcanta-rozmiar-l');
+    if(sessionStorage.getItem('alcanta-rozmiar-xl')) visibleSizes.push('alcanta-rozmiar-xl');
+
+    /* Toggle products */
+    const allProducts = document.querySelectorAll(".products>.product");
+    allProducts.forEach(item => {
+        const elementClasses = item.classList;
+        let isProductVisible = false;
+        elementClasses.forEach(classItem => {
+            if(isInArray(classItem, visibleSizes)) {
+                console.log(classItem);
+                isProductVisible = true;
+                return 0;
+            }
+        });
+
+        if(!isProductVisible) {
+            item.style.opacity = "0";
+            setTimeout(() => {
+                item.style.display = "none";
+            }, 500);
+        }
+        else {
+            item.style.opacity = "1";
+            item.style.display = "block";
+        }
+    });
+}
+
+
+if(document.querySelector(`.collectionItems__circle:first-of-type`)) {
+    /* First load - set all sizes checked */
+    sessionStorage.setItem('alcanta-rozmiar-xs', 'T');
+    sessionStorage.setItem('alcanta-rozmiar-s', 'T');
+    sessionStorage.setItem('alcanta-rozmiar-m', 'T');
+    sessionStorage.setItem('alcanta-rozmiar-l', 'T');
+    sessionStorage.setItem('alcanta-rozmiar-xl', 'T');
+
+    document.querySelectorAll(".collectionItems__circle").forEach(item => {
+       item.style.border = "2px solid rgb(217,73,38)";
+    });
 }

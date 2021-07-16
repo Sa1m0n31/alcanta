@@ -28,6 +28,7 @@ $attachment_ids = $product->get_gallery_image_ids();
 
 if ( $attachment_ids && $product->get_image_id() ) {
     ?>
+    <!-- MOBILE -->
     <section class="carousel d-mobile">
         <div class="carousel--singleGallery">
             <div>
@@ -59,6 +60,19 @@ if ( $attachment_ids && $product->get_image_id() ) {
 
 
     </section>
+
+
+    <!-- DESKTOP -->
+    <div class="desktopGallery d-desktop">
+        <div>
+
+            <?php
+            foreach ( $attachment_ids as $attachment_id ) {
+                echo wc_get_gallery_image_html( $attachment_id );
+            }
+            ?>
+        </div>
+    </div>
 
 <?php
 }

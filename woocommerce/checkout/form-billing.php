@@ -72,6 +72,7 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
                         $variation = new WC_Product_Variation($values['variation_id']);
                         $variationName = implode(" / ", $variation->get_variation_attributes());
                         echo $variationName;
+                        echo $_product->get_attribute('rozmiar');
                         ?>
                     </h5>
                 </a>

@@ -59,7 +59,12 @@ td[data-title=Suma]::after, .cart-discount td::after,
 .woocommerce-checkout .site-header, .woocommerce-checkout .beforeFooter, .woocommerce-checkout .footer, .woocommerce-checkout .stickyCountdown,
 .woocommerce-checkout .entry-title, .woocommerce-checkout .woocommerce-form-coupon-toggle,
 .d-desktop,
-.storefront-product-pagination, .woocommerce-cart .cross-sells
+.storefront-product-pagination, .woocommerce-cart .cross-sells,
+.product .variations .label,
+.single-product .related
+{
+    display: none !important;
+}
 {
     display: none !important;
 }
@@ -1345,7 +1350,7 @@ ul {
 .single-product .carousel__embla a,
 .single-product .carousel__embla,
 .single-product .carousel__embla a img {
-    height: 300px !important;
+    max-height: 300px !important;
 }
 
 .carousel--singleGallery__dots {
@@ -2328,10 +2333,12 @@ label[for=shipping_method_0_flat_rate2] {
 .thankYou__header {
     font-weight: 700;
     margin-top: 100px;
+    padding: 0 20px;
 }
 
 .thankYou__subheader {
     font-weight: 400;
+    padding: 0 20px;
     position: relative;
 }
 
@@ -2367,3 +2374,16 @@ label[for=shipping_method_0_flat_rate2] {
     height: 200px;
 }
 
+/* Newsletter */
+.beforeFooter label[for=tnp-email] {
+    display: none;
+}
+
+.beforeFooter .tnp-submit {
+    background: rgb(217,73,38) !important;
+    height: 50px !important;
+}
+
+.tnp-email {
+    background: #fff !important;
+}
