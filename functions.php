@@ -240,9 +240,9 @@ function alcanta_content_top() {
         <a class="desktopHeader__btn desktopHeader__cartBtn" href="<?php echo wc_get_cart_url(); ?>">
             <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
             <span class="mobileHeader__btn__text">Koszyk</span>
-            <span class="mobileHeader__cartCount">
+            <span class="mobileHeader__cartCount" id="cartCount">
                     <?php echo WC()->cart->get_cart_contents_count(); ?>
-                </span>
+            </span>
         </a>
     </header>
 
@@ -256,8 +256,8 @@ function alcanta_content_top() {
             <a class="mobileHeader__btn" href="<?php echo wc_get_cart_url(); ?>">
                 <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
                 <span class="mobileHeader__btn__text">Koszyk</span>
-                <span class="mobileHeader__cartCount">
-                    <?php echo WC()->cart->get_cart_contents_count(); ?>
+                <span class="mobileHeader__cartCount" id="cartCount2">
+                    0
                 </span>
             </a>
             <button class="mobileHeader__btn" onclick="openMobileMenu()">
@@ -1136,3 +1136,18 @@ function wc_remove_checkout_fields( $fields ) {
     return $fields;
 }
 add_filter( 'woocommerce_checkout_fields', 'wc_remove_checkout_fields' );
+
+
+/* AJAX cart count */
+add_filter( 'woocommerce_add_to_cart_fragments', 'wc_refresh_mini_cart_count');
+function wc_refresh_mini_cart_count($fragments){
+    ob_start();
+    $items_count = WC()->cart->get_cart_contents_count();
+    ?>
+    <span class="mobileHeader__cartCount" id="cartCount">
+             <?php echo $items_count ? $items_count : '0'; ?>
+    </span>
+    <?php
+    $fragments['#cartCount'] = ob_get_clean();
+    return $fragments;
+}

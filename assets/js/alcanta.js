@@ -1,3 +1,14 @@
+
+const addToCartButton = document.querySelector(".single_add_to_cart_button");
+if(addToCartButton) {
+    addToCartButton.addEventListener("click", (e) => {
+        const cartCount = document.querySelector("#cartCount2");
+        let total = parseInt(cartCount.textContent);
+        total++;
+        cartCount.textContent = total.toString();
+    })
+}
+
 /* Check if top bar exists */
 const topBar = document.querySelector(".topBar");
 if(!topBar) {
@@ -7,6 +18,14 @@ if(!topBar) {
 else {
     /* If top bar exists - add animation */
 
+}
+
+/* Check if countdown button exists */
+const countdownBtn = document.querySelector(".stickyCountdown");
+if(countdownBtn) {
+    if(window.getComputedStyle(countdownBtn).getPropertyValue("display") !== "none") {
+        document.querySelector(".footer").style.marginBottom = "60px";
+    }
 }
 
 /* Single product gallery */
@@ -545,7 +564,6 @@ returnToShopButtons.forEach(item => {
 
 /* Add class to newsletter submit */
 const newsletterSubmitBtn = document.querySelector(".beforeFooter .tnp-submit");
-console.log(newsletterSubmitBtn);
 if(newsletterSubmitBtn) {
     newsletterSubmitBtn.classList.add("beforeFooter__submitBtn");
     newsletterSubmitBtn.classList.add("mobileLanding__btn");

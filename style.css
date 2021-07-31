@@ -832,6 +832,10 @@ ul {
 
 /* Sticky countdown */
 .stickyCountdown {
+    display: none;
+}
+
+.home .stickyCountdown {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -901,11 +905,6 @@ ul {
     font-size: 13px !important;
     font-weight: 700 !important;
     margin-left: 2px !important;
-}
-
-/* TODO */
-.footer {
-    margin-bottom: 60px;
 }
 
 /* Collection page */
@@ -1344,6 +1343,10 @@ ul {
     justify-content: center;
 }
 
+.single-product .variable-items-wrapper .variable-item-contents span {
+    font-weight: 400;
+}
+
 .single-product .button-variable-item {
     width: 60px !important;
     height: 60px !important;
@@ -1362,6 +1365,10 @@ ul {
 
 .single-product .variable-items-wrapper .selected {
     border: 2px solid #d94926 !important;
+}
+
+.single-product .selected .variable-item-contents span {
+    font-weight: 700 !important;
 }
 
 
@@ -2474,4 +2481,27 @@ label[for=shipping_method_0_flat_rate2] {
 
 .wvs-has-image-tooltip:hover:after, .wvs-has-image-tooltip:hover:before, [data-wvstooltip]:hover:after, [data-wvstooltip]:hover:before {
     display: none !important;
+}
+
+.single-product .product_title {
+    font-size: 26px;
+}
+
+.single-product div.product p.price {
+    font-size: 20px !important;
+}
+
+.woocommerce-product-details__short-description p {
+    font-size: 14px;
+}
+
+.single-product .collectionLocked__faq__answer,
+.single-product .collectionLocked__faq__answer *,
+.single-product .collectionLocked__faq__question
+{
+    color: #171a1d !important;
+}
+
+.single-product .collectionLocked__faq__question {
+    font-weight: 500;
 }

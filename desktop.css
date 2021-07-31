@@ -42,6 +42,30 @@
 }
 
 @media(min-width: 768px) {
+    .storefront-full-width-content.single-product div.product .summary {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .single-product div.product form.cart {
+        order: 4;
+    }
+
+    .single-product .woocommerce-product-details__short-description {
+        order: 2;
+    }
+
+    .single-product div.product p.price {
+        order: 3;
+    }
+
+    .single-product .product_title {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
     .secondary-navigation {
         display: block;
     }
@@ -353,7 +377,7 @@
     }
 
     .woocommerce-cart .return-to-shop {
-        margin: 0 0 110px;
+        margin: 20px 0 110px;
         max-width: 400px;
     }
 
@@ -701,7 +725,15 @@
 
     .woocommerce-product-gallery {
         grid-column: 1;
-        grid-row: 1 / span 2;
+        grid-row: 1 / span 4;
+    }
+
+    .storefront-full-width-content.single-product div.product .summary {
+        margin-bottom: 0 !important;
+    }
+
+    .single-product div.product form.cart {
+        margin-bottom: 0 !important;
     }
 
     .storefront-full-width-content.single-product div.product .woocommerce-product-gallery {
@@ -726,7 +758,7 @@
 
     .single-product .up-sells {
         grid-column: 1 / span 2;
-        margin: 20px auto;
+        margin: 100px auto 20px;
         text-align: center;
     }
 
@@ -1059,6 +1091,26 @@
     /* Products page */
     .products .product {
         transition: .4s all ease-in-out;
+    }
+
+    .single-product .product_title {
+        font-size: 30px;
+    }
+
+    .single-product div.product p.price {
+        font-size: 22px !important;
+        margin-bottom: 20px !important;
+        color: #171a1d !important;
+    }
+
+    .single-product .collectionLocked__faq__answer,
+    .single-product .collectionLocked__faq__answer * {
+        font-size: 17px !important;
+    }
+
+    .single-product .collectionLocked__faq__question {
+        font-size: 18px;
+        font-weight: 500;
     }
 }
 
