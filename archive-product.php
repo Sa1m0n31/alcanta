@@ -70,7 +70,7 @@ get_header();
         </section>
         <section class="collectionItems__filters__section">
             <h3 class="collectionItems__filters__header">
-                Rozmiar
+                Filtruj rozmiar
             </h3>
             <div class="collectionItems__sizes">
                 <button class="collectionItems__circle" onclick="sizeFilter(1)">XS</button>

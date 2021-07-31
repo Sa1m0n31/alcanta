@@ -59,7 +59,7 @@ const mobileMenuAccordion = n => {
     let mobileArrowOfHiddenItem, mobileSubmenuOfHiddenItem, mobileItemsOfSubmenuOfHiddenItem;
     for(i=0; i<mobileMenuItems.length; i++) {
         if(i !== n) {
-            mobileArrowOfHiddenItem = mobileMenuItems[i].children[1];
+            mobileArrowOfHiddenItem = mobileMenuItems[i].children[1].children[0];
             mobileSubmenuOfHiddenItem = mobileMenuItems[i].children[2];
             mobileItemsOfSubmenuOfHiddenItem = Array.prototype.slice.call(mobileSubmenuOfHiddenItem.children);
 
@@ -74,7 +74,7 @@ const mobileMenuAccordion = n => {
     }
 
     /* Open n-th item */
-    const mobileArrowOfCurrentItem = mobileMenuItems[n].children[1];
+    const mobileArrowOfCurrentItem = mobileMenuItems[n].children[1].children[0];
     const mobileSubmenuOfCurrentItem = mobileMenuItems[n].children[2];
     const mobileItemsOfSubmenuOfCurrentItem = Array.prototype.slice.call(mobileSubmenuOfCurrentItem.children);
 
@@ -92,7 +92,7 @@ const mobileMenuAccordion = n => {
     }
     else {
         /* Submenu closed */
-            mobileArrowOfCurrentItem.style.transform = "rotate(-90deg)";
+            mobileArrowOfCurrentItem.style.transform = "rotate(90deg)";
             mobileSubmenuOfCurrentItem.style.height = "auto";
             mobileSubmenuOfCurrentItem.style.marginBottom = "30px";
             mobileSubmenuOfCurrentItem.style.marginTop = "15px";
@@ -448,12 +448,29 @@ if(couponInnerBtn) {
     couponInnerBtn.forEach(item => {
         item.addEventListener("click", (event) => {
             event.preventDefault();
-
             const couponInner = document.querySelectorAll(".couponInner");
-            couponInner.forEach(item => {
-                item.style.display = "flex";
-                item.style.marginTop = "40px";
-            })
+            const couponArrow = document.querySelectorAll(".couponInner__arrow");
+
+            if(sessionStorage.getItem('alcanta-coupon-open')) {
+                couponInner.forEach(item => {
+                   item.style.display = "none";
+                   item.style.marginTop = "0";
+                });
+                couponArrow.forEach(item => {
+                   item.style.transform = "rotate(-90deg)";
+                });
+                sessionStorage.removeItem('alcanta-coupon-open');
+            }
+            else {
+                sessionStorage.setItem('alcanta-coupon-open', 'T');
+                couponInner.forEach(item => {
+                    item.style.display = "flex";
+                    item.style.marginTop = "40px";
+                });
+                couponArrow.forEach(item => {
+                   item.style.transform = "rotate(-270deg)";
+                });
+            }
         });
     })
 }
@@ -488,7 +505,7 @@ const toggleBeforeFooter = (n) => {
 
     if(window.getComputedStyle(dropdownToToggle).getPropertyValue('display') === 'none') {
         dropdownToToggle.style.display = "block";
-        arrowToRotate.style.transform = "rotate(-90deg)";
+        arrowToRotate.style.transform = "rotate(90deg)";
     }
     else {
         dropdownToToggle.style.display = "none";
@@ -547,6 +564,23 @@ const isInArray = (el, arr) => {
 const sizeFilter = (n) => {
     /* Toggle border color */
     if(n) {
+        if(sessionStorage.getItem('alcanta-filters-off')) {
+            sessionStorage.removeItem('alcanta-filters-off');
+
+            const sizes = [
+               'alcanta-rozmiar-xs',
+                'alcanta-rozmiar-s',
+                'alcanta-rozmiar-m',
+                'alcanta-rozmiar-l',
+                'alcanta-rozmiar-xl'
+            ];
+
+            /* Unfilter */
+            sizes.forEach((item, index) => {
+               sessionStorage.removeItem(item);
+            });
+        }
+
         const circleToToggle = document.querySelector(`.collectionItems__circle:nth-of-type(${n})`);
         let isClicked;
         let key;
@@ -622,10 +656,11 @@ if(document.querySelector(`.collectionItems__circle:first-of-type`)) {
     sessionStorage.setItem('alcanta-rozmiar-m', 'T');
     sessionStorage.setItem('alcanta-rozmiar-l', 'T');
     sessionStorage.setItem('alcanta-rozmiar-xl', 'T');
+    sessionStorage.setItem('alcanta-filters-off', 'T');
 
-    document.querySelectorAll(".collectionItems__circle").forEach(item => {
-       item.style.border = "2px solid rgb(217,73,38)";
-    });
+    // document.querySelectorAll(".collectionItems__circle").forEach(item => {
+    //    item.style.border = "2px solid rgb(217,73,38)";
+    // });
 }
 
 /* Add animations classes to buttons */

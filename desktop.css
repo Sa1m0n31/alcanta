@@ -1268,6 +1268,11 @@
     .pageAboutUs p {
         font-size: 16px;
     }
+
+    /* Product page */
+    .wvs-has-image-tooltip:hover:after, .wvs-has-image-tooltip:hover:before, [data-wvstooltip]:hover:after, [data-wvstooltip]:hover:before {
+        display: inline !important;
+    }
 }
 
 @media(min-width: 1400px) {

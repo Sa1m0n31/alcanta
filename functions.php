@@ -287,12 +287,13 @@ function alcanta_content_top() {
                 foreach( $items as $index => $item ) {
                     if( $item->menu_item_parent == 0 ) {
                         ?>
-                        <li class="mobileMenu__item" onclick="mobileMenuAccordion(<?php echo $i; ?>)">
-                            <a class="mobileMenu__item__link" href="<?php echo $item->url; ?>">
+                        <li class="mobileMenu__item">
+                            <p class="mobileMenu__item__link" onclick="mobileMenuAccordion(<?php echo $i; ?>)">
                                 <?php echo $item->post_title; ?>
+                            </p>
+                            <a href="<?php echo $item->url; ?>">
+                                <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
                             </a>
-                        <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
-
 
                         <ul class="mobileMenu__submenu">
                         <?php
@@ -327,20 +328,20 @@ function alcanta_content_top() {
         <ul class="mobileMenu__bottomMenu">
             <li class="mobileBottomMenu__item">
                 <a href="<?php echo get_page_link(get_page_by_title('O marce')->ID); ?>">
-                    Marka Alcanta >
+                    Marka Alcanta
                 </a>
             </li>
             <li class="mobileBottomMenu__item" onclick="window.scrollTo(0,document.body.scrollHeight); closeMobileMenu(); toggleBeforeFooter(2)">
                 <span class="mobileBottomMenu__item__discount">
                     -10%
                 </span>
-                Newsletter >
+                Newsletter
             </li>
             <li class="mobileBottomMenu__item" onclick="window.scrollTo(0,document.body.scrollHeight); closeMobileMenu(); toggleBeforeFooter(4)">
-                Polityka zwrotów >
+                Polityka zwrotów
             </li>
             <li class="mobileBottomMenu__item" onclick="window.scrollTo(0,document.body.scrollHeight); closeMobileMenu(); toggleBeforeFooter(4)">
-                Pomoc >
+                Pomoc
             </li>
         </ul>
     </menu>
@@ -616,7 +617,7 @@ function alcanta_footer() {
                     </button>
 
                     <p class="beforeFooter__dropdown__text">
-                        Kontakt (odpowiadamy pon.-pt. 8:00-16:00
+                        Kontakt (odpowiadamy pon.-pt. 8:00-16:00)
                     </p>
 
                     <a class="beforeFooter__mailLink" href="mailto:kontakt@alcanta.pl">

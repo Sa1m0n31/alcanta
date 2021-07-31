@@ -156,7 +156,7 @@ do_action( 'woocommerce_before_cart' ); ?>
                                 </h3>
                             </div>
 
-                            <button class="couponInner__btn"">
+                            <button class="couponInner__btn">
                                 Mam kupon rabatowy
                                 <img class="couponInner__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="rozwin" />
                             </button>
