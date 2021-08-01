@@ -201,7 +201,31 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
 		?>
 	</div>
 
-	<?php do_action( 'woocommerce_after_checkout_billing_form', $checkout ); ?>
+    <!-- BOX CLONE -->
+    <div class="form-row place-order d-none d-md-block">
+        <noscript>
+            <?php
+            /* translators: $1 and $2 opening and closing emphasis tags respectively */
+            printf( esc_html__( 'Since your browser does not support JavaScript, or it is disabled, please ensure you click the %1$sUpdate Totals%2$s button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'woocommerce' ), '<em>', '</em>' );
+            ?>
+            <br/><button type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e( 'Update totals', 'woocommerce' ); ?>"><?php esc_html_e( 'Update totals', 'woocommerce' ); ?></button>
+        </noscript>
+
+        <?php wc_get_template('checkout/review-order.php'); ?>
+
+        <?php do_action( 'woocommerce_review_order_before_submit' ); ?>
+
+        <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( 'Kupuję i płacę' ) . '" data-value="' . esc_attr( 'Kupuję i płacę' ) . '">' . esc_html( 'Kupuję i płacę' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+
+        <?php wc_get_template( 'checkout/terms.php' ); ?>
+
+        <?php do_action( 'woocommerce_review_order_after_submit' ); ?>
+
+        <?php wp_nonce_field( 'woocommerce-process_checkout', 'woocommerce-process-checkout-nonce' ); ?>
+    </div>
+
+
+    <?php do_action( 'woocommerce_after_checkout_billing_form', $checkout ); ?>
 </div>
 
 <?php if ( ! is_user_logged_in() && $checkout->is_registration_enabled() ) : ?>
@@ -246,7 +270,7 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
 
     <?php do_action( 'woocommerce_review_order_before_submit' ); ?>
 
-    <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( 'Kupuję i płacę' ) . '" data-value="' . esc_attr( 'Kupuję i płacę' ) . '">' . esc_html( 'Kupuję i płacę' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+    <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt desktopLanding__btn mobileLanding__btn button--animated" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( 'Kupuję i płacę' ) . '" data-value="' . esc_attr( 'Kupuję i płacę' ) . '">' . esc_html( 'Kupuję i płacę' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
 
     <?php wc_get_template( 'checkout/terms.php' ); ?>
 

@@ -2379,8 +2379,8 @@ label[for=shipping_method_0_flat_rate2] {
     bottom: -50px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90vw;
-    height: 2px;
+    width: 80vw;
+    height: 1px;
     background: linear-gradient(90deg, rgba(245,244,243,1) 25%, rgba(217,73,38,1) 50%, rgba(245,244,243,1) 75%);
 }
 
@@ -2504,4 +2504,13 @@ label[for=shipping_method_0_flat_rate2] {
 
 .single-product .collectionLocked__faq__question {
     font-weight: 500;
+}
+
+/* TODO - background color for TY page, different id */
+.page-id-502 {
+    background: #f5f4f3;
+}
+
+.thankYou__carousel {
+    margin: 0 0 40px;
 }

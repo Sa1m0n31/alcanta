@@ -1,4 +1,23 @@
+/* Single product gallery */
+const galleryItems = document.querySelectorAll(".desktopGallery>div>.woocommerce-product-gallery__image>a>img");
+const galleryMain = document.querySelector(".woocommerce-product-gallery__wrapper>div>a>img");
 
+if(galleryItems) {
+    galleryItems.forEach(item => {
+        item.addEventListener("click", () => {
+            const imageSrc = item.getAttribute("src");
+            const mainSrc = galleryMain.getAttribute("srcset");
+
+            galleryMain.setAttribute("srcset", imageSrc);
+            galleryMain.setAttribute("src", imageSrc);
+
+            item.setAttribute("srcset", mainSrc);
+            item.setAttribute("src", mainSrc);
+        });
+    });
+}
+
+/* AJAX update cart count */
 const addToCartButton = document.querySelector(".single_add_to_cart_button");
 if(addToCartButton) {
     addToCartButton.addEventListener("click", (e) => {
@@ -27,17 +46,6 @@ if(countdownBtn) {
         document.querySelector(".footer").style.marginBottom = "60px";
     }
 }
-
-/* Single product gallery */
-const galleryItems = document.querySelectorAll(".desktopGallery>div>.woocommerce-product-gallery__image>a");
-const galleryMain = document.querySelector(".woocommerce-product-gallery__wrapper>div>a>img");
-
-galleryItems.forEach(item => {
-    item.addEventListener("click", () => {
-        const href = item.getAttribute("href");
-        galleryMain.setAttribute("src", href);
-    });
-})
 
 
 /* Mobile menu */

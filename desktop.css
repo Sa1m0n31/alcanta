@@ -49,6 +49,10 @@
         align-items: flex-start;
     }
 
+    .thankYou__carousel {
+        margin: auto;
+    }
+
     .single-product div.product form.cart {
         order: 4;
     }
@@ -904,11 +908,6 @@
 
     .single-product .woocommerce-product-gallery__wrapper > .desktopGallery {
         margin-top: 30px !important;
-    }
-
-    /* Test */
-    img[role=presentation] {
-        display: none !important;
     }
 
     /* Header */

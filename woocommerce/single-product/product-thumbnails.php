@@ -58,7 +58,6 @@ if ( $attachment_ids && $product->get_image_id() ) {
             ?>
         </div>
 
-
     </section>
 
 
