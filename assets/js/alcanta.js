@@ -13,6 +13,12 @@ if(galleryItems) {
 
             item.setAttribute("srcset", mainSrc);
             item.setAttribute("src", mainSrc);
+
+            const magnifierEffectImg = document.querySelector(".zoomImg");
+
+            console.log(magnifierEffectImg);
+
+            magnifierEffectImg.setAttribute("srcset", imageSrc);
         });
     });
 }

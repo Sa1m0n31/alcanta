@@ -421,6 +421,12 @@ function alcanta_homepage() {
             <div class="carousel__embla swiper-wrapper">
 
                 <?php
+                function isHomepageCarousel($arr) {
+                    for($i=0; $i<sizeof($arr); $i++) {
+                        if($arr[$i] == "Strona główna") return true;
+                    }
+                    return false;
+                }
                     $carousel_options = array(
                             'post_type' => 'homepage_carousel'
                     );
@@ -428,6 +434,7 @@ function alcanta_homepage() {
                     if($carousel_query->have_posts()) {
                         while($carousel_query->have_posts()) {
                             $carousel_query->the_post();
+                            if(isHomepageCarousel(get_field('miejsce'))) {
                             ?>
 
                             <a class="carousel__item" href="<?php echo get_field('link'); ?>">
@@ -437,6 +444,7 @@ function alcanta_homepage() {
 
 
                 <?php
+                        }
                         }
                     }
                 ?>
@@ -513,15 +521,7 @@ function alcanta_homepage() {
             <img class="aboutDesktop__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo-elegant-big.png'; ?>" alt="alcanta-logo" />
         </div>
         <div class="aboutDesktop__left">
-            <p class="aboutDesktop__p">
-                Alcanta to polska streetwearowa marka odzieżowa. Stworzona z myślą o tych,
-                którzy lubią się wyróżnić. Osobach, które stawiają na tworzenie własnego,
-                unikalnego stylu. Dla pewnych siebie.
-            </p>
-            <p class="aboutDesktop__p">
-                Alcanta to przecięcie rożnych kombinacji i historii, poparta znakomitej
-                jakości produktami.
-            </p>
+            <?php echo get_field('desktop_-_tekst_o_marce', 410); ?>
         </div>
     </section>
 
@@ -666,10 +666,10 @@ function alcanta_footer() {
     </footer>
 
     <!-- Sticky countdown at the bottom of the page -->
-    <a class="stickyCountdown d-md-none" href="https://skylo-test1.pl/collection_locked/gofry/">
+    <a class="stickyCountdown d-md-none" href="<?php echo get_field('link_do_sticky_countdown_buttona'); ?>">
         <?php echo do_shortcode('[ycd_countdown id=399]'); ?>
         <h3 class="stickyCountdown__header">
-            Gofry - preorder
+            <?php echo get_field('tekst_do_sticky_countdown_buttona'); ?>
         </h3>
         <button class="stickyCountdown__btn">
             <img class="stickyCountdown__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/right-arrow.png'; ?>" alt="right-arrow" />
@@ -831,6 +831,13 @@ function alcanta_after_cart() {
                     <div class="carousel__embla swiper-wrapper">
 
                         <?php
+                        function isCartCarousel($arr) {
+                            for($i=0; $i<sizeof($arr); $i++) {
+                                if($arr[$i] == "Koszyk (wersja desktop)") return true;
+                            }
+                            return false;
+                        }
+
                         $carousel_options = array(
                             'post_type' => 'homepage_carousel'
                         );
@@ -838,6 +845,7 @@ function alcanta_after_cart() {
                         if($carousel_query->have_posts()) {
                             while($carousel_query->have_posts()) {
                                 $carousel_query->the_post();
+                                if(isCartCarousel(get_field('miejsce'))) {
                                 ?>
 
                                 <a class="carousel__item" href="<?php echo get_field('link'); ?>">
@@ -847,6 +855,7 @@ function alcanta_after_cart() {
 
 
                                 <?php
+                            }
                             }
                         }
                         ?>
@@ -1001,7 +1010,7 @@ function alcanta_add_homepage_carousel_post_type() {
     );
 
     $labels = array(
-        'name' => 'Karuzela główna'
+        'name' => 'Karuzele'
     );
 
     $args = array(

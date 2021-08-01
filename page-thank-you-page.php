@@ -51,6 +51,12 @@ get_header();
         <div class="carousel__embla swiper-wrapper">
 
             <?php
+            function isTYCarousel($arr) {
+                for($i=0; $i<sizeof($arr); $i++) {
+                    if($arr[$i] == "Thank you page") return true;
+                }
+                return false;
+            }
             $carousel_options = array(
                 'post_type' => 'homepage_carousel'
             );
@@ -58,6 +64,7 @@ get_header();
             if($carousel_query->have_posts()) {
                 while($carousel_query->have_posts()) {
                     $carousel_query->the_post();
+                    if(isTYCarousel(get_field('miejsce'))) {
                     ?>
 
                     <a class="carousel__item" href="<?php echo get_field('link'); ?>">
@@ -67,6 +74,7 @@ get_header();
 
 
                     <?php
+                }
                 }
             }
             ?>
