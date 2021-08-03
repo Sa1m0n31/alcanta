@@ -385,6 +385,10 @@
         max-width: none !important;
     }
 
+    .collectionItems .woocommerce-loop-product__title {
+        margin-top: 0 !important;
+    }
+
     .woocommerce-cart .return-to-shop {
         margin: 20px 0 110px;
         max-width: 400px;
@@ -1115,6 +1119,20 @@
     .single-product .collectionLocked__faq__question {
         font-size: 18px;
         font-weight: 500;
+    }
+
+    .collectionHeader {
+        bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .collectionItems {
+        margin-top: 0;
+    }
+
+    .collectionSubtitle::after,
+    .archive .collectionName::after {
+        display: none;
     }
 }
 

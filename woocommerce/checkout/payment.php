@@ -23,6 +23,7 @@ if ( ! is_ajax() ) {
 ?>
 
 
+<!-- BEGINNING OF THE NEW PAGE -->
 <div id="payment" class="woocommerce-checkout-payment">
 	<?php if ( WC()->cart->needs_payment() ) : ?>
         <!-- CUSTOM CODE -->

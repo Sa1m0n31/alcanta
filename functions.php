@@ -603,16 +603,16 @@ function alcanta_footer() {
                         Odszukaj odpowiedzi na swoje pytania lub uzyskaj pomoc kontaktując się z nami.
                     </p>
 
-                    <button class="beforeFooter__questionBtn popmake-517">
+                    <button class="beforeFooter__questionBtn popmake-681">
                         Tabele rozmiarowe >
                     </button>
                     <button class="beforeFooter__questionBtn popmake-517">
                         Regulamin >
                     </button>
-                    <button class="beforeFooter__questionBtn popmake-517">
+                    <button class="beforeFooter__questionBtn popmake-683">
                         Polityka prywatności >
                     </button>
-                    <button class="beforeFooter__questionBtn popmake-517">
+                    <button class="beforeFooter__questionBtn popmake-682">
                         Czas dostawy >
                     </button>
 
@@ -666,10 +666,10 @@ function alcanta_footer() {
     </footer>
 
     <!-- Sticky countdown at the bottom of the page -->
-    <a class="stickyCountdown d-md-none" href="<?php echo get_field('link_do_sticky_countdown_buttona'); ?>">
+    <a class="stickyCountdown d-md-none" href="<?php echo get_field('link_do_sticky_countdown_buttona', 410); ?>">
         <?php echo do_shortcode('[ycd_countdown id=399]'); ?>
         <h3 class="stickyCountdown__header">
-            <?php echo get_field('tekst_do_sticky_countdown_buttona'); ?>
+            <?php echo get_field('tekst_do_sticky_countdown_buttona', 410); ?>
         </h3>
         <button class="stickyCountdown__btn">
             <img class="stickyCountdown__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/right-arrow.png'; ?>" alt="right-arrow" />

@@ -270,6 +270,10 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
 
     <?php do_action( 'woocommerce_review_order_before_submit' ); ?>
 
+    <button class="button alt desktopLanding__btn mobileLanding__btn button--animated button--skipToPayment" onclick="paymentNextSection(this)">
+        Przejdź dalej
+    </button>
+
     <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt desktopLanding__btn mobileLanding__btn button--animated" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( 'Kupuję i płacę' ) . '" data-value="' . esc_attr( 'Kupuję i płacę' ) . '">' . esc_html( 'Kupuję i płacę' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
 
     <?php wc_get_template( 'checkout/terms.php' ); ?>

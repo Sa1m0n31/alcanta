@@ -697,7 +697,7 @@ ul {
 }
 
 .pum-content > p > img {
-    max-width: 60% !important;
+    max-width: 40% !important;
 }
 
 .preorderPopup {
@@ -785,6 +785,10 @@ ul {
     z-index: 2;
 }
 
+.pum-content + .pum-close {
+    top: 0 !important;
+}
+
 /* Popup maker */
 .pum-container {
     min-height: 100vh !important;
@@ -808,8 +812,9 @@ ul {
 }
 
 .preorderPopup__content p img {
-    width: 200px !important;
-    margin-top: 30px !important;
+    width: 90% !important;
+    margin: 30px auto 10px !important;
+    display: block;
 }
 
 .pum-content .preorderPopup__submitBtn {
@@ -817,6 +822,32 @@ ul {
     color: #000;
     font-weight: 700 !important;
     font-size: 15px !important;
+}
+
+.tnp-submit {
+    background: #d94926 !important;
+    height: 55px !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+}
+
+label[for=tnp-email] {
+    font-weight: 400 !important;
+    color: #1d1a1f !important;
+    text-align: center;
+}
+
+.tnp-email {
+    margin-top: 10px !important;
+    height: 55px;
+}
+
+.pum-theme-357 .pum-container {
+    background: #eeeeee !important;
+}
+
+.pum-close {
+    color: #9FA0A2 !important;
 }
 
 /* Test with scrollbar */
@@ -917,9 +948,9 @@ ul {
     background: rgb(221,219,217);
     background: linear-gradient(180deg, rgba(221,219,217,0) 0%, rgba(255,255,255,.5) 50%, rgba(245,244,243,1) 100%);
     position: absolute;
-    bottom: 0;
+    bottom: -90px;
     left: 0;
-    padding-top: 100px;
+    padding-top: 150px;
     width: 100%;
     padding-bottom: 30px;
 }
@@ -942,6 +973,26 @@ ul {
 
 .collectionSubtitle {
     font-size: 16px;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.archive .collectionName {
+    margin-bottom: 70px;
+    position: relative;
+}
+
+.collectionSubtitle::after,
+.archive .collectionName::after
+{
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95vw;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(245,244,243,1) 25%, rgba(217,73,38,1) 50%, rgba(245,244,243,1) 75%);
 }
 
 .collectionItems {
@@ -950,6 +1001,7 @@ ul {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-top: 60px;
     background: #f5f4f3;
 }
 
@@ -966,7 +1018,7 @@ ul {
 .collectionItems .product {
     width: 48%;
     height: auto;
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0 !important;
     padding: 0;
 }
 
@@ -987,6 +1039,7 @@ ul {
 
 .collectionItems .woocommerce-loop-product__title {
     font-weight: 700 !important;
+    margin-top: -10px !important;
 }
 
 .collectionItems .price {
@@ -1849,16 +1902,21 @@ button[name=apply_coupon]:hover, button[name=apply_coupon]:active, button[name=a
 
 .form-row {
     flex-direction: column;
+    margin-bottom: 28px;
 }
 
 .form-row .woocommerce-input-wrapper input {
     border: 1px solid #c0c0c0;
-    padding: 10px 5px !important;
+    padding: 15px 5px !important;
 }
 
 .form-row label {
     color: #4e4e4e !important;
     font-weight: 700;
+}
+
+.woocommerce-checkout .form-row label {
+    font-weight: 400;
 }
 
 .woocommerce-checkout-review-order-table, .woocommerce-checkout-review-order-table * {
@@ -1965,20 +2023,19 @@ button[name=woocommerce_checkout_place_order]:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border: 1px solid #a4a4a4;
     border-radius: 50%;
     color: #525252;
-    font-size: 20px;
+    font-size: 17px;
     margin-right: 15px;
     font-weight: 700;
 }
 
 .checkoutHeader__text {
     font-size: 17px;
-    font-weight: 700;
-    color: #525252;
+    color: #1b1e21;
 }
 
 #payment .payment_methods li img {
@@ -2338,7 +2395,7 @@ label[for=shipping_method_0_flat_rate2] {
 
 /* Thank you page */
 .thankYou__carousel {
-    margin-top: 150px;
+    margin-top: 150px !important;
 }
 
 .thankYou__main {
@@ -2513,4 +2570,30 @@ label[for=shipping_method_0_flat_rate2] {
 
 .thankYou__carousel {
     margin: 0 0 40px;
+}
+
+/* Collection page - tags */
+.collectionItems__categoryList--mobile {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    padding-left: 5vw;
+    flex-wrap: wrap;
+    z-index: 5;
+}
+
+.collectionItems__categoryList__li--mobile {
+    background: #d94926;
+    padding: 3px;
+    font-size: 13px;
+    border-radius: 3px;
+    color: #fff !important;
+    margin-right: 10px;
+    margin-bottom: 7px;
+}
+
+.collectionItems__categoryList__li--mobile * {
+    color: #fff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
 }

@@ -4,6 +4,37 @@ get_header();
 
 <!-- MOBILE LANDING -->
 <header class="mobileLanding mobileLanding--collection">
+    <?php
+    $orderby = 'name';
+    $order = 'asc';
+    $hide_empty = false;
+    $cat_args = array(
+        'orderby'    => $orderby,
+        'order'      => $order,
+        'hide_empty' => $hide_empty,
+    );
+
+    $product_categories = get_terms( 'product_cat', $cat_args );
+
+    if( !empty($product_categories) ){
+        echo '
+ 
+<ul class="collectionItems__categoryList--mobile d-flex d-md-none">';
+        foreach ($product_categories as $key => $category) {
+            if(($category->name != 'Bez kategorii')&&(get_category($category)->category_count != 0)) {
+                echo '<li class="collectionItems__categoryList__li--mobile">';
+                echo '<a href="'.get_term_link($category).'" >';
+                echo $category->name;
+                echo '</a>';
+                echo '</li>';
+            }
+        }
+        echo '</ul>
+ 
+ 
+';
+    }
+    ?>
     <img class="mobileLanding__img" src="<?php echo get_field('zdjecie_w_tle', 353); ?>" alt="alcanta-kolekcja" />
     <header class="collectionHeader">
         <h2 class="collection">

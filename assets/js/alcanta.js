@@ -1,3 +1,36 @@
+/* TY page after newsletter or waitlist */
+const tyMain =  document.querySelector(".thankYou__main");
+if(tyMain) {
+    const isWaitlist = localStorage.getItem('alcanta-waitlist');
+    if(isWaitlist) {
+        const tyHeader = document.querySelector(".thankYou__header");
+        const tySubheader = document.querySelector(".thankYou__subheader");
+        const tyText = document.querySelector(".thankYou__text");
+
+        tyHeader.textContent = "Gratulujemy!"
+        tySubheader.textContent = "Zapis na waitlistę zakończony powodzeniem.";
+        tyText.style.visibility = "hidden";
+        tyText.style.height = "0";
+        tyText.style.margin = "30px";
+        localStorage.removeItem("alcanta-waitlist");
+    }
+}
+
+const waitlistSubmit = document.querySelector(".pum .tnp-submit");
+const newsletterSubmit = document.querySelector(".beforeFooter__submitBtn");
+
+if(waitlistSubmit) {
+    waitlistSubmit.addEventListener("click", () => {
+        localStorage.setItem('alcanta-waitlist', 'waitlist');
+    });
+}
+
+if(newsletterSubmit) {
+    newsletterSubmit.addEventListener("click", () => {
+        localStorage.removeItem("alcanta-waitlist");
+    });
+}
+
 /* Single product gallery */
 const galleryItems = document.querySelectorAll(".desktopGallery>div>.woocommerce-product-gallery__image>a>img");
 const galleryMain = document.querySelector(".woocommerce-product-gallery__wrapper>div>a>img");
@@ -21,6 +54,19 @@ if(galleryItems) {
             magnifierEffectImg.setAttribute("srcset", imageSrc);
         });
     });
+}
+
+/* Shipping and payment */
+const paymentNextSection = (e) => {
+    e.preventDefault();
+    console.log("next");
+}
+
+const btnSkipToPayment = document.querySelector(".button--skipToPayment");
+if(btnSkipToPayment) {
+    if(!sessionStorage.getItem('shipping-section')) {
+
+    }
 }
 
 /* AJAX update cart count */
