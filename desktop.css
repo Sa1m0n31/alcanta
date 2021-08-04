@@ -47,6 +47,10 @@
         height: auto;
     }
 
+    .button--skipToPayment {
+        display: none;
+    }
+
     .storefront-full-width-content.single-product div.product .summary {
         display: flex;
         flex-direction: column;

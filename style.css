@@ -1990,33 +1990,41 @@ button[name=woocommerce_checkout_place_order]:focus {
     position: relative;
 }
 
-.checkoutHeader--payment {
-    margin-top: 100px;
+
+
+.checkoutHeader--before span, .checkoutHeader--before {
+    display: none;
 }
 
-.checkoutHeader--payment::before {
-    content: "";
-    position: absolute;
-    top: -100px;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: #f5f4f3;
-}
+@media(min-width: 768px) {
+    .checkoutHeader--payment {
+        margin-top: 100px;
+    }
 
-.checkoutHeader--before {
-    position: absolute;
-    top: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+    .checkoutHeader--payment::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: #f5f4f3;
+    }
 
-.checkoutHeader--before span {
-    display: block;
-    width: 3px;
-    height: 10px;
-    background: #a4a4a4;
-    margin: 10px 0;
+    .checkoutHeader--before {
+        position: absolute;
+        top: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .checkoutHeader--before span {
+        display: block;
+        width: 3px;
+        height: 10px;
+        background: #a4a4a4;
+        margin: 10px 0;
+    }
 }
 
 .checkoutHeader__count {
@@ -2572,6 +2580,19 @@ label[for=shipping_method_0_flat_rate2] {
     margin: 0 0 40px;
 }
 
+@media(max-width: 768px) {
+    .button--payment,
+    .paymentWrapper,
+    .woocommerce-billing-fields
+    {
+        display: none;
+    }
+
+    .paymentWrapper > .paymentWrapper {
+        display: block;
+    }
+}
+
 /* Collection page - tags */
 .collectionItems__categoryList--mobile {
     position: absolute;
@@ -2596,4 +2617,20 @@ label[for=shipping_method_0_flat_rate2] {
     color: #fff !important;
     font-weight: 700 !important;
     text-transform: uppercase;
+}
+
+/* Checkout mobile changes */
+.checkoutSections {
+    background: #f5f4f3;
+    margin-bottom: 40px;
+}
+
+.checkoutSections .checkoutHeader__count {
+    background: #fff !important;
+    margin: 0 20px;
+    transition: .4s all;
+}
+
+.checkoutHeader--active {
+    border-color: #d94926;
 }

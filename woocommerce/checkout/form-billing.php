@@ -87,6 +87,16 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
     </span>
 </section>
 
+<!-- SECTIONS -->
+<section class="checkoutSections d-flex d-md-none justify-content-center align-items-center">
+    <button type="button" class="checkoutHeader__count checkoutHeader--first checkoutHeader--active" onclick="paymentFirstSection()">
+            1
+    </button>
+    <button type="button" class="checkoutHeader__count checkoutHeader--second" onclick="paymentNextSection()">
+        2
+    </button>
+</section>
+
 
 <!-- WYSYLKA -->
 <?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
@@ -100,7 +110,7 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
             </span>
     </h2>
 
-<!--    --><?php //do_action( 'woocommerce_review_order_before_shipping' ); ?>
+    <?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
 
     <?php wc_cart_totals_shipping_html(); ?>
 
@@ -270,11 +280,11 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
 
     <?php do_action( 'woocommerce_review_order_before_submit' ); ?>
 
-    <button class="button alt desktopLanding__btn mobileLanding__btn button--animated button--skipToPayment" onclick="paymentNextSection(this)">
+    <button type="button" class="button alt desktopLanding__btn mobileLanding__btn button--animated button--skipToPayment" onclick="paymentNextSection(this)">
         Przejdź dalej
     </button>
 
-    <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt desktopLanding__btn mobileLanding__btn button--animated" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( 'Kupuję i płacę' ) . '" data-value="' . esc_attr( 'Kupuję i płacę' ) . '">' . esc_html( 'Kupuję i płacę' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+    <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt desktopLanding__btn mobileLanding__btn button--animated button--payment" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( 'Kupuję i płacę' ) . '" data-value="' . esc_attr( 'Kupuję i płacę' ) . '">' . esc_html( 'Kupuję i płacę' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
 
     <?php wc_get_template( 'checkout/terms.php' ); ?>
 
@@ -282,4 +292,3 @@ $formatted_destination    = isset( $formatted_destination ) ? $formatted_destina
 
     <?php wp_nonce_field( 'woocommerce-process_checkout', 'woocommerce-process-checkout-nonce' ); ?>
 </div>
-

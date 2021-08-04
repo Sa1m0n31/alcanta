@@ -94,6 +94,8 @@ add_action( 'wp_ajax_change_shipping_address', 'alcanta_change_shipping_address'
 
 function alcanta_change_shipping_address() {
     WC()->customer->set_shipping_address($_POST['address']);
+
+    WC()->customer->set_postcode("69-699");
 }
 
 add_action('wp_ajax_nopriv_get_shipping_address', 'alcanta_get_shipping_address');
@@ -137,14 +139,27 @@ function inpost_script_javascript()
                     height: 600
                 })
 
-                console.log("opening modal...");
-                sessionStorage.setItem('alcanta-paczkomat', '');
+                const fullAddress = sessionStorage.getItem('alcanta-paczkomat');
+                const address = fullAddress.split(",")[0];
+                const postalCode = fullAddress.match(/\d{2}-\d{3}/i)[0];
+                const city = fullAddress.split(",")[1].replace(postalCode + " ", "");
+
+                console.log("openModal");
+                console.log(address);
+                console.log(postalCode);
+                console.log(city);
+
+                //sessionStorage.setItem('alcanta-paczkomat', '');
                 wp.ajax.post( "change_shipping_address", {
-                    address: sessionStorage.getItem('alcanta-paczkomat')
+                    address: fullAddress
                 } )
                     .done(function(response) {
-                        sessionStorage.removeItem('alcanta-paczkomat');
-                    });
+                        console.log(response);
+                        //sessionStorage.removeItem('alcanta-paczkomat');
+                    })
+                .fail(err => {
+                    console.log(err);
+                });
                 document.querySelector(".shippingDestinationFlex>strong").textContent = sessionStorage.getItem('alcanta-paczkomat');
             };
             // funkcja chowająca popup
@@ -152,17 +167,29 @@ function inpost_script_javascript()
                 var e = document.getElementById("widget-modal");
                 e.parentNode.style.display = "none", e.removeEventListener("click", closeModalPopup)
 
-                console.log("close");
+                const fullAddress = sessionStorage.getItem('alcanta-paczkomat');
+                const address = fullAddress.split(",")[0];
+                const postalCode = fullAddress.match(/\d{2}-\d{3}/i)[0];
+                const city = fullAddress.split(",")[1].replace(postalCode + " ", "");
+
+                console.log("closeModalPopup");
+                console.log(address);
+                console.log(postalCode);
+                console.log(city);
 
                 /* Zmieniamy wartosc pola zawierajacego adres dostawy */
                 document.querySelector(".shippingDestinationFlex>strong").textContent = sessionStorage.getItem('alcanta-paczkomat');
 
                 wp.ajax.post( "change_shipping_address", {
-                    address: sessionStorage.getItem('alcanta-paczkomat')
+                    address: fullAddress
                 } )
                     .done(function(response) {
+                        console.log(response);
                         sessionStorage.removeItem('alcanta-paczkomat');
-                    });
+                    })
+                .fail(err => {
+                    console.log(err);
+                })
             }
 
             window.easyPackAsyncInit = function() {

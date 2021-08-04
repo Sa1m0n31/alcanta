@@ -57,9 +57,62 @@ if(galleryItems) {
 }
 
 /* Shipping and payment */
-const paymentNextSection = (e) => {
-    e.preventDefault();
-    console.log("next");
+const checkoutHeader1 = document.querySelector(".col-1>.checkoutHeader");
+const shippingMethods = document.querySelector("#shipping_method");
+const shippingDestination = document.querySelector(".woocommerce-shipping-destination");
+const checkoutSection1Btn = document.querySelector(".button--skipToPayment");
+const shippingFields = document.querySelector(".woocommerce-shipping-fields");
+const checkoutSection1 = [checkoutHeader1, shippingMethods, shippingDestination, shippingFields, checkoutSection1Btn];
+
+const checkoutPayment = document.querySelectorAll(".paymentWrapper");
+const checkoutFields = document.querySelector(".woocommerce-billing-fields");
+const checkoutSection2Btn = document.querySelector(".button--payment");
+const checkoutSection2 = [checkoutPayment[0], checkoutPayment[1], checkoutFields, checkoutSection2Btn];
+
+const checkoutSectionHeader1 = document.querySelector(".checkoutHeader--first");
+const checkoutSectionHeader2 = document.querySelector(".checkoutHeader--second");
+
+const test = document.querySelectorAll(".paymentWrapper>.paymentWrapper");
+
+const paymentNextSection = () => {
+    console.log(test);
+    /* Skip to 2nd section */
+    checkoutSection1.forEach(item => {
+        item.style.display = "none";
+    });
+    checkoutSection2.forEach(item => {
+        console.log(item);
+        item.style.display = "block";
+    });
+
+    checkoutSectionHeader1.classList.remove("checkoutHeader--active");
+    checkoutSectionHeader2.classList.add("checkoutHeader--active");
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+const paymentFirstSection = () => {
+    /* Back to 1st section */
+    checkoutSection2.forEach(item => {
+        item.style.display = "none";
+    });
+    checkoutSection1.forEach((item, index) => {
+        if(index === 0) {
+            item.style.display = "flex";
+        }
+        else {
+            item.style.display = "block";
+        }
+    });
+
+    checkoutSectionHeader1.classList.add("checkoutHeader--active");
+    checkoutSectionHeader2.classList.remove("checkoutHeader--active");
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 const btnSkipToPayment = document.querySelector(".button--skipToPayment");
