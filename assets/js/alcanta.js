@@ -1,3 +1,9 @@
+/* Remove default shipping method */
+const shippingMethodInput = document.querySelector("li>.shipping_method");
+if(shippingMethodInput) {
+    shippingMethodInput.removeAttribute("checked");
+}
+
 /* TY page after newsletter or waitlist */
 const tyMain =  document.querySelector(".thankYou__main");
 if(tyMain) {

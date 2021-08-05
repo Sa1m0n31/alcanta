@@ -1992,11 +1992,12 @@ button[name=woocommerce_checkout_place_order]:focus {
     position: relative;
 }
 
-
-
-.checkoutHeader--before span, .checkoutHeader--before {
-    display: none;
+@media(max-width: 768px) {
+    .checkoutHeader--before span, .checkoutHeader--before {
+        display: none;
+    }
 }
+
 
 @media(min-width: 768px) {
     .checkoutHeader--payment {
@@ -2635,4 +2636,37 @@ label[for=shipping_method_0_flat_rate2] {
 
 .checkoutHeader--active {
     border-color: #d94926;
+}
+
+/* Update - 05.06.2021 */
+li > .shipping_method~label {
+    position: relative;
+}
+
+li > .shipping_method~label::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgb(23, 26, 29);
+    color: #fff;
+    transition: .4s all;
+}
+
+li > .shipping_method[checked=checked]~label::after {
+    font-family: Font Awesome\ 5 Free;
+    content: '\f00c' !important;
+    color: #fff !important;
+    background: #d94926;
+    border-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 900;
 }
