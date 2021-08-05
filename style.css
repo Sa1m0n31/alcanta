@@ -1577,6 +1577,8 @@ td[data-title=Suma] {
     align-items: center;
     background: transparent;
     color: #fff;
+    position: relative;
+    z-index: 3;
 }
 
 .woocommerce-cart .site-content {

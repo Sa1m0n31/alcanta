@@ -130,7 +130,7 @@ if(addToCartButton) {
         let total = parseInt(cartCount.textContent);
         total++;
         cartCount.textContent = total.toString();
-    })
+    });
 }
 
 /* Check if top bar exists */
@@ -363,6 +363,32 @@ if(presentationTime) {
     });
 }
 
+const changeShippingAddress = (fullAddress) => {
+
+    console.log(fullAddress);
+    const address = fullAddress.split(",")[0];
+    const postalCode = fullAddress.match(/\d{2}-\d{3}/i)[0];
+    let city;
+
+    if(fullAddress.split(",")[1]) {
+        city = fullAddress.split(",")[1].replace(postalCode + " ", "");
+    }
+    else {
+        city = fullAddress.split(",")[2].replace(postalCode + " ", "");
+    }
+
+    console.log(city);
+    console.log(postalCode);
+
+    const shippingAddressInput = document.getElementById("shipping_address_1");
+    const shippingPostalCodeInput = document.getElementById("shipping_postcode");
+    const shippingCityInput = document.getElementById("shipping_city");
+
+    shippingAddressInput.setAttribute("value", address);
+    shippingPostalCodeInput.setAttribute("value", postalCode);
+    shippingCityInput.setAttribute("value", city);
+}
+
 /* Added to cart popup */
 /* Avoiding invoke add to cart action on button click */
 (function ($) {
@@ -461,7 +487,23 @@ if(variableButtons) {
 
 /* Change shipping method */
 const changeShippingMethod = (name, isInput) => {
-    event.preventDefault();
+    //event.preventDefault();
+
+    console.log(name);
+
+    const kurierMethod = document.querySelector("#shipping_method_0_flat_rate1");
+    const inpostMethod = document.querySelector("#shipping_method_0_flat_rate2");
+
+    if(name.value === "flat_rate:2") {
+        /* InPost */
+        inpostMethod.setAttribute("checked", "checked");
+        kurierMethod.removeAttribute("checked");
+    }
+    else {
+        /* Kurier */
+        kurierMethod.setAttribute("checked", "checked");
+        inpostMethod.removeAttribute("checked");
+    }
 
     /* Button to mark */
     let btnToMark, spanToMark, shippingMethod;

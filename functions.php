@@ -69,12 +69,12 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
-    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla', 'jquery'), 1.2, true);
+    wp_enqueue_script( 'wp-util' ); // Option 1: Manually enqueue the wp-util library.
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla', 'jquery', 'wp-util'), 1.2, true);
     wp_enqueue_script( 'geowidget', 'https://geowidget.easypack24.net/js/sdk-for-javascript.js', null, null, true );
 
     wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', array(), 1.0, true);
     wp_enqueue_script('jquery', get_stylesheet_directory_uri() . '/assets/js/jquery.js', array(), 1.0, true);
-    wp_enqueue_script( 'wp-util' ); // Option 1: Manually enqueue the wp-util library.
 
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
     wp_enqueue_style('desktop', get_stylesheet_directory_uri() . '/desktop.css', array(), 1.0);
@@ -88,15 +88,6 @@ function alcanta_enqueue_script() {
 }
 
 add_action('wp_enqueue_scripts', 'alcanta_enqueue_script');
-
-add_action( 'wp_ajax_nopriv_change_shipping_address', 'alcanta_change_shipping_address' );
-add_action( 'wp_ajax_change_shipping_address', 'alcanta_change_shipping_address' );
-
-function alcanta_change_shipping_address() {
-    WC()->customer->set_shipping_address($_POST['address']);
-
-    WC()->customer->set_postcode("69-699");
-}
 
 add_action('wp_ajax_nopriv_get_shipping_address', 'alcanta_get_shipping_address');
 add_action('wp_ajax_get_shipping_address', 'alcanta_get_shipping_address');
@@ -140,56 +131,23 @@ function inpost_script_javascript()
                 })
 
                 const fullAddress = sessionStorage.getItem('alcanta-paczkomat');
-                const address = fullAddress.split(",")[0];
-                const postalCode = fullAddress.match(/\d{2}-\d{3}/i)[0];
-                const city = fullAddress.split(",")[1].replace(postalCode + " ", "");
 
-                console.log("openModal");
-                console.log(address);
-                console.log(postalCode);
-                console.log(city);
+                changeShippingAddress(fullAddress);
 
-                //sessionStorage.setItem('alcanta-paczkomat', '');
-                wp.ajax.post( "change_shipping_address", {
-                    address: fullAddress
-                } )
-                    .done(function(response) {
-                        console.log(response);
-                        //sessionStorage.removeItem('alcanta-paczkomat');
-                    })
-                .fail(err => {
-                    console.log(err);
-                });
                 document.querySelector(".shippingDestinationFlex>strong").textContent = sessionStorage.getItem('alcanta-paczkomat');
             };
             // funkcja chowająca popup
             function closeModalPopup() {
                 var e = document.getElementById("widget-modal");
-                e.parentNode.style.display = "none", e.removeEventListener("click", closeModalPopup)
+                e.parentNode.style.display = "none";
+                e.removeEventListener("click", closeModalPopup)
 
                 const fullAddress = sessionStorage.getItem('alcanta-paczkomat');
-                const address = fullAddress.split(",")[0];
-                const postalCode = fullAddress.match(/\d{2}-\d{3}/i)[0];
-                const city = fullAddress.split(",")[1].replace(postalCode + " ", "");
 
-                console.log("closeModalPopup");
-                console.log(address);
-                console.log(postalCode);
-                console.log(city);
+                changeShippingAddress(fullAddress);
 
                 /* Zmieniamy wartosc pola zawierajacego adres dostawy */
                 document.querySelector(".shippingDestinationFlex>strong").textContent = sessionStorage.getItem('alcanta-paczkomat');
-
-                wp.ajax.post( "change_shipping_address", {
-                    address: fullAddress
-                } )
-                    .done(function(response) {
-                        console.log(response);
-                        sessionStorage.removeItem('alcanta-paczkomat');
-                    })
-                .fail(err => {
-                    console.log(err);
-                })
             }
 
             window.easyPackAsyncInit = function() {
@@ -284,7 +242,7 @@ function alcanta_content_top() {
                 <img class="mobileHeader__btn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/cart.svg'; ?>" alt="koszyk" />
                 <span class="mobileHeader__btn__text">Koszyk</span>
                 <span class="mobileHeader__cartCount" id="cartCount2">
-                    0
+                     <?php echo WC()->cart->get_cart_contents_count(); ?>
                 </span>
             </a>
             <button class="mobileHeader__btn" onclick="openMobileMenu()">
@@ -1181,9 +1139,13 @@ function wc_refresh_mini_cart_count($fragments){
     $items_count = WC()->cart->get_cart_contents_count();
     ?>
     <span class="mobileHeader__cartCount" id="cartCount">
-             <?php echo $items_count ? $items_count : '0'; ?>
+             <?php echo $items_count; ?>
+    </span>
+    <span class="mobileHeader__cartCount" id="cartCount2">
+             <?php echo $items_count; ?>
     </span>
     <?php
     $fragments['#cartCount'] = ob_get_clean();
+    $fragments['#cartCount2'] = ob_get_clean();
     return $fragments;
 }
