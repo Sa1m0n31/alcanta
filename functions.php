@@ -70,14 +70,14 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
     wp_enqueue_script( 'wp-util' ); // Option 1: Manually enqueue the wp-util library.
-    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js', array('embla', 'jquery', 'wp-util'), 1.2, true);
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js?n=1', array('embla', 'jquery', 'wp-util'), 1.2, true);
     wp_enqueue_script( 'geowidget', 'https://geowidget.easypack24.net/js/sdk-for-javascript.js', null, null, true );
 
     wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', array(), 1.0, true);
     wp_enqueue_script('jquery', get_stylesheet_directory_uri() . '/assets/js/jquery.js', array(), 1.0, true);
 
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
-    wp_enqueue_style('desktop', get_stylesheet_directory_uri() . '/desktop.css', array(), 1.0);
+    wp_enqueue_style('desktop', get_stylesheet_directory_uri() . '/desktop.css?n=1', array(), 1.0);
 
     wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, 1.0, true);
     wp_enqueue_style('bootstrap-style');
@@ -234,7 +234,7 @@ function alcanta_content_top() {
     <!-- HEADER -->
     <header class="mobileHeader d-flex d-md-none align-items-center">
         <a class="mobileHeader__logoWrapper" href="<?php echo home_url(); ?>">
-            <img class="mobileHeader__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo.png'; ?>" alt="alcanta-logo" />
+            <img class="mobileHeader__logo" src="<?php echo get_field('logo_mobile', 410); ?>" alt="alcanta-logo" />
         </a>
 
         <div class="mobileHeader__right d-flex">
@@ -534,27 +534,14 @@ function alcanta_footer() {
                     <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
                 </button>
                 <div class="beforeFooter__dropdown">
-                    <p class="beforeFooter__dropdown__text">
-                        W naszym sklepie realizujemy zwroty <b>do 30 dni</b> zgodnie z naszą polityką zwrotów.
-                    </p>
-
-                    <p class="beforeFooter__dropdown__text">
-                        <span class="beforeFooter__dropdown__span">Formy dostawy:</span>
-                        <span class="beforeFooter__dropdown__span">- kurier InPost</span>
-                        <span class="beforeFooter__dropdown__span">- paczkomaty InPost</span>
-                    </p>
-
-                    <p class="beforeFooter__dropdown__text">
-                        Wysyłka:<br/>
-                        Twoje zamówienie starannie pakujemy i wysyłamy do 48 h od momentu zaksięgowania wpłaty
-                    </p>
+                    <?php echo get_field('dostawa_i_zwroty', 410); ?>
 
                     <p class="beforeFooter__dropdown__text">
                         Dostępne metody płatności <button class="beforeFooter__dropdown__paymentBtn" onclick="togglePaymentMethods()">Pokaż wszystkie</button>
                     </p>
 
                     <div class="beforeFooter__paymentMethods">
-                        <img class="beforeFooter__paymentMethods__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/metody-platnosci.png'; ?>" alt="metody-platnosci" />
+                        <img class="beforeFooter__paymentMethods__img" src="<?php echo get_field('dostepne_metody_platnosci', 410); ?>" alt="metody-platnosci" />
                     </div>
                 </div>
             </li>
@@ -565,7 +552,7 @@ function alcanta_footer() {
                 </button>
                 <div class="beforeFooter__dropdown">
                     <p class="beforeFooter__dropdown__text">
-                        Chcesz zgarnąć -50% na pierwsze zakupy i być na bieżąco z naszymi nowościami? Zapisz się do newslettera!
+                        <?php echo get_field('newsletter_mobile_tekst', 410); ?>
                     </p>
                     <?php
                     echo do_shortcode('[newsletter_form list="1"]');
@@ -584,30 +571,11 @@ function alcanta_footer() {
                     <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
                 </button>
                 <div class="beforeFooter__dropdown">
-                    <p class="beforeFooter__dropdown__text">
-                        Odszukaj odpowiedzi na swoje pytania lub uzyskaj pomoc kontaktując się z nami.
-                    </p>
+                    <?php echo get_field('pomoc_online', 410); ?>
 
-                    <button class="beforeFooter__questionBtn popmake-681">
-                        Tabele rozmiarowe >
-                    </button>
-                    <button class="beforeFooter__questionBtn popmake-517">
-                        Regulamin >
-                    </button>
-                    <button class="beforeFooter__questionBtn popmake-683">
-                        Polityka prywatności >
-                    </button>
-                    <button class="beforeFooter__questionBtn popmake-682">
-                        Czas dostawy >
-                    </button>
-
-                    <p class="beforeFooter__dropdown__text">
-                        Kontakt (odpowiadamy pon.-pt. 8:00-16:00)
-                    </p>
-
-                    <a class="beforeFooter__mailLink" href="mailto:kontakt@alcanta.pl">
+                    <a class="beforeFooter__mailLink" href="mailto:<?php echo get_field('adres_email', 410); ?>">
                         <img class="beforeFooter__mailImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/email.svg'; ?>" alt="mail" />
-                        <span>kontakt@alcanta.pl</span>
+                        <span><?php echo get_field('adres_email', 410); ?></span>
                     </a>
 
                 </div>
@@ -634,15 +602,15 @@ function alcanta_footer() {
     <!-- FOOTER MOBILE -->
     <footer class="footer d-lg-none">
         <div class="footer__socialMediaIcons d-flex">
-            <a class="footer__socialMediaIcons__link" href="https://facebook.com">
+            <a class="footer__socialMediaIcons__link" href="https://www.facebook.com//alcanta.wear">
                 <img class="footer__socialMediaImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/facebook.svg'; ?>" alt="facebook" />
             </a>
 
-            <a class="footer__socialMediaIcons__link" href="https://facebook.com">
+            <a class="footer__socialMediaIcons__link" href="https://www.instagram.com/alcanta.wear">
                 <img class="footer__socialMediaImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/instagram.svg'; ?>" alt="instagram" />
             </a>
 
-            <a class="footer__socialMediaIcons__link" href="https://facebook.com">
+            <a class="footer__socialMediaIcons__link" href="http://m.me/alcanta.wear">
                 <img class="footer__socialMediaImg" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/messenger.svg'; ?>" alt="messenger" />
             </a>
         </div>
@@ -652,7 +620,7 @@ function alcanta_footer() {
 
     <!-- Sticky countdown at the bottom of the page -->
     <a class="stickyCountdown d-md-none" href="<?php echo get_field('link_do_sticky_countdown_buttona', 410); ?>">
-        <?php echo do_shortcode('[ycd_countdown id=399]'); ?>
+        <?php echo do_shortcode('[ycd_countdown id=767]'); ?>
         <h3 class="stickyCountdown__header">
             <?php echo get_field('tekst_do_sticky_countdown_buttona', 410); ?>
         </h3>

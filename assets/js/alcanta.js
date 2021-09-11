@@ -55,8 +55,6 @@ if(galleryItems) {
 
             const magnifierEffectImg = document.querySelector(".zoomImg");
 
-            console.log(magnifierEffectImg);
-
             magnifierEffectImg.setAttribute("srcset", imageSrc);
         });
     });
@@ -81,15 +79,16 @@ const checkoutSectionHeader2 = document.querySelector(".checkoutHeader--second")
 const test = document.querySelectorAll(".paymentWrapper>.paymentWrapper");
 
 const paymentNextSection = () => {
-    console.log(test);
     /* Skip to 2nd section */
     checkoutSection1.forEach(item => {
         item.style.display = "none";
     });
     checkoutSection2.forEach(item => {
-        console.log(item);
         item.style.display = "block";
     });
+
+    document.querySelector(".checkoutHeader--second").style.background = "#fff";
+    document.querySelector(".checkoutHeader--second").style.color = "#525252";
 
     checkoutSectionHeader1.classList.remove("checkoutHeader--active");
     checkoutSectionHeader2.classList.add("checkoutHeader--active");
@@ -286,18 +285,18 @@ if(embla) {
 /* Sticky count down - check if countdown is over */
 const stickyCountdown = document.querySelector(".stickyCountdown");
 
+let timerTimeout = setTimeout(() => {
+    checkIfTimerExists();
+}, 10000);
+
 const checkIfTimerExists = () => {
     if(!document.querySelector(".ycd-simple-countdown-number")) {
         stickyCountdown.style.display = "none";
-        clearTimeout(timerTimeout);
+        if(timerTimeout) clearTimeout(timerTimeout);
     }
 }
 
 checkIfTimerExists();
-
-let timerTimeout = setTimeout(() => {
-    checkIfTimerExists();
-}, 10000);
 
 /* Collection locked - FAQ open and close */
 const faqAnswers = document.querySelectorAll(".collectionLocked__faq__answer");
@@ -370,8 +369,6 @@ if(presentationTime) {
 }
 
 const changeShippingAddress = (fullAddress) => {
-
-    console.log(fullAddress);
     const address = fullAddress.split(",")[0];
     const postalCode = fullAddress.match(/\d{2}-\d{3}/i)[0];
     let city;
@@ -382,9 +379,6 @@ const changeShippingAddress = (fullAddress) => {
     else {
         city = fullAddress.split(",")[2].replace(postalCode + " ", "");
     }
-
-    console.log(city);
-    console.log(postalCode);
 
     const shippingAddressInput = document.getElementById("shipping_address_1");
     const shippingPostalCodeInput = document.getElementById("shipping_postcode");
@@ -495,7 +489,6 @@ if(variableButtons) {
 const changeShippingMethod = (name, isInput) => {
     //event.preventDefault();
 
-    console.log(name);
 
     const kurierMethod = document.querySelector("#shipping_method_0_flat_rate1");
     const inpostMethod = document.querySelector("#shipping_method_0_flat_rate2");
@@ -685,7 +678,7 @@ const toggleBeforeFooter = (n) => {
 
     if(window.getComputedStyle(dropdownToToggle).getPropertyValue('display') === 'none') {
         dropdownToToggle.style.display = "block";
-        arrowToRotate.style.transform = "rotate(90deg)";
+        arrowToRotate.style.transform = "rotate(-90deg)";
     }
     else {
         dropdownToToggle.style.display = "none";

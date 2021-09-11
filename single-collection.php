@@ -133,7 +133,7 @@ get_header();
                     $product = wc_get_product($product_id);
                     $price = $product->get_price_html();
 
-                    $sizes = explode(", ", $product->get_attribute("rozmiar"));
+                    $sizes = explode(" | ", $product->get_attribute("rozmiar"));
                 ?>
                     <li class="product type-product status-publish has-post-thumbnail shipping-taxable purchasable product-type-variable <?php
                     for($i=0; $i<count($sizes); $i++) {
