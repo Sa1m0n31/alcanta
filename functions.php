@@ -70,14 +70,14 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 /* Alcanta enqueue scripts */
 function alcanta_enqueue_script() {
     wp_enqueue_script( 'wp-util' ); // Option 1: Manually enqueue the wp-util library.
-    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js?n=1', array('embla', 'jquery', 'wp-util'), 1.2, true);
+    wp_enqueue_script('main-js', get_stylesheet_directory_uri() . '/assets/js/alcanta.js?n=2', array('embla', 'jquery', 'wp-util'), 1.2, true);
     wp_enqueue_script( 'geowidget', 'https://geowidget.easypack24.net/js/sdk-for-javascript.js', null, null, true );
 
     wp_enqueue_script('embla', '//unpkg.com/embla-carousel/embla-carousel.umd.js', array(), 1.0, true);
     wp_enqueue_script('jquery', get_stylesheet_directory_uri() . '/assets/js/jquery.js', array(), 1.0, true);
 
     wp_enqueue_style( 'bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
-    wp_enqueue_style('desktop', get_stylesheet_directory_uri() . '/desktop.css?n=1', array(), 1.0);
+    wp_enqueue_style('desktop', get_stylesheet_directory_uri() . '/desktop.css?n=2', array(), 1.0);
 
     wp_enqueue_style('bootstrap-style', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css', null, 1.0, true);
     wp_enqueue_style('bootstrap-style');
@@ -254,7 +254,7 @@ function alcanta_content_top() {
 
     <menu class="mobileMenu">
         <div class="mobileMenu__top d-flex justify-content-between">
-            <img class="mobileMenu__logo" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/alcanta-logo.png'; ?>" alt="alcanta-logo" />
+            <img class="mobileMenu__logo" src="<?php echo get_field('logo_w_mobile_menu', 410); ?>" alt="alcanta-logo" />
 
             <button class="mobileMenu__closeBtn" onclick="closeMobileMenu()">
                 <img class="mobileMenu__closeBtn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/close.png'; ?>" alt="wyjdz" />
@@ -273,30 +273,30 @@ function alcanta_content_top() {
                     if( $item->menu_item_parent == 0 ) {
                         ?>
                         <li class="mobileMenu__item">
-                            <p class="mobileMenu__item__link" onclick="mobileMenuAccordion(<?php echo $i; ?>)">
+                            <a class="mobileMenu__item__link" href="<?php echo $item->url; ?>">
                                 <?php echo $item->post_title; ?>
-                            </p>
+                            </a>
                             <a href="<?php echo $item->url; ?>">
                                 <img class="mobileMenu__item__arrow" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow.svg'; ?>" alt="strzalka" />
                             </a>
 
-                        <ul class="mobileMenu__submenu">
-                        <?php
-                        foreach($items as $indexSub => $itemSub) {
-                            if($itemSub->menu_item_parent == $item->ID) {
-                                ?>
-
-                                        <li class="mobileSubmenu__item">
-                                            <a class="mobileMenu__item__link" href="<?php echo $itemSub->url; ?>">
-                                                <?php echo $itemSub->post_title; ?>
-                                            </a>
-                                        </li>
-
-                                    <?php
-                            }
-                        }
-                        ?>
-                        </ul>
+<!--                        <ul class="mobileMenu__submenu">-->
+<!--                        --><?php
+//                        foreach($items as $indexSub => $itemSub) {
+//                            if($itemSub->menu_item_parent == $item->ID) {
+//                                ?>
+<!---->
+<!--                                        <li class="mobileSubmenu__item">-->
+<!--                                            <a class="mobileMenu__item__link" href="--><?php //echo $itemSub->url; ?><!--">-->
+<!--                                                --><?php //echo $itemSub->post_title; ?>
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!---->
+<!--                                    --><?php
+//                            }
+//                        }
+//                        ?>
+<!--                        </ul>-->
                         </li>
 
                             <?php
@@ -379,14 +379,14 @@ function alcanta_homepage() {
 
         <div class="mobileLanding__content">
             <h1 class="mobileLanding__header">
-                WAITLIST
+                <?php echo get_field('landing_page_mobile_-_naglowek_1', 410); ?>
             </h1>
             <h2 class="mobileLanding__subheader">
-                Zdobądź pierszeństwo zakupu
+                <?php echo get_field('landing_page_mobile_-_naglowek_2', 410); ?>
             </h2>
             <button class="mobileLanding__btn button--animated button--animated--black preorderPopupOpen">
                     <span class="button__link">
-                        Zapisuję się >
+                        <?php echo get_field('landing_page_mobile_-_napis_na_buttonie', 410); ?>
                     </span>
             </button>
         </div>
@@ -450,17 +450,17 @@ function alcanta_homepage() {
     <!-- BASIC COLLECTION DESKTOP -->
     <section class="frontpageBasicCollectionDesktop d-none d-lg-flex">
         <h2 class="basic__h2">
-            Kolekcja Basic
+            <?php echo get_field('wersja_desktop_-_naglowek_1_pod_karuzela', 410); ?>
         </h2>
         <h3 class="basic__h3">
-            Sprawdź najpopularniejsze produkty Alcanta
+            <?php echo get_field('wersja_desktop_-_naglowek_2_pod_karuzela', 410); ?>
         </h3>
         <h4 class="basic__h4">
-            Dowiedz się więcej
+            <?php echo get_field('wersja_desktop_-_naglowek_3_pod_karuzela', 410); ?>
         </h4>
 
-        <a class="basicCollection__desktopBtn"  href="https://skylo-test1.pl/collection/basic">
-            Kolekcja BASIC
+        <a class="basicCollection__desktopBtn"  href="<?php echo get_field('wersja_desktop_-_link_pod_karuzela', 410); ?>">
+            <?php echo get_field('wersja_desktop_-_napis_do_linku_pod_karuzela', 410); ?>
             <img class="basicCollection__desktopBtn__img" src="<?php echo get_bloginfo('stylesheet_directory') . '/assets/images/alcanta/arrow-left.png'; ?>" alt="strzalka" />
         </a>
     </section>

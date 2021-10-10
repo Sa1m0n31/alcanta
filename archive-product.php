@@ -35,7 +35,7 @@ get_header();
 ';
     }
     ?>
-    <img class="mobileLanding__img" src="<?php echo get_field('zdjecie_w_tle', 353); ?>" alt="alcanta-kolekcja" />
+    <img class="mobileLanding__img" src="<?php echo get_field('sklep_-_zdjecie_w_tle', 410); ?>" alt="alcanta-kolekcja" />
     <header class="collectionHeader">
         <h2 class="collection">
             Alcanta

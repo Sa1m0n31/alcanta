@@ -10,8 +10,8 @@
 }
 
 @-webkit-keyframes run {
-    0% { left: 0; transform: translateX(-100%); }
-    100%{ left : 100%; transform: translateX(0); }
+    0% { left: 100%; transform: translateX(0); }
+    100%{ left : 0; transform: translateX(-100%); }
 }
 
 .topBar .topBar__header {
@@ -317,6 +317,7 @@
         height: 40px;
         font-size: 14px;
         border-radius: 50%;
+        margin-right: 2px;
         border: 1px solid #a3a3a3;
         background: transparent;
     }
@@ -1350,6 +1351,10 @@
     /* Product page */
     .wvs-has-image-tooltip:hover:after, .wvs-has-image-tooltip:hover:before, [data-wvstooltip]:hover:after, [data-wvstooltip]:hover:before {
         display: inline !important;
+    }
+
+    input[name=blik_code] {
+        margin-left: 20px !important;
     }
 }
 
