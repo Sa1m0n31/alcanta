@@ -2,4 +2,4 @@
 
 Storefront child theme for WooCommerce store with clothes
 
-In progress...
+<b>Stack:</b> HTML, CSS, Javascript, PHP, WordPress, WooCommerce
